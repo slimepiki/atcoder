@@ -18,7 +18,23 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    int ans, temp;
+    temp = 0;
+    ans = 0;
 
+    rep(i,3){
+        if(s[i] == 'R')temp++;
+        else {
+            ans = max(ans, temp);
+            temp = 0;
+        }
+
+    }
+    ans = max(ans, temp);
+
+    cout << ans << endl;
 
     return 0;
 }
