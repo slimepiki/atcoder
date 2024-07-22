@@ -18,6 +18,11 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    
+    static int x, y;
+
+    cin >> x >> y;
+    cout << max(x,y) << endl;
 
 
     return 0;
