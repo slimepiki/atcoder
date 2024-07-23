@@ -18,7 +18,14 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
 
+    rep(i, s.size()){
+        if(s[i] == ',') cout << ' ';
+        else cout << s[i];
+    }
+    cout<< endl;
 
     return 0;
 }

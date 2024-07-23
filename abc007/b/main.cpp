@@ -18,7 +18,15 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
 
+    cin >> s;
+
+    if(s.size() >= 2) cout << s[0];
+    else if(s[0] == 'a') cout << -1;
+    else cout <<  (char)(s[0] - 1);
+
+    cout << endl;
 
     return 0;
 }
