@@ -50,11 +50,12 @@ int main() {
     cin >> H >> W;
 
     initsvvc(m, H, W, '#');
-    initsvvi(cm, H, W, 5);
+
     bool ans = false;
 
-    queue<iii> q;
-    iii bhw;
+    vector<queue<ii>> q(2);
+    ii hw;
+    int h, w;
 
     rep(i, H) {
         rep(j, W) {
@@ -66,59 +67,75 @@ int main() {
         }
     }
 
-    q.push(iii(0, sh, sw));
+    q[0].push(ii(sh, sw));
 
-    while (!q.empty()) {
-        int b, h, w;
-        bhw = q.front();
-        q.pop();
-        iiiget(bhw, b, h, w);
-        if (b >= 3 || b >= m[h][w]) continue;
-        if (m[h][w] == 'g') {
-            ans = true;
-            break;
-        }
+    rep(i, 5) {
+        while (!q[i % 2].empty()) {
+            hw = q[i % 2].front();
+            q[i % 2].pop();
+            iiget(hw, h, w);
 
-        if (h > 0) {
-            if ((m[h - 1][w] == '#')) {
-                if (b < cm[h - 1][w] - 1 && b <= 1) q.push(iii(b + 1, h - 1, w));
-            } else {
-                if (b < cm[h - 1][w]) q.push(iii(b, h - 1, w));
+            if (m[h][w] == 'v')
+                continue;
+            else if (m[h][w] == 'g') {
+                ans = true;
+                cout << "YES" << endl;
+                return 0;
             }
-        }
-        if (w > 0) {
-            if ((m[h][w - 1] == '#')) {
-                if (b < cm[h][w - 1] - 1 && b <= 1) q.push(iii(b + 1, h, w - 1));
-            } else {
-                if (b < cm[h][w - 1]) q.push(iii(b, h, w - 1));
+            if (i % 2 == 0 && m[h][w] == '#'){
+                q[1].push(ii(h, w));
+                continue;
             }
-        }
-        if (h < H - 1) {
-            if ((m[h + 1][w] == '#')) {
-                if (b < cm[h + 1][w] - 1 && b <= 1) q.push(iii(b + 1, h + 1, w));
-            } else {
-                if (b < cm[h + 1][w]) q.push(iii(b, h + 1, w));
+
+            if (h > 0) {
+                if (i % 2 == 0) {
+                    if (m[h - 1][w] == '#')
+                        q[1].push(ii(h - 1, w));
+                    else if (m[h - 1][w] != 'v')
+                        q[0].push(ii(h - 1, w));
+                } else {
+                    if (m[h - 1][w] != 'v') q[0].push(ii(h - 1, w));
+                }
             }
-        }
-        if (w < W - 1) {
-            if ((m[h][w + 1] == '#')) {
-                if (b < cm[h][w + 1] - 1 && b <= 1) q.push(iii(b + 1, h, w + 1));
-            } else {
-                if (b < cm[h][w + 1]) q.push(iii(b, h, w + 1));
+
+            if (w > 0) {
+                if (i % 2 == 0) {
+                    if (m[h][w - 1] == '#')
+                        q[1].push(ii(h, w - 1));
+                    else if (m[h][w - 1] != 'v')
+                        q[0].push(ii(h, w - 1));
+                } else {
+                    if (m[h][w - 1] != 'v') q[0].push(ii(h, w - 1));
+                }
             }
+
+            if (h < H - 1) {
+                if (i % 2 == 0) {
+                    if (m[h + 1][w] == '#')
+                        q[1].push(ii(h + 1, w));
+                    else if (m[h + 1][w] != 'v')
+                        q[0].push(ii(h + 1, w));
+                } else {
+                    if (m[h + 1][w] != 'v') q[0].push(ii(h + 1, w));
+                }
+            }
+
+            if (w < W - 1) {
+                if (i % 2 == 0) {
+                    if (m[h][w + 1] == '#')
+                        q[1].push(ii(h, w + 1));
+                    else if (m[h][w + 1] != 'v')
+                        q[0].push(ii(h, w + 1));
+                } else {
+                    if (m[h][w + 1] != 'v') q[0].push(ii(h, w + 1));
+                }
+            }
+
+            m[h][w] = 'v';
         }
-        cm[h][w] = min(b, cm[h][w]);
-            rep(i, H) {
-        rep(j, W) {
-            cout << cm[i][j];
-        }
-        cout << endl;
     }
-    }
-    if (ans)
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
+
+    cout << "NO" << endl;
 
     return 0;
 }
