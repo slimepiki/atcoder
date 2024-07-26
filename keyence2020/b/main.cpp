@@ -39,13 +39,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    static int A, B;
+    static ll N,a,b, x, ans;
+    static vector<tuple<ll, ll>> lobo;
 
-    cin >> A >> B;
-    if(A == B)cout << "Draw"<< endl;
-    else if(A == 1 || (A > B && B != 1)) cout << "Alice" << endl;
-    else cout << "Bob" << endl;
+    cin >> N;
+    rep(i, N){
+        cin >> a >> b;
+        lobo.push_back(tuple(a-b < 0 ? 0 : a-b, a+b));
+    }
 
+    sort(lobo.begin(), lobo.end(), [](tuple<ll, ll> const& l, tuple<ll, ll> const& r){
+        return get<1>(l) < get<1>(r);
+    });
+    x = 0;ans = 0;
+    rep(i, N){
+        if(get<0>(lobo[i]) >= x){
+            ans++;
+            x = get<1>(lobo[i]);
+        }
+    }
+
+    cout << ans << endl;
 
     return 0;
 }
