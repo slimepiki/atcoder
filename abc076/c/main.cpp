@@ -68,5 +68,35 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    static string sp, t;
+    int ansp;
+    cin >> sp >> t;
+    ansp = -1;
+    for(int i = sp.size()  - t.size();i >= 0;i--){
+        rep(j, t.size()){
+            if(sp[i+j] != '?' && (sp[i+j] != t[j]))break;
+            else if(j == t.size() - 1)ansp = i;
+            debug(ansp);
+        }
+        if(ansp != -1) break;
+    }
+    debug(ansp);
+    if(ansp == -1)cout << "UNRESTORABLE" << endl;
+    else{
+        rep(i, sp.size()){
+            if(i == ansp){
+                rep(j, t.size()){
+                    cout << t[j];
+                    i++;
+                }
+                i--;
+            }
+            else if(sp[i] == '?'){
+                cout << 'a';
+            }else cout << sp[i];
+        }
+    cout << endl;
+    }
+
     return 0;
 }
