@@ -67,12 +67,58 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    static int N, K, c, kc, miss;
 
-    static int R, G;
+    cin >> N >> K;
+    static string s, o, ans;
+    vi b(26, 0), bs(26, 0), bo(26, 0);
 
-    cin >> R >> G;
+    cin >> s;
 
-    cout << 2 * G - R << endl;
+    rep(i, s.size()) { b[s[i] - 'a']++; }
+
+    o = s;
+    ans = "";
+    int pn = 0;
+
+    stack<pair<iii, string>> st;
+
+    sort(o.begin(), o.end());
+
+    st.push(pair(iii(0, 0, K), ""));
+    c = 0;
+    kc = 0;
+    while (c < N) {
+        for (auto it = o.begin(); it != o.end(); it++) {
+            if (*it == s[c]) {
+                c++;
+                ans += *it;
+                o.erase(it);
+                break;
+            } else if (*it != s[c] && kc < K) {
+                fill(bs.begin(), bs.end(), 0);
+                fill(bo.begin(), bo.end(), 0);
+                rep(i, c, N) {
+                    bs[s[i] - 'a']++;
+                    bo[o[i - c] - 'a']++;
+                }
+                bo[*it - 'a']--;
+                bs[s[c] - 'a']--;
+                miss = 0;
+                rep(i, 26) { miss += abs(bs[i] - bo[i]); }
+
+                if (miss/2 <= (K - kc - 1)) {
+                    c++;
+                    kc++;
+                    ans += *it;
+                    o.erase(it);
+                    break;
+                }
+            }
+        }
+    }
+
+    cout << ans << endl;
 
     return 0;
 }

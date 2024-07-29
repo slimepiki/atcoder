@@ -68,11 +68,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    static int R, G;
-
-    cin >> R >> G;
-
-    cout << 2 * G - R << endl;
-
     return 0;
 }
