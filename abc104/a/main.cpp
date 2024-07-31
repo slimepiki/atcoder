@@ -18,7 +18,12 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    static int R;
+    cin >> R;
 
+    if(R < 1200) cout << "ABC"<<endl;
+    else if(R < 2800) cout << "ARC" << endl;
+    else cout << "AGC" << endl;
 
     return 0;
 }

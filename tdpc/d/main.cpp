@@ -68,5 +68,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    static int N, D;
+
+    static bitset<>
+
     return 0;
 }
