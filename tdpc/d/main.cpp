@@ -64,13 +64,49 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+#define vd vector<double>
+#define vvd vector<vd>
+#define vvvd vector<vvd>
+#define vvvvd vector<vvvd>
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
     static int N, D;
 
-    static bitset<>
+    initsvi(c, 3, 0);
+
+    cin >> N >> D;
+
+    while (D % 2 == 0) {
+        c[0]++;
+        D /= 2;
+    }
+    while (D % 3 == 0) {
+        c[1]++;
+        D /= 3;
+    }
+    while (D % 5 == 0) {
+        c[2]++;
+        D /= 5;
+    }
+
+    vvvvd dp(2, vvvd(c[0] + 1, vvd(c[1] + 1, vd(c[2] + 2, 0))));
+
+    dp[0][1][0][0] = (double) 1/2;
+    dp[0][0][1][0] = (double) 1/3;
+    dp[0][2][0][0] = (double) 1/6;
+    dp[0][0][0][1] = (double) 1/6;
+    dp[0][1][1][0] = (double) 1/6;
+
+    rep(0, N) rep(j, i + 1)rep(k, i + 1)rep(l, i + 1){
+        if(j > 0)dp[i % 2][j][k][l] += dp[(i - 1)%2][][][];
+        if(k > 0)dp[i % 2][j][k][l] += dp[(i - 1)%2][][][];
+        if(l > 0)dp[i % 2][j][k][l] += dp[(i - 1)%2][][][];
+    }
+
+    cout << dp[N % 2][c[0]][c[1]][c[2]] << endl;
 
     return 0;
 }

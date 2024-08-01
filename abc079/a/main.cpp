@@ -18,7 +18,21 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    static string s;
+    static int a, c;
+    cin >> s;
+    
 
+    rep(i,1, 4){
+        if(s[i - 1] == s[i])c++;
+        else c = 0;
+        if(c >= 2){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+
+    cout << "No" << endl;
 
     return 0;
 }
