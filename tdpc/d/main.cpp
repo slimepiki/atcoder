@@ -73,7 +73,7 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    static int N, D;
+    static ll r, nr, N, D;
 
     initsvi(c, 3, 0);
 
@@ -92,21 +92,37 @@ int main() {
         D /= 5;
     }
 
-    vvvvd dp(2, vvvd(c[0] + 1, vvd(c[1] + 1, vd(c[2] + 2, 0))));
-
-    dp[0][1][0][0] = (double) 1/2;
-    dp[0][0][1][0] = (double) 1/3;
-    dp[0][2][0][0] = (double) 1/6;
-    dp[0][0][0][1] = (double) 1/6;
-    dp[0][1][1][0] = (double) 1/6;
-
-    rep(0, N) rep(j, i + 1)rep(k, i + 1)rep(l, i + 1){
-        if(j > 0)dp[i % 2][j][k][l] += dp[(i - 1)%2][][][];
-        if(k > 0)dp[i % 2][j][k][l] += dp[(i - 1)%2][][][];
-        if(l > 0)dp[i % 2][j][k][l] += dp[(i - 1)%2][][][];
+    if (D != 1) {
+        cout << 0 << endl;
+        return 0;
     }
 
-    cout << dp[N % 2][c[0]][c[1]][c[2]] << endl;
+    // debug(c[0], c[1], c[2]);
+
+    vvvvd dp(2, vvvd(c[0] + 1, vvd(c[1] + 1, vd(c[2] + 1, 0))));
+
+    dp[0][0][0][0] = 1;
+
+    rep(i, 0, N) {
+        r = i % 2;
+        nr = (i + 1) % 2;
+        dp[nr] = vvvd(c[0] + 1, vvd(c[1] + 1, vd(c[2] + 1, 0)));
+        rep(j, c[0] + 1) rep(k, c[1] + 1) rep(l, c[2] + 1) {
+            // debug(i, j, k, l);
+            if (dp[r][j][k][l]) {
+                double sum = dp[r][j][k][l] / 6;
+
+                dp[nr][j][k][l] += sum;
+                dp[nr][min(j + 1, c[0])][k][l] += sum;
+                dp[nr][j][min(k + 1, c[1])][l] += sum;
+                dp[nr][min(j + 2, c[0])][k][l] += sum;
+                dp[nr][j][k][min(l + 1, c[2])] += sum;
+                dp[nr][min(j + 1, c[0])][min(k + 1, c[1])][l] += sum;
+            }
+        }
+    }
+
+    cout << setprecision(30) << dp[N % 2][c[0]][c[1]][c[2]] << endl;
 
     return 0;
 }
