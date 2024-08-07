@@ -4,11 +4,6 @@ using ull = unsigned long long;
 
 #include <bits/stdc++.h>
 
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
-#include <string>
-
 void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -23,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) ;
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -40,16 +35,15 @@ void debug_out(Head H, Tail... T) {
     y = get<1>(t);         \
     z = get<2>(t);
 #define vi vector<int>
-#define initsvi(a, S, N) static vi a(S, N);
 #define vvi vector<vi>
-#define initsvvi(a, H, W, N) static vvi a(H, vi(W, N));
+#define vvvi vector<vvvi>
 #define vll vector<ll>
-#define initsvll(a, S, N) static vll a(S, N);
+#define vvll vector<vll>
+#define vvvll vector<vvll>
 
 #define vc vector<char>
-#define initsvc(a, S, N) static vc a(S, N);
 #define vvc vector<vc>
-#define initsvvc(a, H, W, N) static vvc a(H, vc(W, N));
+#define vvvc vector<vvc>
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,22 +58,32 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-void add(int& t, int& k){
-    int a = 0;
-    if(k == 0)a = 1;
-    else a= k;
-    t += a; 
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    static int D, r, nr, dig, max;
-    static string N;
-    cin >> D >> N;
+    static ll A, B, X, l, r, mid, repmid, keta;
+    cin >> A >> B >> X;
 
-    int dp[2][2][100]{};
+    l = 0;
+    r = 1000000001;
+
+    while (r - l > 1) {
+        mid = (l + r) / 2;
+        repmid = mid;
+        keta = 0;
+        while (repmid != 0) {
+            keta++;
+            repmid /= 10;
+        }
+        ((X < A * mid + B * keta) ? r : l) = mid;
+    }
+
+    if (X < A * mid + B * keta)
+        cout << mid - 1 << endl;
+
+    else
+        cout << mid << endl;
 
     return 0;
 }

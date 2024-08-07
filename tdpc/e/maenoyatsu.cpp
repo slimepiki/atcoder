@@ -81,5 +81,43 @@ int main() {
 
     int dp[2][2][100]{};
 
+    rep(k, N[0] - '0'){
+        dp[0][0][k] = 1;
+    }
+    dp[0][1][N[0] - '0'] = 1;
+
+    rep(j, 10)cout << dp[0][0][j] << " ";
+        cout << endl;
+
+
+    rep(i,1, N.size()) {
+        r = i % 2;
+        nr = (i + 1) % 2;
+        dig = N[i] - '0';
+        memset(dp[nr], 0, 2 * 100 * sizeof(int));
+
+        rep(k,1, dig) dp[nr][0][(max + k) % 100] += dp[r][1][max];
+        add(dp[nr][1][(max + dig) % 100] , dp[r][1][max]);
+        max = (max + dig) % 100;
+        debug(dp[nr][1][max])
+        //debug(max)
+        dp[nr][1][max] %= 1000000007;
+
+        //debug(dp[r][1][max]);
+        rep(j, 100) {
+            rep(k, 10) { 
+                if(k != 0 || j != 0)
+                dp[nr][0][(j + k) % 100] += dp[r][0][j]; 
+                //debug(dp[nr][0][(j + k) % 100])
+                }
+        }
+        rep(j, 100) dp[nr][0][j] %= 1000000007;
+
+        // rep(j, 10)cout << dp[nr][0][j] << " ";
+        // cout << endl;
+    }
+
+    cout << dp[N.size() % 2][0][D] + dp[N.size() % 2][1][D] << endl;
+
     return 0;
 }
