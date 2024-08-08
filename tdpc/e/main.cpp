@@ -64,22 +64,52 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-void add(int& t, int& k){
+void add(int& t, int& k) {
     int a = 0;
-    if(k == 0)a = 1;
-    else a= k;
-    t += a; 
+    if (k == 0)
+        a = 1;
+    else
+        a = k;
+    t += a;
 }
 
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    static int D, r, nr, dig, max;
+    static int D, r, nr, dig, maxpt;
+    static const int WARU = 1000000007;
     static string N;
     cin >> D >> N;
 
-    int dp[2][2][100]{};
+    int dp[2][2][D]{};
+
+    dp[0][1][0] = 1;
+    maxpt = 0;
+
+    rep(i, N.size()) {
+        r = i % 2;
+        nr = (i + 1) % 2;
+        memset(dp[nr], 0, 2 * D * sizeof(int));
+
+        rep(k, N[i] - '0') { dp[nr][0][(maxpt + k) % D] += dp[r][1][maxpt]; }
+
+        dp[nr][1][(maxpt + (N[i] - '0')) % D] += dp[r][1][maxpt];
+        maxpt += (N[i] - '0');
+        maxpt %= D;
+        dp[nr][1][maxpt] %= WARU;
+        debug(dp[nr][1][maxpt])
+
+            rep(j, D) {
+            rep(k, 10) { dp[nr][0][(j + k) % D] += dp[r][0][j]; 
+            dp[nr][0][(j + k) % D] %= WARU;
+            }
+        }
+
+        rep(j, D) dp[nr][0][j] %= WARU;
+    }
+    //0は除く!!!!!
+    cout << dp[N.size() % 2][0][0] + dp[N.size() % 2][1][0] -1 << endl;
 
     return 0;
 }
