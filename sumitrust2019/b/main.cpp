@@ -61,41 +61,19 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N;
+    cin >> N;
 
-    int N, K, ans, total, g, l;
-    cin >> N >> K;
-    ans = 0;
-    total = 0;
 
-    int dp[N];
-    memset(dp, 0x3f, sizeof(int) * N);
-    dp[0] = 0;
-
-    rep(i, N) {
+    rep(i, N * 100 / (108) - 2, N * 100 / (108) + 2) {
         debug(i);
-        rep(j, N) {
-            debug(j);
-            debug(dp[j]);
+        if ((int)(i * 1.08f) == N) {
+            cout << i << endl;
+            return 0;
         }
-        cin >> g;
-        for (int j = i; j >= 0; j--) {
-            if (dp[j] <= 500000) {
-                if (j == 0)
-                    l = 1;
-                else
-                    l = (float)g * dp[j] / total;
-                chmin(dp[j + 1], dp[j] + l);
-            }
-        }
-
-        total += g;
-    }
-    ans = 1;
-    rep(i, N) {
-        if (dp[i] <= K) ans = i;
     }
 
-    cout << ans << endl;
+    cout << ":(" << endl;
 
     return 0;
 }

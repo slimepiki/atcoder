@@ -62,40 +62,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, K, ans, total, g, l;
-    cin >> N >> K;
+    int N, A, B, ans, kai;
+    char s;
+    cin >> N >> A >> B;
+
     ans = 0;
-    total = 0;
+    kai = 0;
 
-    int dp[N];
-    memset(dp, 0x3f, sizeof(int) * N);
-    dp[0] = 0;
-
-    rep(i, N) {
-        debug(i);
-        rep(j, N) {
-            debug(j);
-            debug(dp[j]);
-        }
-        cin >> g;
-        for (int j = i; j >= 0; j--) {
-            if (dp[j] <= 500000) {
-                if (j == 0)
-                    l = 1;
-                else
-                    l = (float)g * dp[j] / total;
-                chmin(dp[j + 1], dp[j] + l);
-            }
-        }
-
-        total += g;
+    while(cin >> s) {
+        if (s == 'a' && ans < A + B) {
+            ans++;
+            cout << "Yes" << endl;
+        } else if (s == 'b' && ans < A + B && kai < B) {
+            ans++;
+            kai++;
+            cout << "Yes" << endl;
+        } else
+            cout << "No" << endl;
     }
-    ans = 1;
-    rep(i, N) {
-        if (dp[i] <= K) ans = i;
-    }
-
-    cout << ans << endl;
 
     return 0;
 }
