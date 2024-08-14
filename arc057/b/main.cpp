@@ -58,44 +58,106 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+// int main() {
+//     cin.tie(nullptr);
+//     ios_base::sync_with_stdio(false);
+
+//     ll N, K, ans, total, g, l;
+//     cin >> N >> K;
+//     ans = 0;
+//     total = 0;
+
+//     ll dp[N];
+//     memset(dp, 0x3f, sizeof(ll) * N);
+//     dp[0] = 0;
+
+//     rep(i, N) {
+//         rep(j, N) debug(i, j, dp[j]);
+
+//         cin >> g;
+//         for (int j = i; j >= 0; j--) {
+//             if (dp[j] <= 500010) {
+//                 if (j == 0)
+//                     l = 1;
+//                 else {
+//                     l = g * dp[j];
+//                     l = (l/total)+1;
+//                 }
+//                 debug(g, total, l, dp[j], dp[j + 1]);
+//                 if(l <= g)chmin(dp[j + 1], dp[j] + l);
+//             }
+//         }
+
+//         total += g;
+//     }
+//     ans = 1;
+//     if(total == 0){
+//         cout << 0 << endl;
+//         return 0;
+//     }
+//     if (total > K) {
+//         rep(i, N) {
+//             if (dp[i] <= K) ans = i;
+//         }
+//         rep(i, N) debug(i, dp[i]);
+
+//         cout << ans << endl;
+//     }else if(total == K){
+//         cout << 1 << endl;
+//     }else if(total == 0){
+//         cout << 0 << endl;
+//     }
+
+//     return 0;
+// }
+
+int N, K;
+int A[2020];
+ll mi[2020][2020];
+
 int main() {
-    cin.tie(nullptr);
-    ios_base::sync_with_stdio(false);
+    int i, j, k, l, r, x, y;
+    string s;
 
-    int N, K, ans, total, g, l;
+    rep(x, 2020) rep(y, 2020) mi[x][y] = 1 << 30;
+
     cin >> N >> K;
-    ans = 0;
-    total = 0;
-
-    int dp[N];
-    memset(dp, 0x3f, sizeof(int) * N);
-    dp[0] = 0;
-
+    ll sum = 0;
+    mi[0][0] = 0;
     rep(i, N) {
-        debug(i);
-        rep(j, N) {
-            debug(j);
-            debug(dp[j]);
-        }
-        cin >> g;
-        for (int j = i; j >= 0; j--) {
-            if (dp[j] <= 500000) {
-                if (j == 0)
-                    l = 1;
-                else
-                    l = (float)g * dp[j] / total;
-                chmin(dp[j + 1], dp[j] + l);
+        cin >> x;
+
+        if (i == 0) {
+            mi[1][1] = 1;
+            mi[1][0] = 0;
+        } else {
+            rep(j, i + 1) if (mi[i][j] < 1 << 30) {
+                // good
+                ll y = mi[i][j] * x;
+                y = (y / sum) + 1;
+                if (y <= x)
+                    mi[i + 1][j + 1] = min(mi[i + 1][j + 1], mi[i][j] + y);
+                // same
+                mi[i + 1][j] = min(mi[i + 1][j], mi[i][j]);
             }
         }
 
-        total += g;
-    }
-    ans = 1;
-    rep(i, N) {
-        if (dp[i] <= K) ans = i;
+        sum += x;
     }
 
-    cout << ans << endl;
+    if (sum == 0) {
+        cout << 0 << endl;
+        return 0;
+    }
+    if (sum == K) {
+        cout << 1 << endl;
+        return 0;
+    }
 
+    for (i = N; i >= 0; i--)
+        if (mi[N][i] <= K) {
+            cout << i << endl;
+            return 0;
+        }
     return 0;
 }
