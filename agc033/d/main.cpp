@@ -39,5 +39,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H, W;
+    cin >> H >> W;
+
+    int m[H][W];
+    rep(i, H)rep(j, W)cin >> m[i][j];
+
     return 0;
 }
