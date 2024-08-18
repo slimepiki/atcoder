@@ -44,6 +44,7 @@ void debug_out(Head H, Tail... T) {
 #define vc vector<char>
 #define vvc vector<vc>
 #define vvvc vector<vvc>
+#define INF 1000000000001000
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -58,8 +59,6 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
@@ -69,44 +68,73 @@ int main() {
     cin >> N >> M >> X;
 
     ll w[N];
-    rep(i, N) cin >> w[N];
+    rep(i, N) cin >> w[i];
 
     vector<pair<ll, ll>> aj[N];
     ll dp[N];
-    bool c[N];
+    bool c[N]{};
     priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>>
         q;
     pair<ll, int> tv;
-    ll t;
+    ll ans;
     int v;
 
-    auto getHeight = [&](int v, ll t)-> ll{
+    rep(i, M) {
+        cin >> a >> b >> t;
+        aj[a - 1].push_back(make_pair(b - 1, t));
+        aj[b - 1].push_back(make_pair(a - 1, t));
+    }
+
+    memset(dp, 0x3f, N * sizeof(ll));
+    dp[0] = 0;
+    q.push({0, 0});
+
+    auto getHeight = [&](int v, ll t) -> ll {
         ll h = max(0ll, X - t);
         chmin(h, w[v]);
         return h;
     };
 
-    auto getElpT = [&](int u, int v, ll h, ll )
-
-    rep(i, M) {
-        cin >> a >> b >> t;
-        aj[a].push_back(make_pair(b, t));
-    }
-    memset(dp, 0x3f, N * sizeof(ll));
-    dp[0] = 0;
-    q.push({0, 0});
+    auto getElpT = [&](int u, int v, ll h, ll wid) -> ll {
+        if (h - wid >= w[v])
+            return h - w[v];
+        else if (h - wid >= 0)
+            return wid;
+        else if (w[u] - wid >= 0)
+            return wid * 2 - h;
+        else
+            return INF + 10;
+    };
 
     while (!q.empty()) {
         tv = q.top();
         q.pop();
-        t = tv.first;v = tv.second;
-        if(c[v])continue;
+        t = tv.first;
+        v = tv.second;
+        debug(t, v);
+        ll height = getHeight(v, t);
+        if (v == N - 1) {
+            dp[N - 1] = t;
+            break;
+        }
+        if (c[v]) continue;
         c[v] = true;
-
-
-
-        for()
+        for (auto it = aj[v].begin(); it != aj[v].end(); it++) {
+            if (!c[it->first]) {
+                ll elpt = getElpT(v, it->first, height, it->second);
+                //                debug(elpt);
+                if (elpt <= INF) {
+                    debug(v, it->first, t + elpt);
+                    q.push(make_pair(t + elpt, it->first));
+                }
+            }
+        }
     }
+
+    ans = getHeight(N - 1, dp[N - 1]);
+    ans = dp[N - 1] + w[N - 1] - ans;
+
+    cout << ((ans < INF) ? ans : -1) << endl;
 
     return 0;
 }
