@@ -45,6 +45,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define INF 0x3f3f3f3f - 10
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -62,6 +64,28 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, a;
+    cin >> N;
+
+    int dp[N]{};
+    memset(dp, 0x3f, N * sizeof(int));
+    while (cin >> a) {
+        auto itr = lower_bound(dp, dp + N, a);
+        
+        debug(distance(dp, itr),*itr,a);
+        *itr = a;
+    }
+    rep(i, N)debug(i, dp[i]);
+
+    for (int i = N - 1; i >= 0 ; i--) {
+        debug(i);
+        if (dp[i] < INF) {
+            cout << (i + 1) << endl;
+            return 0;
+        }
+    }
+
+    cout << 1 << endl;
 
     return 0;
 }

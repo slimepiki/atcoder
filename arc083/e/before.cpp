@@ -120,7 +120,7 @@ int main() {
                 }
             }
         }
-        if (dp[chil[v].size() % 2][x[v] - ] != chil[v].size())
+        if (dp[chil[v].size() % 2][x[v]] != chil[v].size())
             break;
         else {
             int b = 0;

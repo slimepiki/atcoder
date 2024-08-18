@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -45,6 +45,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define IINF 0x3f3f3f3f - 10
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -61,6 +63,24 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, c, ans;
+    cin >> N;
+    int dp[N];
+    memset(dp, 0x3f, N * sizeof(int));
+    while (cin >> c) {
+        auto itr = lower_bound(dp, dp + N, c);
+        *itr = c;
+    }
+
+    for(int i = N-1;i >=0;i--){
+        if(dp[i] < IINF){
+            cout << N - i-1 << endl;
+            return 0;
+        }
+    }
+
+    cout << N-1 << endl;
 
     return 0;
 }
