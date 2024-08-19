@@ -24,7 +24,20 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,a,b;
+    cin >> N;
 
+    int c[N];
+    rep(i, N)cin >> c[i];
+
+    sort(c, c+ N, greater<int>());
+    a = b = 0;
+    rep(i,N){
+        if(i % 2 == 0)a += c[i];
+        else b += c[i];
+    }
+
+    cout << a-b << endl;
 
     return 0;
 }
