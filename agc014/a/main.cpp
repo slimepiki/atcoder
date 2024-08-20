@@ -45,6 +45,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define IINF 0x3f3f3f3f - 10
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -62,10 +64,35 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    if (N % 3 == 0) cout << "YES" << endl;
-    else cout << "NO"<< endl;
+    ll a, b, c;
+    bitset<64> A, B, C;
+    int ans;
+    cin >> a >> b >> c;
+    A = a;
+    B = b;
+    C = c;
+    ans = 0;
+    if(A.test(0) == 1 || B.test(0) == 1 || C.test(0) == 1){
+        cout << ans << endl;
+        return 0;
+    }
+
+    if(A == B && B == C){
+        cout << -1 << endl;
+        return 0;
+    }
+    while (A.test(0) == B.test(0) && B.test(0) == C.test(0) && A.count() &&
+           B.count() && C.count()) {
+        A >>= 1;
+        B >>= 1;
+        C >>= 1;
+        debug(ans);
+        ans++;
+    }
+    if (A == B&&B == C)
+        cout << -1 << endl;
+    else
+        cout << ans << endl;
 
     return 0;
 }
