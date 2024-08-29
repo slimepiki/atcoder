@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f - 10
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,42 +64,18 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    ll s;
+    int i = 0;
+    cin >> s;
+    set<int> k;
 
-    int N, M, k, r, nr;
-    cin >> N >> M;
-    ll A, B, c, d;
-    ll ans[2];
-    rep(i, N) {
-        cin >> k;
-        A += k;
+    while(k.count(s) == 0){
+        k.emplace(s);
+        if(s % 2 == 0)s/=2;
+        else s = 3*s+1;
+        i++;
     }
+    cout << i+1 << endl;
 
-    rep(i, M) {
-        cin >> k;
-        B += k;
-    }
-    ll dp[2][max(A, B) + 1]{};
-    dp[0][0] = 1;
-    rep(l, 2) {
-        if (l == 0) {
-            c = N;
-            d = B;
-        } else {
-            c = M;
-            d = A;
-        }
-        rep(i, 1, c+1) {
-            r = i % 2;
-            nr = (i + 1) % 2;
-            rep(j, d+1) {
-                if (j >= r)
-                    dp[r][j] = (dp[nr][j] + dp[r][j - r]) % 1000000007;
-                else
-                    dp[r][j] = dp[nr][j];
-            }
-        }
-        ans[k] = dp[c%2][d];
-    }
-    cout << (ans[2] * ans[1]) % 1000000007 << endl;
     return 0;
 }
