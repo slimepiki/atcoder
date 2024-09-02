@@ -18,11 +18,12 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
 #define ii tuple<int, int>
@@ -45,6 +46,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define IINF 0x3f3f3f3f - 10
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -62,18 +65,47 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll H;
-    ll ans,atk;
-    cin >> H;
-    ans  =0;
-    atk = 1;
-    while(H > 0){
-        ans += atk;
-        H /= 2;
-        atk *= 2;
+    int N;
+    cin >> N;
+    int p[N], q[N];
+    int sp[N], sq[N];
+    rep(i, N) cin >> p[i];
+    rep(i, N) cin >> q[i];
+
+    copy(p, p + N, sp);
+    copy(q, q + N, sq);
+
+    sort(sp, sp + N);
+    sort(sq, sq + N);
+
+    int a = 0, b = 0;
+    bool frag = true;
+    while(true){
+        frag = true;
+        rep(i,N){
+            if(sp[i] != p[i]){
+                frag = false;
+                break;
+            }
+        }
+        if(frag)break;
+        next_permutation(sp, sp + N);
+        a++;
+    }
+    while(true){
+        frag = true;
+        rep(i,N){
+            if(sq[i] != q[i]){
+                frag = false;
+                break;
+            }
+        }
+        if(frag)break;
+        next_permutation(sq, sq + N);
+        b++;
     }
 
-    cout << ans << endl;
+    cout << abs(a-b) << endl;
 
     return 0;
 }
