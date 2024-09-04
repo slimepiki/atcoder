@@ -4,6 +4,9 @@ using namespace std;
 
 // 素因数分解
 vector<pair<ll, ll> > prime_factorize(ll N) {
+    if(N < 0){
+        cerr << "input is negative!" << endl;
+    }
     vector<pair<ll, ll> > res;
     for (ll a = 2; a * a <= N; ++a) {
         if (N % a != 0) continue;
@@ -63,6 +66,9 @@ class mint {
         a *= a;
         if (t & 1) a *= *this;
         return a;
+    }
+    constexpr operator ll() const{
+        return x;
     }
 
     // for prime mod

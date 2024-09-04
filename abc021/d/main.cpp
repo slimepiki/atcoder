@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f - 10
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -100,11 +100,6 @@ class mint {
         return a;
     }
 
-    
-    operator ll() const{
-        return x;
-    }
-
     // for prime mod
     constexpr mint inv() const { return pow(mod - 2); }
     constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
@@ -113,9 +108,6 @@ class mint {
         return res /= a;
     }
 };
-
-
-
 ostream& operator<<(ostream& os, const mint& m) {
     os << m.x;
     return os;
@@ -127,43 +119,14 @@ mint mfactorial(ll n) {
     return ans;
 }
 
-vector<pair<ll, ll> > prime_factorize(ll N) {
-    vector<pair<ll, ll> > res;
-    for (ll a = 2; a * a <= N; ++a) {
-        if (N % a != 0) continue;
-        ll ex = 0;
-
-        while (N % a == 0) {
-            ++ex;
-            N /= a;
-        }
-        res.push_back({a, ex});
-    }
-    if (N != 1) res.push_back({N, 1});
-    return res;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
-    if(N < 0) N *= (-1);
-    auto fac = prime_factorize(N);
-    mint seed = 1;
-
-    for (auto itr = fac.begin(); itr != fac.end(); itr++) {
-        seed *= mfactorial(itr->second + M - 1) /
-               (mfactorial(itr->second) * mfactorial(M - 1));
-    }
-
-    mint sgn = 1;
-    rep(i, M-1){
-        sgn *= 2;
-    }
-
-    mint ans = seed * sgn;
+    int n, k;
+    cin >> n >> k;
+    
+    mint ans = mfactorial(n+k-1) / (mfactorial(k)* mfactorial(n-1));
 
     cout << ans << endl;
 
