@@ -64,59 +64,54 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-
     int H, W, Q, r, c;
-    cin >> H >> W >> Q;
-    ll numwall = H * W;
-    map<int, set<int>> m;
 
-    rep(i, H) rep(j, W) m[i].insert(j);
+    cin >> H >> W >> Q;
+
+    vector<set<int>> gr(H), gc(W);
+
+    rep(i, H) rep(j, W) {
+        gr[i].insert(j);
+        gc[j].insert(i);
+    }
+    ll ans = H * W;
+    auto erase = [&](int i, int j) {
+        debug(i,j);
+        gr[i].erase(j);
+        gc[j].erase(i);
+        ans--;
+    };
 
     while (cin >> r >> c) {
-        r--; c--;
-        auto itr = m[r].find(c);
-        if (itr != m[r].end()) {
-            debug(r,c)
-            m[r].erase(itr);
-            numwall--;
-        } else {
-            auto ritr = upper_bound(m[r].begin(), m[r].end(), c);
-            auto litr = upper_bound(m[r].rbegin(), m[r].rend(), c);
-            if (ritr != m[r].end()) {
-                debug(r, *ritr);
-                m[r].erase(ritr);
-                numwall--;
-            }
-            if (litr != m[r].rend()) {
-                debug(r, *litr);
-                m[r].erase(litr.base());
-                numwall--;
-            }
-            auto mb = m.begin();
-            advance(mb, r);
-            auto ditr = find_if(mb, m.end(), [&](std::pair<const int, std::set<int> >& s) {
-                return s.second.count(c);
-            });
-            auto me = m.rbegin();
-            advance(me, m.size() - r);
-            auto uitr = find_if(me, m.rend(), [&](std::pair<const int, std::set<int> >& s) {
-                return s.second.count(c);
-            });
+        r--, c--;
 
-            if (ditr != m.end()) {
-                debug(ditr->first,c);
-                ditr->second.erase(c);
-                numwall--;
-            }
-            if (uitr != m.rend()) {
-                debug(uitr->first, c);
-                uitr->second.erase(c);
-                numwall--;
-            }
+        if (gr[r].count(c)) {
+            erase(r, c);
+            continue;
+        }
+
+        {
+            auto it = gc[c].lower_bound(r);
+            if (it != begin(gc[c])) erase(*prev(it), c);
+        }
+
+        {
+            auto it = gc[c].lower_bound(r);
+            if (it != end(gc[c])) erase(*it, c);
+        }
+
+                {
+            auto it = gr[r].lower_bound(c);
+            if (it != begin(gr[r])) erase(r, *prev(it));
+        }
+
+                {
+            auto it = gr[r].lower_bound(c);
+            if (it != end(gr[r])) erase(r, *it);
         }
     }
 
-    cout << numwall << endl;
+    cout << ans << endl;
 
     return 0;
 }

@@ -63,38 +63,70 @@ inline bool chmax(T& a, const T& b) {
     if (a < b) a = b;
     return compare;
 }
-vector<vector<int>> dp(1010, vector<int>(1010, -1));
-int A, B;
-int a[1000], b[1000];
-
-int dfs(int i, int j, int sum) {
-    if (dp[i][j] != -1) return dp[i][j];
-
-    if (i == A && j == B) return 0;
-    int res = 0;
-
-    if (i < A) {
-        chmax(res, sum - dfs(i + 1, j, sum - a[i]));
-    }
-        if (j < B) {
-        chmax(res, sum - dfs(i, j+1, sum - b[j]));
-    }
-
-    return dp[i][j] = res;
-}
 
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
     int s1, s2;
+    int A, B;
     int r, pr;
-    ll sum = 0;
     cin >> A >> B;
-    rep(i, A) {cin >> a[i];sum+=a[i];}
-    rep(i, B) {cin >> b[i];sum+=b[i];}
+    int a[1000], b[1000];
+    rep(i, A) cin >> a[i];
+    rep(i, B) cin >> b[i];
 
-    cout << dfs(0,0,sum) << endl;
+    int dp[1010][1010]{};
+
+    rep(i, A-1) {
+        rep(j, B-1) {
+            chmax(dp[i + 2][j], dp[i][j] + a[i]);
+            chmax(dp[i][j + 2], dp[i][j] + b[j]);
+            chmax(dp[i + 1][j + 1], dp[i][j] + max(a[i], b[j]));
+        }
+    }
+
+    rep(j, B){
+        if(a[A-1] > b[j]){
+//            if(A >= 3)chmax(dp[A-1][j], dp[A-3][j] + a[A-1])
+//            chmax(dp[A][j],dp[A-2][j] + a[A-2]);
+            }
+        else if(j >= 1 &&(a[A-1] > b[j-1])){
+            chmax(dp[A][j], dp[A-1][j-1] + a[A-1]);
+        }else if(j >= 1 &&(a[A-1] > b[j])){
+            chmax(dp[A][j], dp[A-1][j-1] + b[j-1]);
+        }
+        if(j >= 2)chmax(dp[A][j], dp[A][j-2] + b[j-2]);
+    }
+
+    rep(i, B){
+        if(b[B-1] > a[i]){
+            chmax(dp[i][B],dp[i][B-2] + b[B-2]);
+            }
+        else if(i >= 1 &&(b[B-1] > a[i-1])){
+            chmax(dp[i][B], dp[i-1][B-1] + b[B-1]);
+        }else if(i >= 1 &&(b[B-1] > a[i])){
+            chmax(dp[i][B], dp[i-1][B-1] + a[i-1]);
+        }
+        if(i >= 2)chmax(dp[i][B], dp[i-2][B] + a[i-2]);
+    }
+
+
+
+    int ans = 0;
+    rep(i, A+1) {
+        rep(j, B+1) {
+            chmax(ans, dp[i][j]);
+            cout << dp[i][j] << ' ';
+        }
+        cout << endl;
+    }
+
+    chmax(ans, dp[A + 1][B + 1]);
+    chmax(ans, dp[A][B + 1]);
+    chmax(ans, dp[A + 1][B]);
+
+    cout << ans << endl;
 
     return 0;
 }
