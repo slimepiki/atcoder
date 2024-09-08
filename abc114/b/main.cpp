@@ -4,11 +4,6 @@ using ull = unsigned long long;
 
 #include <bits/stdc++.h>
 
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
-#include <string>
-
 void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -23,11 +18,12 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) ;
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
 #define ii tuple<int, int>
@@ -40,16 +36,17 @@ void debug_out(Head H, Tail... T) {
     y = get<1>(t);         \
     z = get<2>(t);
 #define vi vector<int>
-#define initsvi(a, S, N) static vi a(S, N);
 #define vvi vector<vi>
-#define initsvvi(a, H, W, N) static vvi a(H, vi(W, N));
+#define vvvi vector<vvvi>
 #define vll vector<ll>
-#define initsvll(a, S, N) static vll a(S, N);
+#define vvll vector<vll>
+#define vvvll vector<vvll>
 
 #define vc vector<char>
-#define initsvc(a, S, N) static vc a(S, N);
 #define vvc vector<vc>
-#define initsvvc(a, H, W, N) static vvc a(H, vc(W, N));
+#define vvvc vector<vvc>
+
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -68,39 +65,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int s1, s2;
-    int A, B;
-    int r, pr;
-    cin >> A >> B;
-    int a[1000], b[1000];
-    rep(i, A) cin >> a[i];
-    rep(i, B) cin >> b[i];
-
-    int dp[1010][1010]{};
-
-    rep(i, A+1) {
-        rep(j, B+1) {
-            if (i < A) chmax(dp[i + 2][j], dp[i][j] + a[i]);
-            if (j < B) chmax(dp[i][j + 2], dp[i][j] + b[j]);
-            if (i < A - 1 && j < B - 1)
-                chmax(dp[i + 1][j + 1], dp[i][j] + min(a[i], b[j]));
-            else if(i == A - 2)chmax(dp[i]);
-            else if(j == B - 2);
-        }
+    int ans = 10000;
+    string s;
+    cin >> s;
+    rep(i, s.size()-2){
+        int sub = stoi(s.substr(i,3));
+        chmin(ans, abs(753-sub));
     }
-
-    int ans = 0;
-    rep(i, A + 2) {
-        rep(j, B + 2) {
-            chmax(ans, dp[i][j]);
-            cout << dp[i][j] << ' ';
-            }
-        cout << endl;
-    }
-
-    chmax(ans, dp[A + 1][B + 1]);
-    chmax(ans, dp[A][B + 1]);
-    chmax(ans, dp[A + 1][B]);
 
     cout << ans << endl;
 
