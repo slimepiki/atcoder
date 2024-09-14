@@ -4,11 +4,6 @@ using ull = unsigned long long;
 
 #include <bits/stdc++.h>
 
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
-#include <string>
-
 void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -23,11 +18,12 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) ;
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
 #define ii tuple<int, int>
@@ -40,16 +36,17 @@ void debug_out(Head H, Tail... T) {
     y = get<1>(t);         \
     z = get<2>(t);
 #define vi vector<int>
-#define initsvi(a, S, N) static vi a(S, N);
 #define vvi vector<vi>
-#define initsvvi(a, H, W, N) static vvi a(H, vi(W, N));
+#define vvvi vector<vvvi>
 #define vll vector<ll>
-#define initsvll(a, S, N) static vll a(S, N);
+#define vvll vector<vll>
+#define vvvll vector<vvll>
 
 #define vc vector<char>
-#define initsvc(a, S, N) static vc a(S, N);
 #define vvc vector<vc>
-#define initsvvc(a, H, W, N) static vvc a(H, vc(W, N));
+#define vvvc vector<vvc>
+
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -67,31 +64,6 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-    string s;
-    cin >> s;
-
-    int dp[s.size()+2][s.size() + 3];
-    rep(i, s.size()+2) rep(j, s.size() + 3) dp[i][j] = -1;
-
-    rep(i, s.size() + 1) {
-        rep(j, s.size() + 1 - i) {
-            if(i < 3){
-                dp[j][j+i] = 0;
-                continue;
-            }
-            int& res = dp[j][j + i];
-            rep(k, j + 1, i + j) { 
-                chmax(res, dp[j][k] + dp[k][i + j]); 
-                if(s[j] == 'i' && s[k] == 'w' && s[i+j-1] == 'i'){
-                    if(dp[j+1][k] == k-j-1 && dp[k+1][i+j-1] == i+j-k-2){
-                        dp[j][j+i] = i;
-                    }
-                }
-            }
-        }
-    }
-
-    cout << dp[0][s.size()] / 3<< endl;
 
     return 0;
 }
