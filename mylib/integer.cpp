@@ -83,6 +83,7 @@ ostream& operator<<(ostream& os, const mint& m) {
     os << m.x;
     return os;
 }
+
 //階乗
 int factorial(int n) {
     int ans = 1;
