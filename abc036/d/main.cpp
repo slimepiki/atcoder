@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -60,7 +60,6 @@ inline bool chmax(T& a, const T& b) {
     if (a < b) a = b;
     return compare;
 }
-
 
 // modつきint
 constexpr int mod = 1000000007;
@@ -100,9 +99,7 @@ class mint {
         if (t & 1) a *= *this;
         return a;
     }
-    constexpr operator ll() const{
-        return x;
-    }
+    constexpr operator ll() const { return x; }
 
     // for prime mod
     constexpr mint inv() const { return pow(mod - 2); }
@@ -124,16 +121,83 @@ int main() {
     int N;
     cin >> N;
 
-    vector<vector<int>> bri(N, vector<int>(0,0));
-    int unsolvedcount[N];
-    int parent[N];
+    vector<vector<int>> bri(N, vector<int>());
+    vector<vector<int>> chil(N, vector<int>());
+    int unsolvedcount[N]{};
 
+    int a, b, x;
+    while (cin >> a >> b) {
+        bri[a-1].push_back(b-1);
+        bri[b-1].push_back(a-1);
+    }
 
+    //(dp[*][0]:黒 or dp[*][1]:白)のときの組み合わせ総数(mod 10^9 + 7)
+    mint dp[N][2]{};
 
-    mint dp[N];
+    // 木の構造をたしかめる
+    {
+        queue<int> q;
+        q.push(0);
+        while (!q.empty()) {
+            x = q.front();
+            q.pop();
+            for (auto itr = bri[x].begin(); itr != bri[x].end(); itr++) {
+                // 未探査頂点なら子である
+                if (unsolvedcount[*itr] == 0) {
+                    unsolvedcount[x]++;
+                    chil[x].push_back(*itr);
+                    q.push(*itr);
+                }
+            }
+        }
+    }
 
-
-
+    // 末端確認のためのbool
     queue<int> q;
+    // 木の末端から探索を開始する
+    rep(i, N) {
+        if (chil[i].empty()) q.push(i);
+    }
+    //rep(i,N)debug(unsolvedcount[i]);
+    //rep(i,N)rep(j,chil[i].size())debug(i,j,chil[i][j]);
+
+    while (!q.empty()) {
+        x = q.front();
+        q.pop();
+        //debug(x);
+        if (chil[x].empty()) {
+            dp[x][0] = dp[x][1] = 1;
+        } else {
+            for (auto itr = chil[x].begin(); itr != chil[x].end(); itr++) {
+                int c = *itr;
+                if (itr == chil[x].begin()) {
+                    dp[x][0] = dp[c][1];
+                    dp[x][1] = dp[c][0] + dp[c][1];
+                //    debug(x,c,dp[x][0],dp[x][1]);
+                } else {
+                    dp[x][0] *= dp[c][1];
+                    dp[x][1] *= dp[c][0] + dp[c][1];
+                //    debug(x,c,dp[x][0],dp[x][1]);
+                }
+            }
+        }
+        for (auto itr = bri[x].begin(); itr != bri[x].end(); itr++) {
+            int c = *itr;
+            if (unsolvedcount[c] > 0) {
+                unsolvedcount[c]--;
+                if (unsolvedcount[c] == 0) q.push(c);
+                continue;
+            }
+        }
+    }
+
+    // rep(i, N){
+    //     rep(j, 2){
+    //         cout << dp[i][j] << ' ';
+    //     }cout << endl;
+    // }
+
+    cout << dp[0][0] + dp[0][1] << endl;
+
     return 0;
 }
