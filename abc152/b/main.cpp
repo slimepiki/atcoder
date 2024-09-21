@@ -65,10 +65,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int A,B,C,D;
-    cin >> A >> B >> C >> D;
-
-    cout << max(A*B,C*D) << endl;
-
     return 0;
 }

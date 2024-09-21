@@ -65,10 +65,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int A,B,C,D;
-    cin >> A >> B >> C >> D;
-
-    cout << max(A*B,C*D) << endl;
+    int a, b;
+    cin >> a >> b;
+    if(b < 0){
+        if((b-a+1) % 2 == 0)cout << "Positive" << endl;
+        else cout << "Negative" << endl;
+    }else if(a<0){
+        cout << "Zero" << endl;
+    }else cout << "Positive" << endl;
 
     return 0;
 }

@@ -65,10 +65,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int A,B,C,D;
-    cin >> A >> B >> C >> D;
+    int N;
+    cin >> N;
 
-    cout << max(A*B,C*D) << endl;
+    int count = 0;
+    int min = IINF;
+    int p;
+
+    rep(i, N){
+        cin >> p;
+        if(p <= min){
+            min = p;
+            count++;
+        }
+    }
+
+    cout << count << endl;
 
     return 0;
 }

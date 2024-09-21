@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,10 +65,31 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int A,B,C,D;
-    cin >> A >> B >> C >> D;
+    int N, M;
+    cin >> N >> M;
+    int K;
+    bool f[M], ind[M];
+    rep(i, M) f[i] = true;
+    int m;
 
-    cout << max(A*B,C*D) << endl;
+    rep(i, N) {
+        cin >> K;
+        rep(i, M) ind[i] = false;
+        rep(j, K) {
+            cin >> m;
+            ind[m - 1] = true;
+        }
+
+        rep(i, M) { f[i] &= ind[i]; }
+    }
+    int count = 0;
+    rep(i, M) {
+        if (f[i]) {
+            count++;
+            debug(i);
+        }
+    }
+    cout << count << endl;
 
     return 0;
 }

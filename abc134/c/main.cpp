@@ -65,10 +65,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int A,B,C,D;
-    cin >> A >> B >> C >> D;
+    int N;
+    cin >> N;
 
-    cout << max(A*B,C*D) << endl;
+    int a[N];
+    int max=0,nmax=0;
+    rep(i, N){
+        cin >> a[i];
+        if(max <= a[i]){
+            nmax = max;
+            max = a[i];
+        }else if(nmax <= a[i]){
+            nmax = a[i];
+        }
+    }
+
+    rep(i,N){
+        if(a[i] == max)cout << nmax << endl;
+        else cout << max << endl;
+    }
 
     return 0;
 }
