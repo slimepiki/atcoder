@@ -64,9 +64,29 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int ketwa(int N){
+    string s = to_string(N);
+
+    int ret = 0;
+    rep(i, s.size())
+        ret += s[i] - '0';
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N,A,B;
+    cin >> N >> A >> B;
+
+    int ans  =0;
+    rep(i,1, N+1){
+        int wa = ketwa(i);
+        if(wa <= B && wa >= A)ans+= i;
+    }
+
+    cout << ans << endl;
 
     return 0;
 }

@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,32 +65,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    vector<vector<ll>> b(10,vector<ll>());
-    int N,K;
-    cin >> N, K;
-    int c,g;
-    rep(i,N){
-        cin >> c >> g;
-        b[g-1].push_back(c);
+    string a, b;
+    cin >> a >> b;
+
+    if (a.size() < b.size()){
+        cout << "LESS" << endl;
+        return 0;
+    }
+    else if (a.size() > b.size()){
+        cout << "GREATER" << endl;
+        return 0;
     }
 
-    rep(i,10)sort(b[i].rbegin(),b[i].rend());
-
-    ll dp[10][N]{};
-
-    vector<vector<ll>> pr(10);
-    rep(i,10){
-        pr[i].resize(b[i].size(),0);
-        rep(j, b[i].size()){
-            pr[i][j+1] = pr[i][j]+b[i][j];
-        }
-        rep(j,pr[i].size()){
-            pr[i][j] += j * (j-1);
+    rep(i, min(a.size(), b.size())) {
+        if (a[i] < b[i]) {
+            cout << "LESS" << endl;
+            return 0;
+        } else if (a[i] > b[i]) {
+            cout << "GREATER" << endl;
+            return 0;
         }
     }
-
-
-    rep(i,10)rep(j, K)
-
+    cout << "EQUAL" << endl;
     return 0;
 }

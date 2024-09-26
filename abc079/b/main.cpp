@@ -18,7 +18,22 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll n;
+    cin >> n;
+    ll lim2 = 2, lim1 = 1,li;
 
+    if(n == 1){
+        cout << 1 << endl;
+        return 0;
+    }
+
+    rep(i,n-1){
+        li = lim1 + lim2;
+        lim2 = lim1;
+        lim1 = li;
+    }
+
+    cout << li << endl;
 
     return 0;
 }

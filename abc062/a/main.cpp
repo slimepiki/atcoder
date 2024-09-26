@@ -65,32 +65,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    vector<vector<ll>> b(10,vector<ll>());
-    int N,K;
-    cin >> N, K;
-    int c,g;
-    rep(i,N){
-        cin >> c >> g;
-        b[g-1].push_back(c);
-    }
-
-    rep(i,10)sort(b[i].rbegin(),b[i].rend());
-
-    ll dp[10][N]{};
-
-    vector<vector<ll>> pr(10);
-    rep(i,10){
-        pr[i].resize(b[i].size(),0);
-        rep(j, b[i].size()){
-            pr[i][j+1] = pr[i][j]+b[i][j];
-        }
-        rep(j,pr[i].size()){
-            pr[i][j] += j * (j-1);
-        }
-    }
-
-
-    rep(i,10)rep(j, K)
-
     return 0;
 }

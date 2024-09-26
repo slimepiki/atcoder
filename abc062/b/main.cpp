@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,32 +65,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    vector<vector<ll>> b(10,vector<ll>());
-    int N,K;
-    cin >> N, K;
-    int c,g;
-    rep(i,N){
-        cin >> c >> g;
-        b[g-1].push_back(c);
-    }
+    int H, W;
+    cin >> H >> W;
+    char m;
 
-    rep(i,10)sort(b[i].rbegin(),b[i].rend());
-
-    ll dp[10][N]{};
-
-    vector<vector<ll>> pr(10);
-    rep(i,10){
-        pr[i].resize(b[i].size(),0);
-        rep(j, b[i].size()){
-            pr[i][j+1] = pr[i][j]+b[i][j];
+    rep(i, H + 2) {
+        rep(j, W + 2) {
+            if (i == 0 || i == H+1 || j == 0 || j == W+1) {
+                cout << '#';
+            } else {
+                cin >> m;
+                cout << m;
+            }
         }
-        rep(j,pr[i].size()){
-            pr[i][j] += j * (j-1);
-        }
+        cout << endl;
     }
-
-
-    rep(i,10)rep(j, K)
 
     return 0;
 }
