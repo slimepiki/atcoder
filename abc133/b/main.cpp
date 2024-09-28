@@ -61,9 +61,36 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+float lensq(int* x1, int* x2, int d){
+    float ret = 0;
+    rep(i, d){
+        ret += pow((x1[i] - x2[i]),2);
+    }
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N,D;
+    cin >>N >> D;
+
+    int p[N][D];
+    rep(i, N)rep(j, D)cin >> p[i][j];
+
+    int ans = 0;
+    rep(i,N)rep(j,i+1,N){
+        float lens = lensq(p[i], p[j],D);
+        float len = sqrt(lens);
+        int intlen = (int) len;
+        debug(lens, len, intlen);
+        if(intlen * intlen == lens){
+            ans++;
+        }
+    }
+
+    cout << ans << endl;
 
     return 0;
 }
