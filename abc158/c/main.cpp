@@ -65,5 +65,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    float A,B;
+    cin >> A >> B;
+
+    rep(i, 1001){
+        if((int) (i * 0.08f)== A && (int) (i * 0.10f) == B){
+            cout << (int) i << endl;
+            return 0;
+        }
+    }
+    cout << -1 << endl;
     return 0;
 }
