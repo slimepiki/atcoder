@@ -9,12 +9,12 @@ using ull = unsigned long long;
 
 #define ii tuple<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);   \
+    x = get<0>(t);     \
     y = get<1>(t);
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
-    x = get<0>(t);       \
-    y = get<1>(t);       \
+    x = get<0>(t);         \
+    y = get<1>(t);         \
     z = get<2>(t);
 #define vi vector<int>
 #define initsvi(a, S, N) static vi a(S, N);
@@ -39,5 +39,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s, t;
+    cin >> s >> t;
+    int i = 0;
+    int N = s.size();
+    bool flag = true;
+    rep(i, N) {
+        flag = true;
+        rep(j, N) {
+            if (s[(i + j) % N] != t[j]) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }
