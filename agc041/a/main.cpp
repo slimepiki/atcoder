@@ -65,20 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
+    ll N,A,B;
+    cin >> N >> A >> B;
 
-    cin >> N;
-
-    int ans = 0,a;
-    int ur = 0, dl = 0;
-    rep(i,N)rep(j,2){
-        cin >> a;
-        ans += a;
-        if(i == N-1 && j == 0)ur = a;
-        else if(i == 0 && j == 1)dl = a;
+    if(abs(A-B) % 2 == 0)cout << abs(A-B)/2 << endl;
+    else{
+        ll g = max(A,B), l = min(A,B);
+        ll haji = min(N-g,l-1);
+        debug(g,l,haji);
+        cout << (g-l-1)/2 + haji+1<< endl;
     }
-
-    cout << ans - min(ur,dl) << endl;
 
     return 0;
 }

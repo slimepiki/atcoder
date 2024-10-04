@@ -66,19 +66,19 @@ int main() {
     ios_base::sync_with_stdio(false);
 
     int N;
-
     cin >> N;
+    vector<ll> tu(3*N,0);
+    rep(i, 3*N)cin >> tu[i];
+    sort(tu.rbegin(), tu.rend());
 
-    int ans = 0,a;
-    int ur = 0, dl = 0;
-    rep(i,N)rep(j,2){
-        cin >> a;
-        ans += a;
-        if(i == N-1 && j == 0)ur = a;
-        else if(i == 0 && j == 1)dl = a;
+    ll ans = 0;
+
+    rep(i, 2*N){
+        debug(i, tu[i]);
+        if(i % 2 == 1)ans += tu[i];
     }
 
-    cout << ans - min(ur,dl) << endl;
+    cout << ans << endl;
 
     return 0;
 }

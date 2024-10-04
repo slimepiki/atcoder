@@ -65,20 +65,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-
-    cin >> N;
-
-    int ans = 0,a;
-    int ur = 0, dl = 0;
-    rep(i,N)rep(j,2){
-        cin >> a;
-        ans += a;
-        if(i == N-1 && j == 0)ur = a;
-        else if(i == 0 && j == 1)dl = a;
-    }
-
-    cout << ans - min(ur,dl) << endl;
-
     return 0;
 }

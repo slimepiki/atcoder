@@ -64,21 +64,20 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-
     int N;
-
     cin >> N;
 
-    int ans = 0,a;
-    int ur = 0, dl = 0;
-    rep(i,N)rep(j,2){
+    ll a;
+    int ans = 0;
+    rep(i,N){
         cin >> a;
-        ans += a;
-        if(i == N-1 && j == 0)ur = a;
-        else if(i == 0 && j == 1)dl = a;
+        while(a % 2 == 0){
+            ans++;
+            a /= 2;
+        }
     }
 
-    cout << ans - min(ur,dl) << endl;
+    cout << ans << endl;
 
     return 0;
 }

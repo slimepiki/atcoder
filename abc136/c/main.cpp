@@ -66,19 +66,19 @@ int main() {
     ios_base::sync_with_stdio(false);
 
     int N;
-
     cin >> N;
-
-    int ans = 0,a;
-    int ur = 0, dl = 0;
-    rep(i,N)rep(j,2){
-        cin >> a;
-        ans += a;
-        if(i == N-1 && j == 0)ur = a;
-        else if(i == 0 && j == 1)dl = a;
+    ll h,ph;
+    cin >> ph;
+    ph--;
+    rep(i,N-1){
+        cin >> h;
+        if(h > ph)h--;
+        else if(h < ph){
+            cout << "No" << endl;
+            return 0;
+        }
+        ph = h;
     }
-
-    cout << ans - min(ur,dl) << endl;
-
+    cout << "Yes"<< endl;
     return 0;
 }
