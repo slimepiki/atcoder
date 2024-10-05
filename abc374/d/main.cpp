@@ -61,34 +61,57 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+float calcd(int a, int b, int c, int d) {
+    return sqrt((a - c) * (a - c) + (b - d) * (b - d));
+}
+
+float calcd(pair<int, int> x, pair<int, int> y) {
+    return calcd(x.first, x.second, y.first, y.second);
+}
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
+    int N, S, T;
+    cin >> N >> S >> T;
 
-    cin >> N;
-
-    int ans = 0, a;
-    int ur = 0, dl = 0;
-    int sum[100][2]{};
-
-    rep(j, 2)rep(i, N) {
-        cin >> a;
-        debug(i,j, a)
-        if (i != 0)
-            sum[i][j] = sum[i - 1][j] + a;
-        else
-            sum[i][j] = a;
-    }
-
+    vector<pair<pair<int, int>, pair<int, int>>> sen;
+    int a, b, c, d;
+    vector<int> p;
+    double write = 0;
     rep(i, N) {
-        debug(i, sum[i][0], sum[i][1]) if (i > 0)
-            chmax(ans, sum[i][0] + sum[N - 1][1] - sum[i - 1][1]);
-        else chmax(ans, sum[i][0] + sum[N - 1][1]);
+        cin >> a >> b >> c >> d;
+        write += calcd(a, b, c, d);
+        sen.push_back(make_pair(make_pair(a, b), make_pair(c, d)));
+        p.push_back(i);
     }
 
-    cout << ans << endl;
+    double mov = 1e10;
+    do {
+        double temp = 0;
+        rep(j, 1 << N) {
+            temp = 0;
+            pair<int, int> pr = make_pair(0, 0);
+
+            rep(i, N) {
+                auto now = sen[p[i]];
+
+                auto now1 = now.first;
+                auto now2 = now.second;
+                if (j & 1 << i) {
+                    now1 = now.second;
+                    now2 = now.first;
+                }
+
+                temp += calcd(pr, now1);
+                pr = now2;
+            }
+        chmin(mov, temp);
+        }
+    } while (next_permutation(p.begin(), p.end()));
+
+    debug(write / T, mov / S);
+    cout<< setprecision(20) << write / T + mov / S << endl;
 
     return 0;
 }

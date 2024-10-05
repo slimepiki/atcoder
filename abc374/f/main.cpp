@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f - 10
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,31 +64,6 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-
-    int N;
-
-    cin >> N;
-
-    int ans = 0, a;
-    int ur = 0, dl = 0;
-    int sum[100][2]{};
-
-    rep(j, 2)rep(i, N) {
-        cin >> a;
-        debug(i,j, a)
-        if (i != 0)
-            sum[i][j] = sum[i - 1][j] + a;
-        else
-            sum[i][j] = a;
-    }
-
-    rep(i, N) {
-        debug(i, sum[i][0], sum[i][1]) if (i > 0)
-            chmax(ans, sum[i][0] + sum[N - 1][1] - sum[i - 1][1]);
-        else chmax(ans, sum[i][0] + sum[N - 1][1]);
-    }
-
-    cout << ans << endl;
 
     return 0;
 }

@@ -65,27 +65,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-
-    cin >> N;
-
-    int ans = 0, a;
-    int ur = 0, dl = 0;
-    int sum[100][2]{};
-
-    rep(j, 2)rep(i, N) {
-        cin >> a;
-        debug(i,j, a)
-        if (i != 0)
-            sum[i][j] = sum[i - 1][j] + a;
-        else
-            sum[i][j] = a;
+    string s, t;
+    cin >> s >> t;
+    int ans = 0;
+    if (s.size() != t.size()) {
+        ans = min(s.size(), t.size()) + 1;
     }
-
-    rep(i, N) {
-        debug(i, sum[i][0], sum[i][1]) if (i > 0)
-            chmax(ans, sum[i][0] + sum[N - 1][1] - sum[i - 1][1]);
-        else chmax(ans, sum[i][0] + sum[N - 1][1]);
+    rep(i, min(s.size(), t.size())) {
+        if (s[i] != t[i]) {
+            if(ans != 0)chmin(ans, i + 1);
+            else ans = i + 1;
+            break;
+        }
     }
 
     cout << ans << endl;
