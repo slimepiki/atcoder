@@ -65,5 +65,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int D,N;
+    cin >> D >> N;
+    if(N == 100) N++;
+    rep(i, D) N *= 100;
+    cout << N << endl;
+
     return 0;
 }
