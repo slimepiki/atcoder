@@ -68,5 +68,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    unordered_map<string, int> m;
+    int N, M;
+    cin >> N;
+    string s;
+    rep(i, N) {
+        cin >> s;
+        m[s]++;
+    }
+    cin >> M;
+    rep(i, M) {
+        cin >> s;
+        m[s]--;
+    }
+    int ans = 0;
+    for (auto itr = m.begin(); itr != m.end(); itr++) {
+        chmax(ans, itr->second);
+    }
+    cout << ans << endl;
+
     return 0;
 }

@@ -61,24 +61,72 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-
-vector<pair<ll, ll> > prime_factorize(ll N) {
-    if(N < 0){
-        cerr << "input is negative!" << endl;
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
     }
-    vector<pair<ll, ll> > res;
-    for (ll a = 2; a * a <= N; ++a) {
-        if (N % a != 0) continue;
-        ll ex = 0;
-
-        while (N % a == 0) {
-            ++ex;
-            N /= a;
-        }
-        res.push_back({a, ex});
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
     }
-    if (N != 1) res.push_back({N, 1});
-    return res;
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const{
+        return x;
+    }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
+//階乗
+int factorial(int n) {
+    int ans = 1;
+    for (int i = 2; i <= n; i++) ans *= i;
+    return ans;
+}
+
+//modつき階乗
+mint mfactorial(ll n) {
+    mint ans = 1;
+    for (ll i = 2; i <= n; i++) ans *= i;
+    return ans;
 }
 
 int main() {
@@ -87,35 +135,8 @@ int main() {
 
     int N;
     cin >> N;
-
-    // vector<ll> p(100000,0);
-    // vector<int> a;
-     int x;
-    // rep(i,N){
-    //     cin >> x;
-    //     a.push_back(x);
-    //     auto pr = prime_factorize(x);
-    //     rep(j,pr.size()){
-    //         chmax(p[pr[j].first], pr[j].second);
-    //     }
-    // }
-    // ll m=1;
-    // rep(i, 1, p.size()){
-    //     rep(j, p[i]){
-    //         m *= i;
-    //     }
-    // }
-    // ll ans = 0;
-    // rep(i,N){
-    //     ans += (m-1) % a[i];
-    // }
-    ll ans = 0;
-    rep(i, N){
-        cin >> x;
-        ans += x-1;
-    }
-
-    cout << ans << endl;
-
+    mint p = 1;
+    rep(i,1,N+1)p *= i;
+    cout << p << endl;
     return 0;
 }
