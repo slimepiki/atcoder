@@ -64,22 +64,25 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N;
+    cin >> N;
 
-    int a[3];
-    int m = 0;
-    rep(i, 3) {
-        cin >> a[i];
-        m += a[i] % 2;
+    ll a[N];
+    ll sum = 0;
+    ll x;
+    rep(i, N) {
+        cin >> x;
+        sum += x;
+        a[i] = x;
     }
-    sort(a, a + 3);
 
-    int ans = 0;
-    if (m == 0 || m == 3)
-        ans = (a[2] * 2 - a[1] - a[0]) / 2;
-    else if ((m == 1 && a[2] % 2 == 1) || (m == 2 && a[2] % 2 == 0)) {
-        ans = (a[2] * 2 - a[1] - a[0]) / 2;
-    } else {
-        ans = ((a[2] + 1) * 2 - a[1] - a[0] + 1) / 2;
+    ll sum2 = 0;
+    ll ans = 1e18;
+    int i = 0;
+    rep(i, N-1){
+        sum2 += a[i];
+        debug(sum, sum2);
+        chmin(ans, abs(sum2 - (sum-sum2)));
     }
 
     cout << ans << endl;
