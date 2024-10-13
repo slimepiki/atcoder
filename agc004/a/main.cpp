@@ -26,10 +26,10 @@ void debug_out(Head H, Tail... T) {
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();    \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -64,10 +64,19 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-    int x;
-    cin >> x;
-    if(x < 1200) cout << "ABC" << endl;
-    else cout << "ARC" << endl; 
+
+    ll A,B,C;
+    cin >> A >> B>> C;
+
+    ll ans = 1e20;
+    if(A % 2 == 0)ans = 0;
+    if(B % 2 == 0)ans = 0;
+    if(C % 2 == 0)ans = 0;
+    chmin(ans, A*B);
+    chmin(ans, C*B);
+    chmin(ans, A*C);
+
+    cout << ans << endl;
 
     return 0;
 }
