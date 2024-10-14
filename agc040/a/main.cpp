@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -28,7 +28,7 @@ void debug_out(Head H, Tail... T) {
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();    \
+    x = t.first();     \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -67,17 +67,29 @@ int main() {
     string s;
     cin >> s;
     int f = 0, b = 0;
-    int maxf = 0, maxb = 0;
-    // rep(i, s.size()){
-    //     if(s[i] == '<') f++;
-    //     else if(s[i] == '>')f--;
-    //     if(s[s.size() - i] == '<') b--;
-    //     else if(s[s.size() - i] == '>')b++;
-    //     chmax(maxf, f);
-    //     chmax(maxb, b);
-    // }
-    // debug(maxf,maxb);
-    // cout << max(maxf,maxb) << endl;
 
+    vector<int> p(s.size() + 1, -1);
+    p[0] = 0;
+    p[s.size()] = 0;
+    rep(i, s.size()) {
+        if (s[i] == '<')
+            f++;
+        else if (s[i] == '>')
+            f = 0;
+
+        if (s[s.size() - i-1] == '<')
+            b = 0;
+        else if (s[s.size() - i-1] == '>')
+            b++;
+
+        chmax(p[i + 1], f);
+        chmax(p[s.size() - i-1], b);
+        debug(i, f, b);
+    }
+
+    ll ans = 0;
+    rep(i, s.size() + 1) ans += p[i];
+    rep(i, s.size() + 1) debug(i, p[i]);
+    cout << ans << endl;
     return 0;
 }
