@@ -18,17 +18,18 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();    \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -44,6 +45,8 @@ void debug_out(Head H, Tail... T) {
 #define vc vector<char>
 #define vvc vector<vc>
 #define vvvc vector<vvc>
+
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -61,27 +64,32 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N,M;
+    cin >> N >> M;
+    int s[N][2]{};
+    int c[M][2]{};
 
-    int N;
-    cin >> N;
-
-    int xs = 0, ys = 0;
-    int prevt = 0;
-    int x, y, t, dist;
-    rep(i, N) {
-        cin >> t >> x >> y;
-        dist = abs(xs - x) + abs(ys - y);
-        debug(xs,ys,x,y);
-        debug(i, t - prevt, dist);
-        if (dist > t - prevt || (dist - (t- prevt)) % 2 != 0) {
-            cout << "No" << endl;
-            return 0;
+    rep(i,N){
+        cin >> s[i][0] >> s[i][1];
+    }
+    rep(i,M){
+        cin >> c[i][0] >> c[i][1];
+    }
+    int minhattan,man;
+    int minc;
+    rep(i, N){
+        minc = -1;
+        minhattan = IINF;
+        rep(j,M){
+            man = abs(s[i][0]-c[j][0])+abs(s[i][1]-c[j][1]);
+            //debug(i,j,man)
+            if(minhattan > man){
+                minhattan = man;
+                minc = j+1;
+            }
         }
-        xs = x;
-        ys = y;
-        prevt = t;
+        cout << minc << endl;
     }
 
-    cout << "Yes" << endl;
     return 0;
 }
