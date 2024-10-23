@@ -65,5 +65,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int s;
+    int ans = 0;
+    int min = IINF;
+    rep(i,N){
+        cin >> s;
+        ans += s;
+        if(s % 10 != 0)chmin(min,s);
+    }
+
+    if(ans % 10 != 0)cout << ans << endl;
+    else if(min != IINF)cout << ans - min << endl;
+    else cout << 0 << endl;
+
     return 0;
 }

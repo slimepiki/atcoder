@@ -65,18 +65,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll N, T;
-    cin >> N >> T;
-    ll t=0;
-    ll prevt = 0;
-    ll ans = 0;
-    rep(i,N){
-        cin >> t;
-        ans += min(T,t-prevt);
-        prevt = t;  
-    }
-
-    cout << ans + T << endl;
-
     return 0;
 }
