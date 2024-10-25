@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -28,7 +28,7 @@ void debug_out(Head H, Tail... T) {
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();     \
+    x = t.first();    \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f - 10
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -61,41 +61,44 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll factorial(ll n) {
+    ll ans = 1;
+    if(n < 0){
+        cerr << "factorial error : n < 0" << endl; 
+        return -1;
+    }
+    for (ll i = 2; i <= n; i++) ans *= i;
+    return ans;
+}
+
+ll perm(ll n, ll k){
+    ll ans = 1;
+    if(n < k || k < 0){
+        cerr << "perm error : n = " << n << ", k = " << k  << endl; 
+        return -1;
+    }
+    if(k == 0)return 1;
+    for(ll i = 0; i < k;i++){
+        ans *= (n-i);
+    }
+    return ans;
+}
+
+ll conv(ll n, ll k){
+    if(k <= 0){
+        cerr << "conv error : k = " << k << endl;
+    }
+    return perm(n,k)/ factorial(k);
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-    int H, W;
-    cin >> H >> W;
-    int c[10][10];
-    int lmp[10];
-    bool ck[10];
-
-    rep(i, 10) rep(j, 10) cin >> c[j][i];
-
-    ck[1] = true;
-    rep(i, 10) lmp[i] = c[1][i];
-    int min, mindex;
-    rep(i, 9) {
-        min = IINF;
-        mindex = -1;
-        rep(j, 10) {
-            if (!ck[j] && lmp[j] < min) {
-                mindex = j;
-                min = lmp[j];
-            }
-        }
-        ck[mindex] = true;
-        rep(j, 10) { chmin(lmp[j], lmp[mindex] + c[mindex][j]); }
-    }
-
-    ll ans = 0;
-    int a;
-    rep(i, H * W) {
-        cin >> a;
-        if (a != -1) ans += lmp[a];
-    }
-
-    cout << ans << endl;
+    ll N, A, B;
+    cin >> N >> A >> B;
+    if(A > B || (N == 1 && A != B)) cout << 0 << endl;
+    else if(B == A) cout << 1 << endl;
+    else cout << (B-A)*(N-2)+1 << endl;
 
     return 0;
 }

@@ -62,5 +62,33 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+
+    int num[N]{};
+    rep(i,N)num[i] = -1;
+    int s,c;
+    rep(i,M){
+        cin >> s >> c;
+        s--;
+        if(s == 0 && c == 0 && N != 1){
+            cout << -1 << endl;
+            return 0;
+        }
+        if(num[s] == -1)num[s] = c;
+        else if(num[s] == c);
+        else{
+            cout << -1 << endl;
+            return 0;
+        }
+    }
+
+    rep(i,N){
+        if(num[i] != -1)cout << num[i];
+        else if(i > 0 || N == 1)cout << 0;
+        else cout << 1;
+    }
+    cout << endl;
+
     return 0;
 }

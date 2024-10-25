@@ -37,10 +37,34 @@ vector<pair<ll, ll> > prime_factorize(ll N) {
 }
 
 // 階乗
-int factorial(int n) {
-    int ans = 1;
-    for (int i = 2; i <= n; i++) ans *= i;
+ll factorial(ll n) {
+    ll ans = 1;
+    if(n < 0){
+        cerr << "factorial error : n < 0" << endl; 
+        return -1;
+    }
+    for (ll i = 2; i <= n; i++) ans *= i;
     return ans;
+}
+
+ll perm(ll n, ll k){
+    ll ans = 1;
+    if(n < k || k < 0){
+        cerr << "perm error : n = " << n << ", k = " << k  << endl; 
+        return -1;
+    }
+    if(k == 0)return 1;
+    for(ll i = 0; i < k;i++){
+        ans *= (n-i);
+    }
+    return ans;
+}
+
+ll conv(ll n, ll k){
+    if(k <= 0){
+        cerr << "conv error : k = " << k << endl;
+    }
+    return perm(n,k)/ factorial(k);
 }
 
 // modつきint

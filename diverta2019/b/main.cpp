@@ -68,7 +68,10 @@ int main() {
     int R, G, B, N;
     cin >> R >> G >> B >> N;
 
-    int ans = 0;
+    ll ans = 0;
+    rep(i,N/R+1)rep(j,(N-R*i)/G + 1)
+        if(N-R*i-j*G >=0 && (N-R*i-j*G)%B == 0)ans++;
+    
 
     cout << ans << endl;
     return 0;
