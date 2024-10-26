@@ -65,5 +65,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll x,t;
+    cin >> x >> t;
+    cout << max((ll)0, x - t) << endl;
+
     return 0;
 }

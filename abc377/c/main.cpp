@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -26,10 +26,10 @@ void debug_out(Head H, Tail... T) {
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -61,14 +61,37 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int nana[9][2] = {{0,0},{2, 1},   {1, 2},   {-1, 2}, {-2, 1},
+                  {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    unordered_map<int, unordered_set<int>> muri;
+    int x, y;
+    int kx, ky;
+    ll N, M;
+    cin >> N >> M;
+    ll ans = N * N;
+    rep(i, M) {
+        cin >> x >> y;
+        x--;y--;
+        rep(j, 9) {
+            int dx = x + nana[j][0];
+            int dy = y + nana[j][1];
+            if (dx >= 0 && dy >= 0 && dx < N && dy < N) {
+                if (muri.count(dx) && !muri[dx].count(dy)) {
+                    muri[dx].insert(dy);
+                    ans--;
+                } else if (!muri.count(dx)) {
+                    muri.insert(make_pair(dx, unordered_set<int>()));
+                    muri[dx].insert(dy);
+                    ans--;
+                }
+            }
+        }
+    }
 
-    ll a,b;
-    char op;
-    cin >> a >> op >> b;
-    if(op == '+') cout << a + b << endl;
-    else cout << a-b << endl;
+    cout << ans << endl;
     return 0;
 }

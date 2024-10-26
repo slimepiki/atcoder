@@ -65,5 +65,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    int a[N];
+    rep(i, N)cin >> a[i];
+    sort(a, a+N);
+    cout << a[N-1] - a[0] << endl;
+
     return 0;
 }

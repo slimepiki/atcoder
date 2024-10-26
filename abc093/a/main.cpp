@@ -65,5 +65,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    bool a[3]{};
+    cin >> s;
+    rep(i, s.size())a[s[i] - 'a'] = true;
+
+    rep(i, 3){
+        if(!a[i]){
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

@@ -26,10 +26,10 @@ void debug_out(Head H, Tail... T) {
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();    \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -65,10 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll a,b;
-    char op;
-    cin >> a >> op >> b;
-    if(op == '+') cout << a + b << endl;
-    else cout << a-b << endl;
+    string s;
+    bool a[3]{};
+    cin >> s;
+    rep(i,3){
+        if(a[s[i] - 'A'] || s[i] - 'A' < 0 || s[i]- 'A' > 2){
+            cout << "No" << endl;
+            return 0;
+        }else a[s[i] - 'A'] = true;
+
+    }
+    cout << "Yes" << endl;
     return 0;
 }

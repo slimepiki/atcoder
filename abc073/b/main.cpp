@@ -65,5 +65,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int l, r;
+    int ans = 0;
+    rep(i, N){
+        cin >> l >> r;
+        ans += r-l+1;
+    }
+    cout << ans << endl;
+
     return 0;
 }
