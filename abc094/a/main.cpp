@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int A,B,X;
+    cin >> A >> B >>X;
+    if(A<=X && A+B >= X)cout << "YES" <<endl;
+    else cout << "NO" << endl;
+
     return 0;
 }

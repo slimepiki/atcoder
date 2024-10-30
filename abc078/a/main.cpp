@@ -65,5 +65,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    char X,Y;
+    cin >>X >> Y;
+
+    if(X < Y)cout << '<' << endl;
+    else if(X > Y) cout << '>' << endl;
+    else cout << '=' << endl;
+
     return 0;
 }

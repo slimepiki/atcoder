@@ -65,5 +65,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+    cin >> N >>K;
+    unordered_map<int,int> mp;
+
+    int a;
+    rep(i,N){
+        cin >> a;
+        mp[a]++;
+    }
+    vector<pair<int,int>> v;
+    for(auto itr = mp.begin(); itr != mp.end();itr++)v.push_back(*itr);
+    
+    sort(v.begin(), v.end(), [](pair<int, int> x, pair<int, int> y){
+        return x.second < y.second;
+    });
+    int ans = 0;
+    rep(i,v.size()-K){
+        ans += v[i].second;
+    }
+
+    cout << ans << endl;
+
     return 0;
 }

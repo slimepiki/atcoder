@@ -65,5 +65,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    char c;
+    rep(i,3)rep(j,3){
+        cin >> c;
+        if(i == j)cout << c;
+    }
+
+    cout << endl;
+
     return 0;
 }
