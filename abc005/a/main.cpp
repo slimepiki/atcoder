@@ -68,5 +68,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int x, y;
+    cin >> x >> y;
+
+    cout << floor(y/x) << endl;
+
     return 0;
 }

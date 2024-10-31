@@ -62,5 +62,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N, M;
+    cin >> N >> M;
+    int a,b;
+    if(M-2 *N < 0){
+        cout << "-1 -1 -1"<< endl;
+        return 0;
+    }else{
+        rep(i, N+1){//c = i
+            b = M- 2* N - 2*i;
+            if(b <= N-i){
+                cout << N-i-b << ' ' << b << ' ' << i << endl;
+                return 0;
+            }
+        }
+    }
+    cout << "-1 -1 -1"<< endl;
     return 0;
 }

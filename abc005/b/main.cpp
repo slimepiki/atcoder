@@ -68,5 +68,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int min = 120,a;
+    rep(i,N){
+        cin >> a;
+        chmin(min,a);
+    }
+    cout << min << endl;
     return 0;
 }

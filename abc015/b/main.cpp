@@ -65,5 +65,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    float count = 0;
+    float sum = 0;
+    int a;
+    rep(i,N){
+        cin >> a;
+        if(a != 0){
+            count += 1;
+            sum += a;
+        }
+    }
+
+    cout << ceil(sum / count) << endl;
+
     return 0;
 }
