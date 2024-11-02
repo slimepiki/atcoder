@@ -4,11 +4,6 @@ using ull = unsigned long long;
 
 #include <bits/stdc++.h>
 
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
-#include <string>
-
 void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -23,33 +18,36 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) ;
+#define debug(...) //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for(auto it = a.begin(); it != a.end();it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();    \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
     y = get<1>(t);         \
     z = get<2>(t);
 #define vi vector<int>
-#define initsvi(a, S, N) static vi a(S, N);
 #define vvi vector<vi>
-#define initsvvi(a, H, W, N) static vvi a(H, vi(W, N));
+#define vvvi vector<vvvi>
 #define vll vector<ll>
-#define initsvll(a, S, N) static vll a(S, N);
+#define vvll vector<vll>
+#define vvvll vector<vvll>
 
 #define vc vector<char>
-#define initsvc(a, S, N) static vc a(S, N);
 #define vvc vector<vc>
-#define initsvvc(a, H, W, N) static vvc a(H, vc(W, N));
+#define vvvc vector<vvc>
+
+#define IINF 0x3f3f3f3f-10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -67,10 +65,17 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-    float N;
-    cin >> N;
 
-    cout << ceil(N/2) << endl;
-
+    map<int,int> m;
+    int a;
+    int ans = 0;
+    rep(i,4){
+        cin >> a;
+        m[a]++;
+    }
+    repit(itr,m){
+        ans += itr->second/2;
+    }
+    cout << ans << endl;
     return 0;
 }

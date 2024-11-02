@@ -25,6 +25,7 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for(auto it = a.begin(); it != a.end();it++)
 
 #define ii tuple<int, int>
 #define iiget(t, x, y) \
@@ -61,9 +62,70 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+vector<pair<ll, ll> > prime_factorize(ll N) {
+    if(N < 0){
+        cerr << "input is negative!" << endl;
+    }
+    vector<pair<ll, ll> > res;
+    for (ll a = 2; a * a <= N; ++a) {
+        if (N % a != 0) continue;
+        ll ex = 0;
+
+        while (N % a == 0) {
+            ++ex;
+            N /= a;
+        }
+        res.push_back({a, ex});
+    }
+    if (N != 1) res.push_back({N, 1});
+    return res;
+}
+
+ll powll(ll a, ll b){
+    ll ret = 1;
+    for(int i = 0; i < b;i++)
+        ret *= a;
+    
+
+    return ret;
+}
+
+//最小公倍数
+ll lcm(ll a, ll b){
+    auto af = prime_factorize(a);
+    auto bf = prime_factorize(b);
+
+    unordered_map<ll, ll> m;
+    repit(itr,af){
+        
+        m[itr->first] = itr->second;
+    }
+    repit(itr,bf){
+        chmax(m[itr->first],itr->second);
+    }
+
+    ll ret = 1;
+    repit(itr,m){
+        ret *= powll(itr->first, itr->second);
+    }
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    cin >> N;
+
+    ll l = 1;
+    ll t;
+    rep(i,N){
+        cin >> t;
+        l = lcm(l,t);
+    }
+
+    cout << l << endl;
 
     return 0;
 }

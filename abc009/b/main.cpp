@@ -68,5 +68,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int f = 0, s = 0;
+    int a = 0;
+    rep(i, N) {
+        cin >> a;
+        if (a > f) {
+            s = f;
+            f = a;
+        } else if (a == f) {
+            ;
+        } else if (a > s) {
+            s = a;
+        }
+    }
+    cout << s << endl;
+
     return 0;
 }

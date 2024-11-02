@@ -64,5 +64,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N,a = 0;
+    cin >> N;
+
+    ll ans = 0;
+    ll len = 0;
+    ll bef = 0;
+    rep(i,N){
+        cin >> a;
+        if(bef < a){
+            len++;
+        }else{
+            ans += (len * (len-1))/2;
+            len = 1;
+        }
+            bef = a;
+    }
+    cout << ans + (len * (len-1))/2 + N << endl;
     return 0;
 }

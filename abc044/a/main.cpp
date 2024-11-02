@@ -65,5 +65,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,K,X,Y;
+    cin >> N >> K >> X >> Y;
+    cout << min(N,K) * X + max(0,N-K) * Y << endl;
+
     return 0;
 }

@@ -25,6 +25,7 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for(auto it = a.begin(); it != a.end();it++)
 
 #define ii tuple<int, int>
 #define iiget(t, x, y) \
@@ -64,6 +65,24 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N;
+    cin >> N;
+
+    int a[N];
+    set<int> s;
+    unordered_map<int,int> m;
+    rep(i,N){
+        cin >> a[i];
+        s.insert(a[i]);
+    }
+
+    int count = 0;
+    repit(it,s){
+        m[*it] = count;
+        count++;
+    }
+
+    rep(i,N)cout << m[a[i]] << endl;
 
     return 0;
 }

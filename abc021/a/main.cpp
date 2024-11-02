@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int keta = 1;
+    cout << N << endl;
+    rep(i,N)cout << 1 << endl;
     return 0;
 }
