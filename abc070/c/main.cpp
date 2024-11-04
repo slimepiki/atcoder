@@ -62,56 +62,25 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-vector<pair<ll, ll> > prime_factorize(ll N) {
-    if(N < 0){
-        cerr << "input is negative!" << endl;
+ll gdc(ll a, ll b){
+    ll l = max(a,b);
+    ll s = min(a,b);
+    ll temp;
+    while(l%s != 0){
+        temp = s;
+        s = l%s;
+        l = temp;
     }
-    vector<pair<ll, ll> > res;
-    for (ll a = 2; a * a <= N; ++a) {
-        if (N % a != 0) continue;
-        ll ex = 0;
-
-        while (N % a == 0) {
-            ++ex;
-            N /= a;
-        }
-        res.push_back({a, ex});
-    }
-    if (N != 1) res.push_back({N, 1});
-    return res;
-}
-
-ll powll(ll a, ll b){
-    ll ret = 1;
-    for(int i = 0; i < b;i++)
-        ret *= a;
-    
-
-    return ret;
+    return s;
 }
 
 //最小公倍数
 ll lcm(ll a, ll b){
-    auto af = prime_factorize(a);
-    auto bf = prime_factorize(b);
-
-    unordered_map<ll, ll> m;
-    repit(itr,af){
-        
-        m[itr->first] = itr->second;
-    }
-    repit(itr,bf){
-        chmax(m[itr->first],itr->second);
-    }
-
-    ll ret = 1;
-    repit(itr,m){
-        ret *= powll(itr->first, itr->second);
-    }
-    return ret;
+    return max(a,b)*(min(a,b)/gdc(a,b));
 }
 
-int main() {
+
+int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 

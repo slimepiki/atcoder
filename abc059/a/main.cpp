@@ -65,5 +65,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s1,s2,s3;
+    cin >> s1 >> s2 >> s3;
+    cout << (char)(s1[0] - 32);
+    cout << (char)(s2[0] - 32);
+    cout << (char)(s3[0] - 32);
+    cout << endl;
     return 0;
 }

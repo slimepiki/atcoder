@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int a,b,c,d;
+    cin >> a >> b >> c >> d;
+
+    if(a < d && c < b)cout << min(b,d)-max(a,c)<< endl;
+    else cout << 0 << endl;
     return 0;
 }

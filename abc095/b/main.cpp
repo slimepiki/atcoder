@@ -65,5 +65,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int n,x;
+    cin >> n >> x;
+    float min = IINF;
+    float m;
+    rep(i,n){
+        cin >> m;
+        x-=m;
+        chmin(min,m);
+    }
+
+    cout << n + floor(x/min) << endl;
+
     return 0;
 }

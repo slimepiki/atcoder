@@ -61,9 +61,23 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int glp(int x){
+    int ret;
+    if((x < 8 && (x % 2 == 1)) ||x >= 8 && x%2 == 0)ret = 0;
+    else if(x == 2)ret = 1;
+    else ret = 2;
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int x,y;
+    cin >> x >> y;
+    
+    if(glp(x) == glp(y))cout << "Yes"<< endl;
+    else cout << "No" << endl;
 
     return 0;
 }

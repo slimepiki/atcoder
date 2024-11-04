@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -28,7 +28,7 @@ void debug_out(Head H, Tail... T) {
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();    \
+    x = t.first();     \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -67,13 +67,22 @@ int main() {
 
     int N;
     cin >> N;
-    string s,t;
+    string s, t;
     cin >> s >> t;
 
     int kasanari = 0;
-    rep(i, min(s.size(),t.size())){
-        
+    rep(i, N) {
+        bool ok = false;
+        rep(j, i + 1) {
+            if (s[N - 1 - i + j] != t[j]) {
+                ok = false;
+                break;
+            } else {
+                ok = true;
+            }
+        }
+        if (ok) kasanari = i + 1;
     }
-    cout << max(N, s.size()+t.size()-kasanari) << endl;
+    cout << s.size() + t.size() - kasanari << endl;
     return 0;
 }

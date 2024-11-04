@@ -61,9 +61,27 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll powll(ll a, ll b){
+    ll ret = 1;
+    for(int i = 0; i < b;i++)
+        ret *= a;
+    
+
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int a,b,c,k;
+    cin >> a >> b >> c >> k;
+    int mx = max(a,max(b,c));
+    int rem = 0;
+    if(a == mx)rem = b+c;
+    else if(b == mx) rem = a+c;
+    else rem = a+b;
+    cout << mx*powll(2,k) + rem << endl;
 
     return 0;
 }

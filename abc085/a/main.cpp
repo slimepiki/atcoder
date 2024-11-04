@@ -18,7 +18,12 @@ int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-
-
+    string s;
+    cin >> s;
+    rep(i,s.size()){
+        if(i != 3)cout << s[i];
+        else cout << 8;
+    }
+    cout << endl;
     return 0;
 }

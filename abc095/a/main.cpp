@@ -65,5 +65,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    int ans = 700;
+    rep(i,s.size())if(s[i] == 'o')ans += 100;
+
+    cout << ans <<endl;
+
     return 0;
 }

@@ -17,8 +17,13 @@ using ull=unsigned long long;
 int main(){
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int n,a;
+    cin >> n;
 
+    unordered_set<int> s;
 
-
+    rep(i,n){cin >> a;
+    s.insert(a);}
+    cout << s.size() << endl;
     return 0;
 }
