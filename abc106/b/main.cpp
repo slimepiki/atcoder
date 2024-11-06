@@ -61,9 +61,40 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+vector<pair<ll, ll> > prime_factorize(ll N) {
+    if(N < 0){
+        cerr << "input is negative!" << endl;
+    }
+    vector<pair<ll, ll> > res;
+    for (ll a = 2; a * a <= N; ++a) {
+        if (N % a != 0) continue;
+        ll ex = 0;
+
+        while (N % a == 0) {
+            ++ex;
+            N /= a;
+        }
+        res.push_back({a, ex});
+    }
+    if (N != 1) res.push_back({N, 1});
+    return res;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N;
+    cin >> N;
+    int ans = 0;
+    rep(i,N+1){
+        auto fc = prime_factorize(i);
+        int yaku = 1;
+        for(auto itr = fc.begin();itr != fc.end();itr++){
+            yaku *= (itr->second + 1);
+        }
+        if(yaku == 8&& i % 2 == 1)ans++;
+    }
+    cout << ans << endl;
     return 0;
 }
