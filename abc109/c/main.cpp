@@ -61,9 +61,32 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll gdc(ll a, ll b){
+    ll l = max(a,b);
+    ll s = min(a,b);
+    ll temp;
+    while(l%s != 0){
+        temp = s;
+        s = l%s;
+        l = temp;
+    }
+    return s;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N,X;
+    cin >> N >>X;
+    ll a;
+    cin >> a;
+    ll width = abs(X-a);
+    rep(i,N-1){
+        cin >> a;
+        width = gdc(width, abs(X-a));
+    }
+
+    cout << width << endl;
     return 0;
 }

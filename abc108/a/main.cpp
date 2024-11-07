@@ -65,5 +65,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int K;
+    cin >> K;
+    cout << (K/2)*((K+1)/2) << endl;
+
     return 0;
 }

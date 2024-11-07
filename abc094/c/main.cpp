@@ -26,7 +26,7 @@ void debug_out(Head H, Tail... T) {
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
     x = get<0>(t);     \
     y = get<1>(t);
@@ -65,5 +65,28 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    ii x[N];
+    int a;
+    rep(i,N){
+        cin >> a;
+        x[i] = make_pair(a,i);
+    }
+    sort(x,x+N, [](const ii x, const ii y){
+        return x.first < y.first;
+    });
+    int s = x[N/2-1].first;
+    int l = x[N/2].first;
+    rep(i,N){
+        x[i] = make_pair(i,x[i].second);
+    }
+        sort(x,x+N, [](const ii x, const ii y){
+        return x.second < y.second;
+    });
+    rep(i,N){
+        if(x[i].first >= N/2)cout << s << endl;
+        else cout << l << endl;
+    }
     return 0;
 }

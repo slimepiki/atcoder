@@ -65,5 +65,26 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s,t;
+    cin >>s >> t;
+    unordered_map<char, int> sm,tm;
+    rep(i,s.size()){
+        if(sm.count(s[i]) == 0)sm[s[i]] = 1;
+        else sm[s[i]]++;
+    }
+    rep(i,s.size()){
+        if(tm.count(t[i]) == 0)tm[t[i]] = 1;
+        else tm[t[i]]++;
+    }
+
+    multiset<int> ss,ts;
+    for(auto itr = sm.begin(); itr != sm.end();itr++){
+        ss.insert(itr->second);
+    }
+    for(auto itr = tm.begin(); itr != tm.end();itr++){
+        ts.insert(itr->second);
+    }
+    if(ss == ts)cout << "Yes"<< endl;
+    else cout << "No" << endl;
     return 0;
 }
