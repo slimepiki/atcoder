@@ -65,5 +65,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int m=0, a,sum=0,N;
+    cin >> N;
+    rep(i,N){
+        cin >> a;
+        chmax(m,a);
+        sum+=a;
+    }
+    cout << sum-(m/2) << endl;
     return 0;
 }

@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int d;
+    cin >> d;
+    cout << "Christmas";
+    rep(i,25-d)cout << " Eve";
+    cout << endl;
     return 0;
 }

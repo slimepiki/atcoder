@@ -64,6 +64,14 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int a,b,c;
+    cin >> a >> b >> c;
+    int m = max(a,max(b,c));
+    int l;
+    if(m == a)l = b*c;
+    else if(m == b)l = a *c;
+    else l = a*b;
+    cout << l /2 << endl;
 
     return 0;
 }

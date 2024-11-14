@@ -62,5 +62,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H,W,h,w;
+    cin >> H >> W >> h >> w;
+    cout << (H-h) * (W-w) << endl;
+
     return 0;
 }

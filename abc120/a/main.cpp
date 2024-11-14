@@ -65,5 +65,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int a,b,c;
+    cin >> a >> b >> c;
+    cout << min(c, (int)floor((float)b/(float)a)) << endl;
+
     return 0;
 }

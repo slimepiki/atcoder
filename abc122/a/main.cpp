@@ -65,5 +65,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    char b;
+    cin >> b;
+    if(b == 'A')b = 'T';
+    else if(b == 'T')b = 'A';
+    else if(b == 'C')b = 'G';
+    else if(b == 'G')b = 'C';
+    cout << b << endl;
     return 0;
 }

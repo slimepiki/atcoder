@@ -61,9 +61,37 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll p[55], h[55];
+
+ll getp(int l, ll x){
+    debug(l,x)
+    if(l == 0) return 1;
+    if(x == 1) return 0;
+    x--;
+    if(x < h[l - 1]) return getp(l-1,x);
+    x -= h[l - 1];
+    if(x == 0) return p[l-1];
+    if(x == 1) return p[l - 1]+1;
+    x--;
+    if(x < h[l-1])return p[l-1]+1 + getp(l-1,x);
+    x -= h[l-1];
+
+    return p[l-1]*2 + 1;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    ll N,X;
+
+    cin >> N >> X;
+    h[0] = 1;
+    rep(i,1,N+1) h[i] = h[i-1]*2 + 3;
+    p[0] = 1;
+    rep(i,1,N+1) p[i] = p[i-1]*2 + 1;
+
+    cout << getp(N,X) << endl;
 
     return 0;
 }
