@@ -25,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for(auto it = a.begin(); it != a.end();it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();    \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -65,20 +66,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll x;
-    cin >> x;
+    double N,K;
+    cin >> N >> K;
+    debug(N,K);
 
-    ll sho = x/11;
-    ll amari = x%11;
-    ll tasu = 0;
-    if(amari == 0){
-        tasu = 0;
-    }else if(amari <= 6){
-        tasu = 1;
-    }else {
-        tasu = 2;
-    }
 
-    cout << sho * 2 + tasu << endl;
+    double N0 = 1-K/N;
+    double N1 = 1/N;
+    double N2 = (K-1)/N;
+    debug(N0,N1,N2);
+    cout << fixed <<setprecision(20) << (6 * N0 * N1 * N2) + (3 * N0 * N1 * N1) + (3 * N1 * N1 * N2) + (N1*N1*N1)<< endl;
+
     return 0;
 }

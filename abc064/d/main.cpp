@@ -65,5 +65,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    string s;
+    cin >> N >> s;
+
+    int l = 0;
+    int al = 0;
+    rep(i,N){
+        if(s[i] == '(')l++;
+        else{
+            if(l > 0)l--;
+            else al++;
+        }
+    }
+    rep(i,al)cout << '(';
+    cout << s;
+    rep(i,l) cout << ')';
+    cout << endl;
     return 0;
 }

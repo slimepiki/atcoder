@@ -65,5 +65,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int x;
+    int a[100010]{};
+    rep(i,N){
+        cin >> x;
+        a[x]++;
+    }
+
+    int h = 0,t = 100009;
+    int minus = 0;
+    while(h < t){
+        
+    }
+
+    cout << N - minus << endl;
+
     return 0;
 }

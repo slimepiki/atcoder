@@ -18,18 +18,19 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -46,7 +47,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,20 +66,36 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll x;
-    cin >> x;
+    int N, K;
+    cin >> N >> K;
 
-    ll sho = x/11;
-    ll amari = x%11;
-    ll tasu = 0;
-    if(amari == 0){
-        tasu = 0;
-    }else if(amari <= 6){
-        tasu = 1;
-    }else {
-        tasu = 2;
+    int k = 1;
+    int c = 0;
+    int zero = 0;
+    char x;
+    rep(i, N) {
+        cin >> x;
+        if (x == '0') {
+            if (c > 0) {
+                if (k == K) {
+                    rep(j, zero) cout << 0;
+                    zero =0;
+                }if(k == K-1){zero++;}else {cout << 0;}
+                k++;
+            } else {
+                if (k == K) {
+                    zero++;
+                }else{
+                    cout << 0;
+                }
+            }
+            c = 0;
+        } else {
+            c++;
+            cout << 1;
+        }
     }
-
-    cout << sho * 2 + tasu << endl;
+    rep(j, zero) cout << 0;
+    cout << endl;
     return 0;
 }

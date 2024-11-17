@@ -65,5 +65,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int a[5];
+    rep(i,5)cin >> a[i];
+    int k;
+    cin >> k;
+
+    rep(i,5){
+        rep(j,i+1,5){
+            if((a[j]-a[i]) > k){
+                cout << ":(" << endl;
+                return 0;
+            }
+        }
+    }
+    
+    
+
+    cout << "Yay!" << endl;
     return 0;
 }
