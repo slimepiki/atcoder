@@ -65,5 +65,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    int count=0;
+    int h;
+    int m = 0;
+    rep(i,N){
+        cin >> h;
+        if(m <= h)count++;
+        chmax(m,h);
+    }
+
+    cout << count << endl;
+
     return 0;
 }

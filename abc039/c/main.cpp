@@ -68,6 +68,25 @@ int main() {
 
     string s;
     cin >> s;
+    int ww[2];
+
+    int wwc = 0;
+    char pr = s[0];
+    rep(i,1,s.size()){
+        if(pr == 'W' && s[i] == 'W'){
+            ww[wwc++] = i;
+        }
+        if(wwc >= 2)break;
+        pr = s[i];
+    }
+    debug(ww[0], ww[1]);
+    if(ww[0] == 5 && ww[1] == 12)cout << "Do" << endl;
+    else if(ww[0] == 3 && ww[1] == 10)cout << "Re" << endl;
+    else if(ww[0] == 1 && ww[1] == 8)cout << "Mi" << endl;
+    else if(ww[0] == 7 && ww[1] == 12)cout << "Fa" << endl;
+    else if(ww[0] == 5 && ww[1] == 10)cout << "So" << endl;
+    else if(ww[0] == 3 && ww[1] == 8)cout << "La" << endl;
+    else if(ww[0] == 1 && ww[1] == 6)cout << "Si" << endl;
 
     return 0;
 }

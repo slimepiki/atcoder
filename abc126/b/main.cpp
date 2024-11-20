@@ -65,5 +65,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    int x = stoi(s.substr(0,2));
+    int y = stoi(s.substr(2,2));
+    if((x > 12 && y > 12 )|| (x == 0 && y == 0) || (x > 12 && y == 0) || (x == 0 && y > 12))cout << "NA" << endl;
+    else if(x > 0 && x <= 12 && y > 0 && y <= 12)cout << "AMBIGUOUS"<< endl;
+    else if(x > 12 || x == 0)cout << "YYMM" << endl;
+    else if(y > 12 || y == 0)cout << "MMYY" << endl;
+
     return 0;
 }
