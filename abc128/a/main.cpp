@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    float a,p;
+    cin >>a >> p;
+
+    cout << floor((a * 3 + p)/2.0f) << endl;
+
     return 0;
 }

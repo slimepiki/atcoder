@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,6 +64,31 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    map<ll, ll> b;
+    ll N, a;
+    cin >> N;
+    rep(i, N) {
+        cin >> a;
+        b[a]++;
+    }
+    int acm = 0;
+    ll x[100];
+    for (auto itr = b.rbegin(); itr != b.rend(); itr++) {
+        if (itr->second >= 4) {
+            x[acm++] = itr->first;
+            x[acm++] = itr->first;
+        } else if (itr->second >= 2) {
+            x[acm++] = itr->first;
+        }
+        if (acm >= 2) break;
+    }
+    debug(x[0],x[1]);
+    if (acm < 1) {
+        cout << 0 << endl;
+    } else {
+        cout << x[0] * x[1] << endl;
+    }
 
     return 0;
 }

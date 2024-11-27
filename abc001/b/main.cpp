@@ -65,5 +65,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int m;
+    cin >> m;
+
+    int x = ceil((float)m /1000.0f);
+    int y = ceil((float)m /100.0f);
+
+    if(m < 100)cout << "00" << endl;
+    else if(m <= 5000){
+        if(y < 10) cout << '0' << y << endl;
+        else cout << y << endl;
+    }else if(m <= 30000){
+        cout << 50 + x << endl;
+    }else if(m <= 70000){
+        cout << (x-30)/5 + 80 << endl;
+    }else cout << "89" << endl;
+
     return 0;
 }

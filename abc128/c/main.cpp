@@ -65,5 +65,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >>M;
+
+    bitset<10> b[M];
+    int k,s;
+    rep(i,N){
+
+        rep(j,M){
+            cin
+        }
+    }
+
     return 0;
 }

@@ -65,5 +65,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    int a[2]{};
+    rep(i,s.size()){
+        a[s[i]-'A']++;
+    }
+
+    if(a[0] >0 && a[1] > 0)cout << "Yes" << endl;
+    else cout << "No" << endl;
+
     return 0;
 }

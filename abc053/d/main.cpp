@@ -68,16 +68,34 @@ int main() {
     int N;
     cin >> N;
     int x;
-    int a[100010]{};
+    vector<int> a(100010,0);
     rep(i,N){
         cin >> x;
         a[x]++;
     }
 
-    int h = 0,t = 100009;
+    auto h = 0;
+    auto t = 100009;
     int minus = 0;
-    while(h < t){
-        
+    while(true){
+        while(a[h] <= 1 && h < 100010) {
+            h++;
+        }
+        while(a[t] <= 1 && t >= 0){
+            t--;
+        }
+
+        if(h < t){
+            a[h]--;
+            a[t]--;
+            minus += 2;
+        }else if(h == t && a[h] >=2){
+            a[h]-=2;
+            minus += 2;
+        }else{
+            break;
+        }
+
     }
 
     cout << N - minus << endl;

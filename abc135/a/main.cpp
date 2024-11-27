@@ -65,5 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int A,B;
+    cin >>A >> B;
+
+    int l = max(A,B);
+    int s = min(A,B);
+    if(abs(A-B)%2 == 1){
+        cout << "IMPOSSIBLE" << endl;
+    }else{
+        cout << s + (l-s)/2 << endl;
+    }
+
     return 0;
 }

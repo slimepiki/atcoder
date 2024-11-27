@@ -61,9 +61,108 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const{
+        return x;
+    }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    string s1,s2;
+    cin >> N >> s1 >> s2;
+
+    vector<int> a(0,0);
+
+    rep(i,N){
+        if(s1[i] == s2[i]){
+            a.push_back(1);
+        }else{
+            i++;
+            a.push_back(2);
+        }
+    }
+    mint ans;
+    if(a[0] == 1)ans = 3;
+    else ans = 6;
+
+    rep(i,1,a.size()){
+        if(a[i-1] == 1 && a[i] == 1)ans*=2;
+        else if(a[i-1] == 2 && a[i] == 1) ans*=1;
+        else if(a[i-1] == 2 && a[i] == 2) ans*=3;
+        else if(a[i-1] == 1 && a[i] == 2) ans*=2;
+    }
+
+    cout << ans << endl;
 
     return 0;
 }

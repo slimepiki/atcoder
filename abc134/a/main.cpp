@@ -65,5 +65,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int r;
+    cin >> r;
+    cout << 3 * r * r << endl;
+
     return 0;
 }

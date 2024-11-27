@@ -65,5 +65,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    int c = 0;
+    int x;
+    rep(i,N){
+        cin >> x;
+        if(i+1 != x)c++;
+    }
+
+    if(c <=2)cout << "YES" << endl;
+    else cout << "NO" << endl;
+
     return 0;
 }
