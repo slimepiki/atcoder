@@ -65,5 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N,A,B;
+    ll ans = 0;
+    cin >> N >> A >> B;
+    ll px, x;
+    cin >> px;
+    rep(i,N-1){
+        cin >> x;
+        ans += min((x-px)*A,B);
+        px = x;
+    }
+    cout << ans << endl;
     return 0;
 }

@@ -65,5 +65,8 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int A,B,C;
+    cin >> A >> B >>C;
+    cout << C - min(A-B,C) << endl;
     return 0;
 }

@@ -25,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -47,6 +48,22 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -67,13 +84,13 @@ int main() {
 
     int N;
     cin >> N;
-    int c, s, f;
-    int t[N]{};
-    rep(i, N - 1) {
-        cin >> c >> s >> f;
-        t[i] = s + c;
-        rep(j, i) { t[j] = ceil((float)max(s, t[j]) / (float)f) * f + c; }
+    int r = 2025 - N;
+
+    rep(i, 1, 10) {
+        if (r % i == 0 && r / i < 10) {
+            cout << i << " x " << r / i << endl;
+        }
     }
-    rep(i, N) { cout << t[i] << endl; }
+
     return 0;
 }
