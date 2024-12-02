@@ -65,5 +65,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,K;
+    cin >> N >> K;
+
+    ll ans = 0;
+
+    rep(i,1, N+1){
+        int f = floor((float)N/(float)i);
+        int rem = N%i;
+        //if(N <= 10)debug(i, f * max(0,(i-K)), min(max(0,rem-K + 1),rem));
+        ans += f * max(0,(i-K)) +min(max(0,rem-K + 1),rem);
+    }
+
+    cout << ans << endl;
+
     return 0;
 }

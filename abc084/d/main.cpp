@@ -25,7 +25,7 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
-
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 #define ii tuple<int, int>
 #define iiget(t, x, y) \
     x = get<0>(t);     \
@@ -61,9 +61,53 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+bool IsPrime(int num){
+    if (num < 2) return false;
+    else if (num == 2) return true;
+    else if (num % 2 == 0) return false;
+
+    double sqrtNum = sqrt(num);
+    for (int i = 3; i <= sqrtNum; i += 2){
+        if (num % i == 0)return false;    
+    }
+    return true;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+
+    bool est[100010]{};
+    est[1] = true;
+    int Q;
+    cin >> Q;
+
+    rep(i,1, 100001){
+        if(est[i] == false){
+            for(int j = i * 2;j <= 100000;j +=i){
+                est[j] = true;
+            }
+        }
+    }
+
+    debug(est[2017], est[1009])
+
+    set<int> like;
+    rep(i,1, 50000){
+        if(!est[i] && !est[i*2-1]){
+            like.insert(i*2-1);
+        }
+    }
+
+    int l, r;
+    rep(i,Q){
+        cin >> l >> r;
+        auto lit = like.lower_bound(l);
+        auto rit = like.upper_bound(r);
+//        debug(*lit,*rit);
+        cout << distance(lit,rit) << endl;
+    }
 
     return 0;
 }
