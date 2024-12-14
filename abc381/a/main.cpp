@@ -25,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -47,6 +48,23 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -66,37 +84,26 @@ int main() {
     ios_base::sync_with_stdio(false);
 
     int N;
-    cin >> N;
-
-    int h[N]{};
-
-    rep(i, N) cin >> h[i];
-
-    int ans = 0;
-
-    bool yatta = false;
-
-    while (true) {
-        yatta = false;
-        rep(i, N) {
-            if (!yatta && h[i] > 0) {
-                h[i]--;
-                yatta = true;
-
-            }else if(yatta && h[i] > 0){
-                h[i]--;
-            }else if(yatta && h[i] == 0){
-
-                break;
+    string s;
+    cin >> N >> s;
+    if(N % 2 != 1){
+        cout << "No" << endl;
+        return 0;
+    }else{
+        rep(i, N / 2){
+            if(s[i] != '1' || s[N-i-1] != '2'){
+                debug(i);
+                cout << "No" << endl;
+                return 0;
             }
         }
-
-        if (yatta) {
-            ans++;
-        } else {
-            break;
-        }
     }
-    cout << ans << endl;
+    debug(s.size()/2+1)
+    if(s[s.size()/2] != '/'){
+        cout << "No" << endl;
+    }else{
+        cout << "Yes" << endl;
+    }
+
     return 0;
 }

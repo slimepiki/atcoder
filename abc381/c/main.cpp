@@ -25,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -47,6 +48,23 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -66,37 +84,38 @@ int main() {
     ios_base::sync_with_stdio(false);
 
     int N;
-    cin >> N;
+    string s;
+    cin >> N >> s;
+    vector<pair<char, int>> a;
 
-    int h[N]{};
+    char c = s[0];
+    int co = 1;
 
-    rep(i, N) cin >> h[i];
-
-    int ans = 0;
-
-    bool yatta = false;
-
-    while (true) {
-        yatta = false;
-        rep(i, N) {
-            if (!yatta && h[i] > 0) {
-                h[i]--;
-                yatta = true;
-
-            }else if(yatta && h[i] > 0){
-                h[i]--;
-            }else if(yatta && h[i] == 0){
-
-                break;
-            }
-        }
-
-        if (yatta) {
-            ans++;
+    rep(i, 1, s.size()) {
+        if (s[i] != c) {
+            a.push_back({c, co});
+            c = s[i];
+            co = 1;
         } else {
-            break;
+            co++;
         }
     }
-    cout << ans << endl;
+    a.push_back({c, co});
+
+    int m = 1;
+
+    if (a.size() < 3) {
+        cout << 1 << endl;
+        return 0;
+    }
+
+    rep(i, a.size() - 2) {
+        if (a[i].first == '1' && a[i + 1].first == '/' &&
+            a[i + 2].first == '2' && a[i + 1].second == 1) {
+            chmax(m, min(a[i].second, a[i + 2].second) * 2 + 1);
+        }
+    }
+    cout << m << endl;
+
     return 0;
 }
