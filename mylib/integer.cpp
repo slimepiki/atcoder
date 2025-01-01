@@ -95,11 +95,14 @@ ll perm(ll n, ll k){
     return ans;
 }
 
-ll conv(ll n, ll k){
-    if(k <= 0){
-        cerr << "conv error : k = " << k << endl;
+//secure
+ll comb(ll n, ll k) {
+    ll ret = 1;
+    for (ll i = n; i >= 0; i--) {
+        if (i > (n-k) && i != 0) ret *= i;
+        if (i != n && k >= n - i) ret /= (n - i);
     }
-    return perm(n,k)/ factorial(k);
+    return ret;
 }
 
 // modつきint
@@ -170,3 +173,12 @@ mint mfactorial(ll n) {
     for (ll i = 2; i <= n; i++) ans *= i;
     return ans;
 }
+
+
+//regacy
+// ll conb(ll n, ll k){
+//     if(k <= 0){
+//         cerr << "conv error : k = " << k << endl;
+//     }
+//     return perm(n,k)/ factorial(k);
+// }

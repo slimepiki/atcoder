@@ -65,5 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N,M;
+    cin >> N >> M;
+
+    if(2*N >= M){
+        cout << M/2 << endl;
+        return 0;
+    }else{
+        cout << N + (M-2*N)/4 << endl;
+    }
+
+
     return 0;
 }
