@@ -85,12 +85,11 @@ int main() {
 
     int N;
     cin >> N;
-
-    int a,ans = 0;
-
+    string s;
+    int ans = 0;
     rep(i,N){
-        cin >> a;
-        if(a > 10)ans += a-10;
+        cin >> s;
+        if(s[0] == 'T')ans++;
     }
     cout << ans << endl;
     return 0;

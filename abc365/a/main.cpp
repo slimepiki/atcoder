@@ -83,15 +83,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-
-    int a,ans = 0;
-
-    rep(i,N){
-        cin >> a;
-        if(a > 10)ans += a-10;
-    }
-    cout << ans << endl;
+    int y;
+    cin >> y;
+    if(y %4 !=0)cout << 365 << endl;
+    else if(y%100 != 0)cout << 366<<endl;
+    else if(y%400 != 0)cout << 365<<endl;
+    else cout << 366 << endl;
     return 0;
 }

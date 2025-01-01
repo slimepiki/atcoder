@@ -83,15 +83,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    double A,B;
+    cin >> A >>B;
 
-    int a,ans = 0;
+    cout << fixed << setprecision(12) <<100.0l -  (B/A)*100 << endl;
 
-    rep(i,N){
-        cin >> a;
-        if(a > 10)ans += a-10;
-    }
-    cout << ans << endl;
     return 0;
 }
