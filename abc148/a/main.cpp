@@ -65,5 +65,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int A,B;
+    cin >> A >> B;
+    bool a[3]{};
+    a[A-1] = true;
+    a[B-1] = true;
+    rep(i,3){
+        if(!a[i]){
+        cout << i+1 << endl;
+        return 0;
+        }
+    }
+
     return 0;
 }

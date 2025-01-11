@@ -79,9 +79,19 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+#include <bits/stdc++.h>
+using namespace std;
+ 
 int main() {
-    cin.tie(nullptr);
-    ios_base::sync_with_stdio(false);
+  int A, B;
+  cin >> A >> B;
+ 
+ cout << "A:";
+ rep(i,A)cout << ']';
+ cout << endl;
+ cout << "B:";
+ rep(i,B)cout << ']';
+ cout << endl;
 
-    return 0;
+ return 0;
 }

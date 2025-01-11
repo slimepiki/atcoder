@@ -83,5 +83,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    float a[N];
+    int hei = 0;
+    rep(i,N){
+        cin >> a[i];
+        hei += a[i];
+    }
+    hei /= N;
+
+    rep(i,N){
+        cout << abs(hei - a[i]) << endl;
+    }
+
     return 0;
 }

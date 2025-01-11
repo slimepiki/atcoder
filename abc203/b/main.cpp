@@ -83,5 +83,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,K;
+    cin >> N >> K;
+
+    cout << N * ((K+1)* K)/2 + 100 * K * ((N+1)*N)/2 << endl;
+
     return 0;
 }

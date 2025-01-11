@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,5 +65,36 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    string sub;
+
+    int i = s.size();
+    while (i > 0) {
+        if (i >= 5) {
+            sub = s.substr(i - 5, 5);
+            if (sub == "dream" || sub == "erase") {
+                i -= 5;
+                continue;
+            }
+        }
+        if (i >= 6) {
+            sub = s.substr(i - 6, 6);
+            if (sub == "eraser") {
+                i -= 6;
+                continue;
+            }
+        }
+        if(i >= 7){
+            sub = s.substr(i - 7, 7);
+            if (sub == "dreamer") {
+                i -= 7;
+                continue;
+            }
+        }
+        cout << "NO" << endl;
+        return 0;
+    }
+    cout << "YES" << endl;
     return 0;
 }

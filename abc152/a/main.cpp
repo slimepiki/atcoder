@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+     if(N==M)cout << "Yes" << endl;
+    else cout << "No" << endl;
+
     return 0;
 }

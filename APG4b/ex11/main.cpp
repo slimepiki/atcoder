@@ -83,5 +83,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,A;
+    cin >> N >> A;
+    char op;
+    int b;
+    int val = A;
+    rep(i,N){
+        cin >> op >> b;
+        if(op == '+')val += b;
+        else if(op == '-')val -= b;
+        else if(op == '*')val *= b;
+        else if(op == '/'){
+            if(b == 0){
+                cout << "error" << endl;
+                return 0;
+            }
+            else val /= b;
+        }
+        cout << i+1 << ':' << val<< endl;
+    }
+
     return 0;
 }
