@@ -83,11 +83,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int X,A;
-    cin >> X >> A;
-
-    if(X < A)cout << 0<< endl;
-    else cout << 10 << endl;
+    string s;
+    cin >> s;
+    if (s[1] == 'o') cout << 5 << endl;
+    if (s[1] == 'u') cout << 4 << endl;
+    if (s[1] == 'e') cout << 3 << endl;
+    if (s[1] == 'h') cout << 2 << endl;
+    if (s[1] == 'r') cout << 1 << endl;
 
     return 0;
 }

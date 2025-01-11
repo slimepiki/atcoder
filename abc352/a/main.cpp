@@ -83,11 +83,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int X,A;
-    cin >> X >> A;
+    int N, X, Y, Z;
+    cin >> N >> X >> Y >> Z;
 
-    if(X < A)cout << 0<< endl;
-    else cout << 10 << endl;
+    if ((X < Z && Z < Y) || (Y < Z && Z < X))
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }

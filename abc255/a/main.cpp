@@ -83,11 +83,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int X,A;
-    cin >> X >> A;
+    int R,C;
+    cin >> R >> C;
+    int a[2][2];
 
-    if(X < A)cout << 0<< endl;
-    else cout << 10 << endl;
+    rep(i,4)cin >>a[i/2][i%2];
+    cout << a[R-1][C-1] << endl;
 
     return 0;
 }

@@ -65,5 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,X;
+    cin >> N >> X;
+
+    int sum = 0;
+    int x;
+    rep(i,N){
+        cin >> x;
+        sum += x - ((i%2 == 1) ? 1 : 0);
+    }
+     if(sum <= X)cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }

@@ -83,11 +83,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int X,A;
-    cin >> X >> A;
-
-    if(X < A)cout << 0<< endl;
-    else cout << 10 << endl;
+    int A,B;
+    cin >> A >> B;
+    cout << (A+B)/2 << ' ' << (A-B)/2 << endl;
 
     return 0;
 }
