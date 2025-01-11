@@ -83,28 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    float A[3];
+    cin >> A[0] >> A[1] >> A[2];
+    sort(A, A + 3);
 
-    pair<ll,ll> x[N];
-    int a,b;
-    rep(i,N){
-        cin >>a >> b;
-        x[i] = make_pair(a,b);
-    }
+    if (A[1] == (A[2] + A[0]) / 2)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
-    sort(x, x+N, [](ii x,ii y){return x.second < y.second;});
-
-
-    ll time = 0;
-    rep(i,N){
-        time += x[i].first;
-        //debug(time, x[i].second);
-        if(time > x[i].second){
-            cout << "No" << endl;
-            return 0;
-        }
-    }
-    cout << "Yes" << endl;
     return 0;
 }
