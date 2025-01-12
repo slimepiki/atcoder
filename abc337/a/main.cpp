@@ -85,18 +85,14 @@ int main() {
 
     int N;
     cin >> N;
-    int a[N],b[N];
-
-    rep(i,N)cin >> a[i];
-    rep(i,N)cin >> b[i];
-
-    ll ans = 0;
+    int t=0,a=0;
+    int x,y;
     rep(i,N){
-        ans += a[i]*b[i];
+        cin >> x >> y;
+        t+= x;a+=y;
     }
-
-     if(ans)cout << "No" << endl;
-    else cout << "Yes" << endl;
-
+    if(t<a)cout << "Aoki" << endl;
+    else if(t == a)cout << "Draw"<< endl;
+    else cout << "Takahashi" << endl;
     return 0;
 }

@@ -83,20 +83,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    int a[N],b[N];
-
-    rep(i,N)cin >> a[i];
-    rep(i,N)cin >> b[i];
-
-    ll ans = 0;
-    rep(i,N){
-        ans += a[i]*b[i];
-    }
-
-     if(ans)cout << "No" << endl;
-    else cout << "Yes" << endl;
-
     return 0;
 }

@@ -85,18 +85,18 @@ int main() {
 
     int N;
     cin >> N;
-    int a[N],b[N];
 
-    rep(i,N)cin >> a[i];
-    rep(i,N)cin >> b[i];
-
-    ll ans = 0;
-    rep(i,N){
-        ans += a[i]*b[i];
+    int an = 0;
+    cin >> an;
+    int x;
+    rep(i,N-1){
+        cin >> x;
+        if(x != an){
+            cout << "No" << endl;
+            return 0;
+        }
     }
 
-     if(ans)cout << "No" << endl;
-    else cout << "Yes" << endl;
-
+    cout << "Yes" << endl;
     return 0;
 }

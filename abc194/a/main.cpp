@@ -83,20 +83,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    int a[N],b[N];
+    int A,B;
+    cin >>A >> B;
 
-    rep(i,N)cin >> a[i];
-    rep(i,N)cin >> b[i];
+    int ans;
 
-    ll ans = 0;
-    rep(i,N){
-        ans += a[i]*b[i];
-    }
+    if(A+B >= 15 && B >= 8)ans = 1;
+    else if(A+B >= 10 && B >= 3)ans = 2;
+    else if(A+B >= 3)ans = 3;
+    else ans = 4;
 
-     if(ans)cout << "No" << endl;
-    else cout << "Yes" << endl;
+    cout << ans << endl;
 
     return 0;
 }
