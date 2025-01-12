@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    ll H[N];
+    ll mx = -1;
+    rep(i,N){
+        cin >> H[i];
+        chmax(mx, H[i]);
+    }
+    rep(i,N){
+        if(H[i] == mx){
+            cout << i+1 << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

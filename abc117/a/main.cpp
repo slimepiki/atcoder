@@ -83,5 +83,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    double T,X;
+    cin >> T >> X;
+    cout << fixed << setprecision(10) << T/X << endl;
+
+
+
     return 0;
 }

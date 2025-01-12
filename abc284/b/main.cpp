@@ -83,5 +83,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int T;
+    cin >> T;
+
+    int N;
+    int a;
+    int ans;
+    rep(i, T) {
+        cin >> N;
+        ans = 0;
+        rep(j, N) {
+            cin >> a;
+            if (a % 2 != 0) ans++;
+        }
+        cout << ans << endl;
+    }
+
     return 0;
 }

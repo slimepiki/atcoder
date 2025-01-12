@@ -62,5 +62,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H,A;
+    cin >>H >> A;
+
+    int ans = 0;
+    while(true){
+        if(H<=0){
+            cout << ans << endl;
+            return 0;
+        }else{
+            ans++;
+            H-=A;
+        }
+    }
+
     return 0;
 }

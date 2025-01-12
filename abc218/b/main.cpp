@@ -83,5 +83,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int x;
+    rep(i, 26){
+        cin >> x;
+        cout << (char)(x+'a'-1);
+    }
+    cout << endl;
     return 0;
 }

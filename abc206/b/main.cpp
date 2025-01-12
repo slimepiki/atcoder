@@ -65,5 +65,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N;
+    cin >> N;
+        ll sum;
+
+    rep(i,1,100000){
+        sum = (i+1)*i/2;
+        if(N<= sum){
+            cout << i << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }
