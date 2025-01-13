@@ -82,6 +82,19 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N;
+    cin >> N;
+    unordered_map<int,int> m;
+    int a;
+    rep(i, N){
+        cin >> a;
+        if(m.count(a) == 0)m[a] = 1;
+        else m[a]++;
+    }
+
+    auto maxelem = max_element(m.begin(),m.end(),[](ii x, ii y){return x.second < y.second;});
+
+    cout << maxelem->first << ' ' << maxelem->second << endl;
 
     return 0;
 }

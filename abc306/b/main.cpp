@@ -79,39 +79,18 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-int count_report_num(vector<vector<int>> &children, int x) {
-    int sum = 0;
-    if(children[x].size() == 0)return 1;
-    rep(i,children[x].size()){
-        sum += count_report_num(children, children[x][i]);
-    }
-    return 1+ sum;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-      int N;
-  cin >> N;
- 
-  vector<int> p(N);  // 各組織の親組織を示す配列
-  p.at(0) = -1;  // 0番組織の親組織は存在しないので-1を入れておく
-  for (int i = 1; i < N; i++) {
-    cin >> p.at(i);
-  }
- 
-  // 組織の関係から2次元配列を作る
-  vector<vector<int>> children(N);  // ある組織の子組織の番号一覧
-  for (int i = 1; i < N; i++) {
-    int parent = p.at(i);  // i番の親組織の番号
-    children.at(parent).push_back(i);  // parentの子組織一覧にi番を追加
-  }
- 
-  // 各組織について、答えを出力
-  for (int i = 0; i < N; i++) {
-    cout << count_report_num(children, i) << endl;
-  }
-
+    unsigned long long ans = 0;
+    unsigned long long dig = 1;
+    int a;
+    rep(i, 64){
+        cin >> a;
+        ans += a*dig;
+        dig *= 2;
+    }
+    cout << ans << endl;
     return 0;
 }
