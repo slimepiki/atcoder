@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    bool ck[N]{};
+
+    int a;
+    rep(i,N){
+        cin >> a;
+        if(ck[a-1]){
+            cout << "No" << endl;
+            return 0;
+        }else{
+            ck[a-1] = true;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

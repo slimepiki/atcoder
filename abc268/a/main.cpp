@@ -83,5 +83,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int a;
+    set<int> s;
+    rep(i, 5) {
+        cin >> a;
+        s.insert(a);
+    }
+    cout << s.size() << endl;
     return 0;
 }

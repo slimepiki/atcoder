@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+      vector<int> data(5);
+  for (int i = 0; i < 5; i++) {
+    cin >> data.at(i);
+  }
+  rep(i,4){
+    if(data[i] == data[i+1]){
+        cout << "YES" << endl;
+        return 0;
+    }
+  }
+    cout << "NO" << endl;
     return 0;
 }

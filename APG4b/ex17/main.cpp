@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,S;
+    cin >> N >> S;
+    int ans = 0;
+    int a[N],b[N];
+    rep(i,N)cin >> a[i];
+    rep(i,N)cin >> b[i];
+
+    rep(i,N)rep(j,N){
+        if(a[i]+b[j] == S)ans++;
+    }
+    cout << ans << endl;
     return 0;
 }

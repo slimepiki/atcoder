@@ -65,5 +65,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    char x;
+    rep(i,s.size()){
+        x =s[s.size()-1-i];
+        if(x == '0' || x == '1' || x == '8')cout << x;
+        else if(x == '6') cout << 9;
+        else cout << 6 ;
+    }
+    cout << endl;
     return 0;
 }

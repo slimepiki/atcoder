@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+    vector<vector<char>> m(N,vector<char>(N,'-'));
+
+    int a,b;
+
+    rep(i,M){
+        cin >> a >> b;
+        a--;b--;
+        m[a][b] = 'o';
+        m[b][a] = 'x';
+    }
+
+    printa2d(m,N,N);
+
     return 0;
 }

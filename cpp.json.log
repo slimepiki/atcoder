@@ -1,0 +1,65 @@
+{
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"YeN": {
+		"prefix": "yen",
+		"body":[ " if($1)cout << \"Yes\" << endl;",
+    				"else cout << \"No\" << endl;"]
+	},
+
+	"NoY": {
+		"prefix": "noy",
+		"body":[ " if($1)cout << \"No\" << endl;",
+    				"else cout << \"Yes\" << endl;"]
+	},
+
+	"coy": {
+		"prefix": "coy",
+		"body":[ "cout << \"Yes\" << endl;"]
+	},"con": {
+		"prefix": "con",
+		"body":[ "cout << \"No\" << endl;"]
+	},"coyr": {
+		"prefix": "coyr",
+		"body":[ "cout << \"Yes\" << endl;",
+					"return 0;"]
+	},"conr": {
+		"prefix": "conr",
+		"body":[ "cout << \"No\" << endl;",
+		"return 0;"]
+	},"icor": {
+		"prefix": "icor",
+		"body":[ "if($1){",
+		"cout << $2 << endl;",
+		"return 0;","}"]
+	},"com1": {
+		"prefix": "com1",
+		"body":[ "cout << -1 << endl;"]
+	},"codl": {
+		"prefix": "codl",
+		"body":[ "cout << endl;"]
+	},"inrz": {
+		"prefix": "inrz",
+		"body":[ "if($1){",
+		"cout << \"No\" << endl",
+		"return 0",
+		"}"]
+	},"iyrz": {
+		"prefix": "iyrz",
+		"body":[ "if($1){",
+		"cout << \"Yes\" << endl",
+		"return 0",
+		"}"]
+	},
+}

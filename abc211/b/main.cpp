@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    bitset<4> ck{};
+    string s;
+    rep(i,4){
+        s.clear();
+        cin >> s;
+        if(s == "H")ck.set(0,true);
+        if(s == "2B")ck.set(1,true);
+        if(s == "3B")ck.set(2,true);
+        if(s == "HR")ck.set(3,true);
+    }
+    //cout << ck << endl;
+
+
+    if(ck.all())cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }
