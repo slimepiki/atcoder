@@ -83,5 +83,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,a;
+    cin >> N;
+
+    unordered_set<int> s;
+
+    rep(i,N){
+        cin >> a;
+        s.insert(a);
+    }
+    cout << s.size() << endl;
     return 0;
 }

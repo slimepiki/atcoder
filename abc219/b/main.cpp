@@ -82,5 +82,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s[3],t;
+    rep(i,3)cin >> s[i];
+    cin >> t;
+
+    rep(i,t.size()){
+        if(t[i] == '1')cout << s[0];
+        else if(t[i] == '2')cout << s[1];
+        else cout << s[2];
+    }
+    cout << endl;
     return 0;
 }

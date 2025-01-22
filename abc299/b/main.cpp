@@ -83,5 +83,39 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, T;
+    cin >> N >> T;
+    set<int> t, tp;
+
+    int x, p1c;
+    rep(i, N) {
+        cin >> x;
+        if (i == 0) p1c = x;
+        if (x == T) t.insert(i);
+        if (x == p1c) tp.insert(i);
+    }
+    int mx = -1;
+    int maxind = -1;
+    rep(i, N) {
+        cin >> x;
+        if (t.size() == 0) {
+            if (tp.count(i)){
+                if(mx < x){
+                    mx = x;
+                    maxind = i+1;
+                }
+            }
+        }else{
+            if(t.count(i)){
+                if(mx < x){
+                    mx = x;
+                    maxind = i+1;
+                }
+            }
+        }
+    }
+
+    cout << maxind << endl;
+
     return 0;
 }

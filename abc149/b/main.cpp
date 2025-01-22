@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll A,B,K;
+    cin >> A >>B >> K;
+
+    if(K<=A)cout << A-K << ' ' << B << endl;
+    else cout << 0 << ' ' << max((ll)0,B-(K-A)) << endl;
     return 0;
 }

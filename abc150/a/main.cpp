@@ -65,5 +65,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int K , X;
+    cin >> K >> X;
+     if(K*500 >= X)cout << "Yes" << endl;
+    else cout << "No" << endl;
+
     return 0;
 }

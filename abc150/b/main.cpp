@@ -65,5 +65,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    string s;
+    cin >> N >> s;
+    int ans = 0;
+    rep(i,N-2){
+        if(s.substr(i,3) == "ABC")ans++;
+    }
+    cout << ans << endl;
     return 0;
 }

@@ -65,5 +65,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll s;
+    int K;
+
+    cin >> s >> K;
+    rep(i,K){
+        if(s%200 == 0)s = s/200;
+        else s = s * 1000 +200;
+    }
+    cout << s << endl;;
     return 0;
 }

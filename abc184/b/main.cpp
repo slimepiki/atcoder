@@ -83,5 +83,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,X;
+    cin >> N >> X;
+    int ans = X;
+
+    char a;
+    rep(i,N){
+        cin >> a;
+        if(a == 'o')ans++;
+        else{
+            ans = max(ans-1,0);
+        }
+    }
+    cout << ans << endl;
+
     return 0;
 }

@@ -83,5 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,h,t;
+    cin >> N;
+    cin >> t;
+    rep(i,N-1){
+        cin >> h;
+        if(t < h)t = h;
+        else break;
+    }
+    cout << t << endl;
     return 0;
 }

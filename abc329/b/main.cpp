@@ -83,5 +83,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int a[N];
+    rep(i,N)cin >> a[i];
+    sort(a,a+N);
+    int mx = a[N-1];
+    rep(i,N){
+        if(a[N-1-i] != mx){
+            cout << a[N-1-i] << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

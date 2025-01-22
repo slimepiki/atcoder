@@ -83,5 +83,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,L,R;
+    cin >> N >> L >> R;
+    rep(i,N){
+        if(i != 0)cout << ' ';
+        if(i + 1 >=  L && i + 1 <= R)cout << R - (i-L) - 1;
+        else cout << i+1;
+    }
+    cout << endl;
     return 0;
 }

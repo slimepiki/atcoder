@@ -62,5 +62,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    if(s == "SUN")cout <<7;
+    if(s == "MON")cout <<6;
+    if(s == "TUE")cout <<5;
+    if(s == "WED")cout <<4;
+    if(s == "THU")cout <<3;
+    if(s == "FRI")cout <<2;
+    if(s == "SAT")cout <<1;
+    cout << endl;
     return 0;
 }

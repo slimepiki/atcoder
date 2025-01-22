@@ -64,5 +64,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll X;
+    cin >> X;
+
+    int s = 0,f = 0;
+    s = X/500;
+    f = (X-500 * s)/5;
+    cout << s * 1000 + 5 * f << endl;
+
     return 0;
 }

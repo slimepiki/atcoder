@@ -83,5 +83,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int X;
+    cin >> X;
+    int ans = 0;
+
+    rep(i,9)rep(j,9){
+        if((i+1)*(j+1) != X)ans += (i+1)*(j+1);
+    }
+    cout << ans << endl;
     return 0;
 }
