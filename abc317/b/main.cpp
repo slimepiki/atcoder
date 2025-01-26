@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    int a[N];
+
+    rep(i,N)cin >> a[i];
+
+    sort(a,a+N);
+    rep(i,N-1){
+        if(a[i] + 1 != a[i+1]){
+            cout << a[i]+1 << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

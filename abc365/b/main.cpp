@@ -83,5 +83,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    ii a[N];
+    sort(a,a+N);
+    int x;
+    rep(i,N){
+        cin >> x;
+        a[i] = make_pair(x,i+1);
+    }
+
+    sort(a,a+N,[](ii x,ii y){return x.first < y.first;});
+    cout << a[N-2].second << endl;
     return 0;
 }

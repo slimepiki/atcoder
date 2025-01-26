@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -45,7 +45,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -63,6 +63,38 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N, M;
+    cin >> N >> M;
+    vvi s(N, vi());
 
+    int a, b;
+
+    rep(i, M) {
+        cin >> a >> b;
+        a--;
+        b--;
+        s[a].push_back(b);
+        s[b].push_back(a);
+    }
+
+    vector<int> l;
+    rep(i, s[0].size()) {
+        l.push_back(s[0][i]);
+        if (s[0][i] == N - 1) {
+            cout << "POSSIBLE" << endl;
+            return 0;
+        }
+    }
+
+    rep(i, l.size()) {
+        rep(j, s[l[i]].size()) {
+            if (s[l[i]][j] == N - 1) {
+                cout << "POSSIBLE" << endl;
+                return 0;
+            }
+        }
+    }
+
+    cout << "IMPOSSIBLE" << endl;
     return 0;
 }

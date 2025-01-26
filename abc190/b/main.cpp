@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,S,D;
+    cin >> N >> S >> D;
+    int x,y;
+    rep(i,N){
+        cin >>x  >> y;
+        if(x<S&&y>D){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }

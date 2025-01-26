@@ -79,9 +79,36 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll comb(ll n, ll k) {
+    ll ret = 1;
+    for (ll i = n; i >= 0; i--) {
+        if (i > (n - k) && i != 0) ret *= i;
+        if (i != n && k >= n - i) ret /= (n - i);
+    }
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N;
+    cin >> N;
+    string s;
+    ll ans = 0;
 
+    unordered_map<string, int> m;
+    rep(i, N) {
+        cin >> s;
+        sort(s.begin(),s.end());
+
+        if (m[s] == 0) {
+            m[s] = 1;
+        } else {
+            ans += m[s];
+            m[s]++;
+        }
+    }
+
+    cout << ans << endl;
     return 0;
 }
