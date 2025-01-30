@@ -83,9 +83,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int r[] = {0,3,4,8,9,14,23};
-    char p,q;
-    cin >> p >> q;
-    cout << abs(r[p-'A']-r[q-'A']) << endl;
+    float A,B;
+    cin >> A >> B;
+
+    cout << fixed << setprecision(3) << (float)(round(1000 *B/A))/1000 << endl;
+
     return 0;
 }

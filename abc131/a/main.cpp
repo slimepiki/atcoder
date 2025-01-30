@@ -83,5 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    rep(i,3){
+        if(s[i] == s[i+1]){
+            cout << "Bad" << endl;
+            return 0;
+        }
+    }
+    cout << "Good" << endl;
     return 0;
 }

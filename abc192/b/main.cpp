@@ -83,5 +83,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+
+    rep(i,s.size()){
+        if(i%2 == 0 && (s[i] < 'a' || s[i] > 'z')){
+            cout << "No" << endl;
+            return 0;
+        }else if(i % 2 == 1 &&(s[i] < 'A' || s[i] > 'Z')){
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

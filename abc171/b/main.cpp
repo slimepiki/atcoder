@@ -83,5 +83,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,K;
+    cin >> N >> K;
+
+    int p[N];
+    rep(i,N)cin >> p[i];
+
+    sort(p,p+N);
+
+    int sum = 0;
+    rep(i,K){
+        sum += p[i];
+    }
+    cout << sum << endl;
     return 0;
 }

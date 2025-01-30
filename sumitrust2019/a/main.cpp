@@ -62,5 +62,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int m1,d1,m2,d2;
+    cin >> m1 >> d1 >> m2 >> d2;
+
+     if(m1 == m2)cout << 0 << endl;
+    else cout << 1 << endl;
+
     return 0;
 }

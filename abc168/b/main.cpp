@@ -83,5 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int K;
+    string s;
+    cin >> K >> s;
+
+    if(s.size() <= K)cout << s << endl;
+    else{
+        cout << s.substr(0,K) << "..." << endl;
+    }
+
     return 0;
 }

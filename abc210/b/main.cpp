@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    char c;
+    rep(i,N){
+        cin >> c;
+        if(c-'0'){
+            if(i%2 == 0){
+                cout << "Takahashi" << endl;
+            }else{
+                cout << "Aoki" << endl;
+            }
+            return 0;
+        }
+    }
+
     return 0;
 }

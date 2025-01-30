@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int L,R;
+    string s;
+    cin >> L >> R >> s;
+    rep(i,s.size()){
+        if(i >= L-1 && i <= R-1){
+            cout << s[R-(i-(L-2))];
+        }else{
+            cout << s[i];
+        }
+    }
+    cout << endl;
     return 0;
 }

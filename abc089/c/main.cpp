@@ -79,13 +79,70 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll comb(ll n, ll k) {
+    ll ret = 1;
+    if(n < k)ret = 0;
+    for (ll i = n; i >= 0; i--) {
+        if (i > (n-k) && i != 0) ret *= i;
+        if (i != n && k >= n - i) ret /= (n - i);
+    }
+    debug(ret);
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int r[] = {0,3,4,8,9,14,23};
-    char p,q;
-    cin >> p >> q;
-    cout << abs(r[p-'A']-r[q-'A']) << endl;
+    ll N;
+    cin >> N;
+    ll ans = 0;
+
+    string s;
+    // unordered_map<string, int> m;
+    // rep(i,N){
+    //     cin >> s;
+    //     if(s[0] == 'M' || s[0] == 'A' || s[0] == 'R' || s[0] == 'C' || s[0] == 'H'){
+    //         if(m[s] != 0)m[s]++;
+    //         else m[s] = 1;
+    //     }
+    // }
+
+    // int c[3]{};
+    // repit(it,m){
+    //     c[min(2,it->second-1)]++;
+    // }
+    // debug(c[0],c[1],c[2]);
+    // //all c[0];
+    // ans += comb(c[0],3);
+    // //c[0] * 2 and (c[1] or c[2]);
+    // ans += comb(c[0],2) * (c[1] + c[2]);
+    // //c[0]*1 and (c[1] or c[2]) * 2;
+    // ans += c[0]*(comb(c[1], 2)+comb(c[2],2));
+    // //c[0]*1 and c[1] * 1 and c[2] * 1;
+    // ans += c[0]*c[1]*c[2];
+    // //c[1]*3;
+    // ans += comb(c[1],3);
+    // //c[1]*2 and c[2] * 1;
+    // ans += comb(c[1],2) * c[2];
+    // //c[1]*1 and c[2] * 2;
+    // ans += c[1] * comb(c[2],2);
+    // //c[3]*3;
+    // ans += comb(c[2],3);
+    // cout << ans << endl;
+    ll c[5]{};
+    rep(i,N){
+        cin >> s;
+        if(s[0] == 'M')c[0]++;
+        else if(s[0] == 'A')c[1]++;
+        else if(s[0] == 'R')c[2]++;
+        else if(s[0] == 'C')c[3]++;
+        else if(s[0] == 'H')c[4]++;
+    }
+
+    rep(i,5)rep(j,i+1,5)rep(k,j+1,5){
+        ans += c[i] * c[j] * c[k];
+    }
+    cout << ans << endl;
     return 0;
 }
