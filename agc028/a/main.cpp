@@ -25,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -48,6 +49,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -61,29 +79,38 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll gdc(ll a, ll b){
+    ll l = max(a,b);
+    ll s = min(a,b);
+    ll temp;
+    while(l%s != 0){
+        temp = s;
+        s = l%s;
+        l = temp;
+    }
+    return s;
+}
+
+ll llcm(ll a, ll b){
+    return max(a,b)*(min(a,b)/gdc(a,b));
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N,M;
+    string s,t;
+    cin >> N >> M >> s >> t;
 
-    int N;
-    cin >> N;
-    int a[N];
-    rep(i, N) cin >> a[i];
-    sort(a, a + N);
+    int g = gdc(N,M);
 
-    int ans = a[N - 1];
-    bool bit;
-    while (true) {
-        bit = false;
-        rep(i, N) {
-            if (a[i] % ans != 0) {
-                ans = a[i] % ans;
-                bit = true;
-            }
+    rep(i,0,g){
+        if(s[i * N/g] != t[i * M/g]){
+        cout << -1 << endl;
+        return 0;
         }
-
-        if(!bit)break;
     }
-    cout << ans << endl;
+
+    cout << llcm(N,M) << endl;
     return 0;
 }

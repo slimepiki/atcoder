@@ -25,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -48,6 +49,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -65,25 +83,18 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    int a[N];
-    rep(i, N) cin >> a[i];
-    sort(a, a + N);
+    int W, H, N;
 
-    int ans = a[N - 1];
-    bool bit;
-    while (true) {
-        bit = false;
-        rep(i, N) {
-            if (a[i] % ans != 0) {
-                ans = a[i] % ans;
-                bit = true;
-            }
-        }
-
-        if(!bit)break;
+    cin >> W >> H >> N;
+    int mw = 0, mh = 0;
+    int x, y, a;
+    rep(i, N) {
+        cin >> x >> y >> a;
+        if (a == 1) chmax(mw, x);
+        else if (a == 2) chmin(W, x);
+        else if (a == 3) chmax(mh, y);
+        else if (a == 4) chmin(H, y);
     }
-    cout << ans << endl;
+    cout << max(0,W-mw) * max(0,H-mh) << endl;
     return 0;
 }

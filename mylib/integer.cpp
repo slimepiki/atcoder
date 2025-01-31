@@ -54,6 +54,7 @@ ll powll(ll a, ll b){
     return ret;
 }
 
+//最大公約数
 ll gdc(ll a, ll b){
     ll l = max(a,b);
     ll s = min(a,b);
@@ -67,7 +68,7 @@ ll gdc(ll a, ll b){
 }
 
 //最小公倍数
-ll lcm(ll a, ll b){
+ll llcm(ll a, ll b){
     return max(a,b)*(min(a,b)/gdc(a,b));
 }
 
