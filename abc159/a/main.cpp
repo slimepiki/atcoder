@@ -65,5 +65,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+
+    ll ans = (N*(N-1))/2 + (M*(M-1))/2;
+    cout << ans << endl;
+
     return 0;
 }

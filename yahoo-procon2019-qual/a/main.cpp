@@ -83,5 +83,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    float N,K;
+    cin >> N >> K;
+
+    if(K > ceil(N/2))cout << "NO" << endl;
+    else cout << "YES" << endl;
+
     return 0;
 }

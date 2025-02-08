@@ -65,5 +65,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    float N;
+    cin >> N;
+    cout << ceil(N/2)/N << endl;
+
     return 0;
 }

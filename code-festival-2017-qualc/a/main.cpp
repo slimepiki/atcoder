@@ -65,5 +65,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    rep(i,s.size()-1){
+        if(s[i] == 'A' && s[i+1] == 'C'){
+             cout << "Yes" << endl;
+             return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }

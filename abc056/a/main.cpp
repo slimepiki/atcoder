@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    char a,b;
+    cin >> a >> b;
+
+    bool at,tc;
+    at = a == 'H' ? true : false;
+    tc = b == 'H' ? true : false;
+
+
+     if(at == tc)cout << "H" << endl;
+    else cout << "D" << endl;
+
     return 0;
 }

@@ -62,5 +62,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    int ans = 0;
+    cin >> s;
+    string t = "CODEFESTIVAL2016";
+
+    rep(i,16){
+        if(s[i] != t[i])ans++;
+    }
+    cout << ans << endl;
     return 0;
 }
