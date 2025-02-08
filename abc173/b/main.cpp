@@ -83,5 +83,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    string s;
+
+    int c[4]{};
+
+    rep(i,N){
+        cin >> s;
+        if(s[0] == 'A') c[0]++;
+        else if(s[0] == 'W') c[1]++;
+        else if(s[0] == 'T') c[2]++;
+        else c[3]++;
+    }
+
+    cout << "AC x "<< c[0] << endl;
+    cout << "WA x "<< c[1] << endl;
+    cout << "TLE x "<< c[2] << endl;
+    cout << "RE x "<< c[3] << endl;
+
     return 0;
 }

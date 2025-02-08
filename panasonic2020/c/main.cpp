@@ -62,5 +62,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll a,b,c;
+    cin >>a >> b >> c;
+    if(4*a*b < (c-a-b)*(c-a-b)&&c-a-b > 0)cout << "Yes" << endl;
+    else cout << "No" << endl;
+
     return 0;
 }

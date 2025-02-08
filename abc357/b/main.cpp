@@ -83,5 +83,31 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+
+    cin >> s;
+
+    int c[2]{};
+
+    rep(i, s.size()) {
+        if (s[i] < 'a')
+            c[0]++;
+        else
+            c[1]++;
+    }
+
+    if (c[0] <= c[1]) {
+        rep(i, s.size()) {
+            if (s[i] < 'a') cout << (char)(s[i] + 32);
+            else cout << s[i];
+        }
+    } else {
+        rep(i, s.size()) {
+            if (s[i] >= 'a') cout << (char)(s[i] - 32);
+            else cout << s[i];
+        }
+
+    }
+    cout << endl;
     return 0;
 }

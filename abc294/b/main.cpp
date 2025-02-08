@@ -83,5 +83,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    return 0;
+    int H, W;
+    cin >> H >> W;
+    int a;
+
+    rep(i,H){
+        rep(j,W){
+            cin >> a;
+            if(a == 0)cout << '.';
+            else cout << (char)('A'-1+a);
+        }
+        cout << endl;
+    }
+    return 0;  
 }

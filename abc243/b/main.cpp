@@ -83,5 +83,34 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int A[N],B[N];
+
+    rep(i,N)cin >> A[i];
+    rep(i,N)cin >> B[i];
+
+    int ans = 0;
+
+    set<int> eq;
+
+    rep(i,N)if(A[i] == B[i]){ans++;eq.insert(A[i]);}
+
+    cout << ans << endl;
+
+    sort(A,A+N);
+    sort(B,B+N);
+    int a = 0,b=0;
+    ans = 0;
+    while(a < N&&b < N){
+        debug(a,b,A[a],B[b])
+        if(A[a] == B[b]){
+            if(! eq.count(A[a]))ans++;
+            a++;
+            b++;
+        }else if(A[a] < B[b])a++;
+        else b++;
+    }
+    cout << ans << endl;
     return 0;
 }

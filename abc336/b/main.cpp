@@ -65,5 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    bitset<32> bt = N;
+    int ans = 0;
+    rep(i,32){
+        if(bt[i]){
+            ans = i;
+            break;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

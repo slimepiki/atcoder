@@ -65,5 +65,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int n;
+    cin >> n;
+    int bkt[n][26]{};
+    string s;
+    rep(i,n){
+        cin >> s;
+        rep(j,s.size())bkt[i][s[j]-'a']++;
+    }
+
+    int ans = 0;
+    rep(i,26){
+        int tmp = bkt[0][i];
+        rep(j,n)chmin(tmp, bkt[j][i]);
+        rep(j,tmp)cout << (char)('a'+i);
+    }
+    cout << endl;
     return 0;
 }

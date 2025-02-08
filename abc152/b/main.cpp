@@ -65,5 +65,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int a,b;
+    cin >> a >> b;
+
+    string s,t;
+
+    rep(i,a)s += (char)('0' + b);
+    rep(i,b)t += (char)('0' + a);
+    if(s <= t)cout << s << endl;
+    else cout << t << endl;
     return 0;
 }

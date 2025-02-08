@@ -61,9 +61,22 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int mon(int a){
+    if(a == 1)return 300000;
+    else if(a == 2) return 200000;
+    else if(a == 3) return 100000;
+    else return 0;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int X,Y;
+    cin >> X >> Y;
+    int ans = 0;
+    if(X==1&&Y==1)ans += 400000;
+    cout << ans + mon(X)+mon(Y) << endl;
 
     return 0;
 }

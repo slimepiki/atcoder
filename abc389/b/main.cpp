@@ -83,5 +83,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll X,x;
+    cin >> X;
+    ll ans = 1;
+    x = X;
+    for(ll i = 0;i < X;i++){
+        ans++;
+        x = x/ans;
+        if(x <= 1){
+            break;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

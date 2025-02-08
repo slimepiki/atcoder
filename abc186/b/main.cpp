@@ -65,5 +65,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H,W;
+    cin >> H >> W;
+    int mn = IINF;
+    int m[H][W];
+    rep(i,H*W){
+        cin >> m[i/W][i%W];
+        chmin(mn, m[i/W][i%W]);
+    }
+
+    int ans = 0;
+    rep(i,H*W){
+        ans += m[i/W][i%W]-mn;
+    }
+    cout << ans << endl;
     return 0;
 }
