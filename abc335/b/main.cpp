@@ -83,5 +83,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+
+    cin >> N;
+    rep(i,N+1)rep(j,N+1)rep(k,N+1){
+        if(i+j+k <= N)cout << i << ' ' << j << ' ' << k << endl;
+    }
+
     return 0;
 }

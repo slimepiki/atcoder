@@ -58,9 +58,39 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll gdc(ll a, ll b){
+    ll l = max(a,b);
+    ll s = min(a,b);
+    ll temp;
+    while(l%s != 0){
+        temp = s;
+        s = l%s;
+        l = temp;
+    }
+    return s;
+}
+
+//最小公倍数
+ll llcm(ll a, ll b){
+    return max(a,b)*(min(a,b)/gdc(a,b));
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int a,b,n;
+    cin >> a >> b >> n;
+
+    ll lc = lcm(a,b);
+
+    ll ans = lc;
+    while(true){
+        if(ans >= n){
+            cout << ans << endl;
+            break;
+        }else ans += lc;
+    }
 
     return 0;
 }

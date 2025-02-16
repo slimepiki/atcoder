@@ -65,5 +65,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    string s;
+    cin >> N >> s;
+    int ans = N+10;
+    int tmp = 0;
+    rep(i,1,N){
+        if(s[i] == 'E')tmp++;
+    }
+    ans = tmp;
+    rep(i,1,N){
+        if(s[i-1] == 'W')tmp++;
+        if(s[i] == 'E')tmp--;
+        chmin(ans,tmp);
+    }
+
+    cout << ans << endl;
+
     return 0;
 }

@@ -83,5 +83,33 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    vector<int> v[N];
+    int a;
+    bool md = false;
+    rep(i,N)rep(j,N){
+        cin >> a;
+        if(a){
+            v[i].push_back(j);
+            md = true;
+        }
+    }
+
+    rep(i,N)sort(v[i].begin(),v[i].end());
+
+    if(!md){
+        cout << endl;
+        return 0;
+    }
+
+    rep(i,N){
+        rep(j,v[i].size()){
+            if(j != 0)cout << ' ';
+            cout << v[i][j]+1;
+        }
+        cout << endl;
+    }
+
     return 0;
 }

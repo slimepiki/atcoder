@@ -82,6 +82,13 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-
+    int a;
+    vector<int> v;
+    while(cin >> a){
+        v.push_back(a);
+    }
+    rep(i,v.size()){
+        cout << v[v.size()-1-i] << endl;
+    }
     return 0;
 }

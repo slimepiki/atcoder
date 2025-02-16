@@ -65,5 +65,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    char c[5];
+    rep(i,5)cin >> c[i];
+    sort(c,c+5);
+    int N;
+    cin >> N;
+    cout << c[(N-1)/5] << c[(N-1)%5] << endl;
+
     return 0;
 }

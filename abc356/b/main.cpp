@@ -83,5 +83,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+    int m[M]{};
+    rep(i,M)cin >> m[i];
+
+    int a;
+
+    rep(i,N){
+        rep(j,M){
+            cin >> a;
+            m[j]-=a;
+        }
+    }
+
+
+    rep(i,M){
+        if(m[i]>0){
+        cout << "No" << endl;
+        return 0;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

@@ -83,5 +83,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    float X;
+    cin >> X;
+
+    cout << X << endl;
+
     return 0;
 }
