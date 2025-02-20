@@ -10,7 +10,7 @@ inline bool chmax(T& a, const T& b) {
 }
 
 //#########################################################
-
+#define TPNS 1000000007ll
 bool IsPrime(int num){
     if (num < 2) return false;
     else if (num == 2) return true;

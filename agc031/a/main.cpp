@@ -48,6 +48,58 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
+// modつきint
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const { return x; }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
 
 #define printa1d(a, W)                   \
     {                                    \
@@ -79,123 +131,43 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-void lencri(ll &len){
-    if(len == 0)len = 2;
-    else len++;
+void lenad(ll& len) {
+    if (len == 0)
+        len = 2;
+    else
+        len++;
 }
 
-void sumadd(ll &dst, ll &val){
-    dst += val/2;
-    val = 0;
+ll comb(ll n, ll k) {
+    ll ret = 1;
+    for (ll i = n; i >= 0; i--) {
+        if (i > (n-k) && i != 0) ret *= i;
+        if (i != n && k >= n - i) ret /= (n - i);
+    }
+    return ret;
+}
+
+void anad(mint &ans, ll len){
+    for(ll j = 1;j <len+1;j++){
+        ans += comb(j,len);
+        len = 0;
+    }
 }
 
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    string s;
-    ll K;
-    cin >> s >> K;
-
-    bool all = true;
-    rep(i,s.size()){
-        if(s[0] != s[i]){
-            all = false;
-            break;
-        }
+    int a[26]{};
+    int N;
+    cin >> N;
+    char c;
+    rep(i,N){cin >> c;a[c-'a']++;};
+    mint ans = 1;
+    rep(i,26){
+        ans *= a[i]+1;
     }
-    if(all){
-        cout << s.size()*K/2ll << endl;
-        return 0;
-    }
-
-    // rep(i,s.size()-1){
-    //     if(s[i] == s[i+1]){
-    //         len++;
-
-    //     }else{
-    //         sans += ceil(len/3.0f);
-    //         len = 0;
-    //     }
-    // }
-    // sans += ceil(len/3.0f);
-
-    // ll kyo = 0;
-
-    // if(!(s[s.size()-1] == s[s.size()-2]|| s[0] == s[1])&& s[s.size()-1] ==
-    // s[0])kyo = K-1; debug(sans,K,kyo); cout << sans * K + kyo << endl;
-
-    //2つ回以降の文字列での変換回数
-    // ll sr = 0;
-    
-    // //連続する要素の長さ
-    // ll len = 0;
-
-    // rep(i, s.size() - 1) {
-    //     if (s[i] == s[i + 1]) {
-    //         lencri(len);
-    //     } else {
-    //         len = 0;
-    //     }
-    // }
-
-    // if(s[s.size()-1] == s[0])lencri(len);
-    // debug(len)
-
-    // rep(i, s.size() - 1) {
-    //     if (s[i] == s[i + 1]) {
-    //         if(len == 0)len = 2;
-    //         else len++;
-
-    //     } else {
-    //         debug(i);
-    //         if(i == 0){len = 0;}
-    //         else sumadd(sr,len);
-    //     }
-    // }
-    // sumadd(sr,len);
-    // ll lr = 0;
-
-    // rep(i,s.size()-1){
-    //     if(s[i] == s[i+1]){
-    //         lencri;
-    //     }else{
-    //         debug(i);
-    //         sumadd(lr,len);
-    //     }
-    // }
-
-    // sumadd(lr,len);
-
-    // cout <<  lr + sr * (K-1) << endl;
-
-    ll sum=0,len = 0,hlen = 0,tlen = 0;
-    rep(i,s.size()){
-        if(s[i] == s[i+1])lencri(len);
-        else sumadd(sum,len);
-    }
-    sumadd(sum,len);
-
-    if(s[0] == s[s.size()-1]){
-        len = 2;
-        rep(i,1,s.size()){
-            if(s[i] == s[0])lencri(hlen);
-            else break;
-        }
-        rep(i,1,s.size()){
-            if(s[s.size()-1-i] == s[0])lencri(tlen);
-            else break;
-        }
-    }
-
-    ll htlen = hlen+tlen;
-    ll hsum = 0,tsum = 0,htsum = 0;
-
-    sumadd(hsum,hlen);
-    sumadd(tsum,tlen);
-    sumadd(htsum,htlen);
-
-    cout << sum * K - (hsum+tsum-htsum)*(K-1) << endl;
-
+    ans -=1;
+    cout << ans << endl;
     return 0;
 }

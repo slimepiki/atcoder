@@ -45,6 +45,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define TPNS 1000000007ll
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -62,5 +64,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N,M;
+    cin >> N >> M;
+
+    if(abs(N-M) >= 2){
+        cout << 0 << endl;
+        return 0;
+    }
+    ll ans = 1;
+    rep(i,1,N+1){
+        ans *= i;
+        ans %= TPNS;
+    }
+    rep(i,1,M+1){
+        ans *= i;
+        ans %= TPNS;
+    }
+    if(N == M){
+        ans *= 2;
+        ans %= TPNS;
+    }
+    
+    cout << ans << endl;
     return 0;
 }

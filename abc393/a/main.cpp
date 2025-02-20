@@ -79,123 +79,17 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-void lencri(ll &len){
-    if(len == 0)len = 2;
-    else len++;
-}
-
-void sumadd(ll &dst, ll &val){
-    dst += val/2;
-    val = 0;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-
-    string s;
-    ll K;
-    cin >> s >> K;
-
-    bool all = true;
-    rep(i,s.size()){
-        if(s[0] != s[i]){
-            all = false;
-            break;
-        }
-    }
-    if(all){
-        cout << s.size()*K/2ll << endl;
-        return 0;
-    }
-
-    // rep(i,s.size()-1){
-    //     if(s[i] == s[i+1]){
-    //         len++;
-
-    //     }else{
-    //         sans += ceil(len/3.0f);
-    //         len = 0;
-    //     }
-    // }
-    // sans += ceil(len/3.0f);
-
-    // ll kyo = 0;
-
-    // if(!(s[s.size()-1] == s[s.size()-2]|| s[0] == s[1])&& s[s.size()-1] ==
-    // s[0])kyo = K-1; debug(sans,K,kyo); cout << sans * K + kyo << endl;
-
-    //2つ回以降の文字列での変換回数
-    // ll sr = 0;
-    
-    // //連続する要素の長さ
-    // ll len = 0;
-
-    // rep(i, s.size() - 1) {
-    //     if (s[i] == s[i + 1]) {
-    //         lencri(len);
-    //     } else {
-    //         len = 0;
-    //     }
-    // }
-
-    // if(s[s.size()-1] == s[0])lencri(len);
-    // debug(len)
-
-    // rep(i, s.size() - 1) {
-    //     if (s[i] == s[i + 1]) {
-    //         if(len == 0)len = 2;
-    //         else len++;
-
-    //     } else {
-    //         debug(i);
-    //         if(i == 0){len = 0;}
-    //         else sumadd(sr,len);
-    //     }
-    // }
-    // sumadd(sr,len);
-    // ll lr = 0;
-
-    // rep(i,s.size()-1){
-    //     if(s[i] == s[i+1]){
-    //         lencri;
-    //     }else{
-    //         debug(i);
-    //         sumadd(lr,len);
-    //     }
-    // }
-
-    // sumadd(lr,len);
-
-    // cout <<  lr + sr * (K-1) << endl;
-
-    ll sum=0,len = 0,hlen = 0,tlen = 0;
-    rep(i,s.size()){
-        if(s[i] == s[i+1])lencri(len);
-        else sumadd(sum,len);
-    }
-    sumadd(sum,len);
-
-    if(s[0] == s[s.size()-1]){
-        len = 2;
-        rep(i,1,s.size()){
-            if(s[i] == s[0])lencri(hlen);
-            else break;
-        }
-        rep(i,1,s.size()){
-            if(s[s.size()-1-i] == s[0])lencri(tlen);
-            else break;
-        }
-    }
-
-    ll htlen = hlen+tlen;
-    ll hsum = 0,tsum = 0,htsum = 0;
-
-    sumadd(hsum,hlen);
-    sumadd(tsum,tlen);
-    sumadd(htsum,htlen);
-
-    cout << sum * K - (hsum+tsum-htsum)*(K-1) << endl;
+    string s,t;
+    cin >> s >> t;
+    bool tk = (s[0] == 's');
+    bool ao = (t[0] == 's');
+    if(tk && ao)cout << 1 << endl;
+    else if(tk && !ao)cout << 2 << endl;
+    else if(!tk && ao)cout << 3 << endl;
+    else cout << 4 << endl;
 
     return 0;
 }

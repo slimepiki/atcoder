@@ -83,5 +83,26 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+
+    bool w= (s[0] == 'W');
+    ll ans = 0;
+
+    rep(i,s.size()){
+        if(w){
+            if(s[i] != 'W'){
+                w = false;
+                ans++;
+            }
+        }else{
+            if(s[i] != 'B'){
+                w = true;
+                ans++;
+            }
+        }
+    }
+    cout << max(0ll,ans)<< endl;
+
     return 0;
 }
