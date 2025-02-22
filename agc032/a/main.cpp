@@ -85,15 +85,32 @@ int main() {
 
     int N;
     cin >> N;
-    vector<int> b(N,0);
-    rep(i,N) cin >> b[i];
+    vector<int> b(N, 0);
+    rep(i, N) cin >> b[i];
 
-    rep(i,N){
-        if(b[i]>i+1){
+    stack<int> st;
+    bool bo = false;
+
+    while (b.size() > 0) {
+        bo = false;
+        for (int i = b.size() - 1; i >= 0; i--) {
+            if (b[i] == i + 1) {
+                debug(i, b[i]);
+                st.push(b[i]);
+                bo = true;
+                b.erase(b.begin() + i);
+                break;
+            }
+        }
+        if (!bo) {
             cout << -1 << endl;
             return 0;
         }
     }
-    cout << 1 << endl;
+    while (!st.empty()) {
+        cout << st.top() << endl;
+        st.pop();
+    }
+
     return 0;
 }

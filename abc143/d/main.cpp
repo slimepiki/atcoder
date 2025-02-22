@@ -83,5 +83,31 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll ans = 0;
+
+    int N;
+    cin >> N;
+    int a[N], lc[2002]{};
+
+    rep(i,N)cin >> a[i];
+    rep(i,N)lc[a[i]]++;
+    rep(i,1,2002)lc[i] += lc[i-1];
+    int t;
+
+    rep(i,N)rep(j,N)if(i != j){
+        int l = max(a[i]-a[j], a[j]-a[i]);
+        int g = min(a[i]+a[j],1001);
+
+        if(g>=1) t = lc[g-1]- lc[l];
+        else continue;
+
+        if(l < a[i] && a[i] < g)t--;
+        if(l < a[j] && a[j] < g)t--;
+
+        ans += t;
+    }
+
+    ans /= 6;
+    cout << ans << endl;
     return 0;
 }
