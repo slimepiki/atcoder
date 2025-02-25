@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int p[N*5];
+    rep(i,N*5)cin >>p[i];
+    sort(p,p+N*5);
+
+    float ans = 0;
+    rep(i,N,N*4){
+        ans += p[i];
+    }
+    cout << ans/(N*3) << endl;
     return 0;
 }

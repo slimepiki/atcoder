@@ -82,6 +82,18 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    int N;
+    string s;
+    cin >> N >> s;
 
+    rep(i,N){
+        if(s.substr(i,2) == "na"){
+            cout << "nya";
+            i++;
+        }else{
+            cout << s[i];
+        }
+    }
+    cout << endl;
     return 0;
 }

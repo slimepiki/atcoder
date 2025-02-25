@@ -80,8 +80,16 @@ inline bool chmax(T& a, const T& b) {
 }
 
 int main() {
+
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    char x;
+    rep(i,8)rep(j,8){
+        cin >> x;
+        if(x == '*'){
+            cout << (char)(j+'a') << 8-i << endl;
+        }
+    }
 
     return 0;
 }

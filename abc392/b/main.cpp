@@ -83,5 +83,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+    bool x[N]{};
+    int a;
+    rep(i,M){
+        cin >> a;
+        x[a-1] = true;
+    }
+
+    bool st = true;
+    cout << N-M << endl;
+    rep(i,N)if(!x[i]){
+        if(!st) cout << ' ';
+        cout << i+1;
+        st = false;
+    }
+    cout << endl;
     return 0;
 }

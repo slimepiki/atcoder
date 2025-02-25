@@ -83,5 +83,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int a[N]{};
+    int x;
+    rep(i,N*4-1){
+        cin >> x;
+        a[x-1]++;
+    }
+
+    rep(i,N){
+        if(a[i] != 4){
+            cout << i+1 << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

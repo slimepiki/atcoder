@@ -83,5 +83,26 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int s;
+    int ans = 0;
+
+    rep(i,N){
+        bool b = true;
+        cin >> s;
+        rep(j,1,s+1){
+            rep(k,1,s+1){
+                if(4*j*k + 3*j + 3*k == s){
+                    ans++;
+                    b = false;
+                }
+                if(!b)break;
+            }
+            if(!b)break;
+        }
+    }
+
+    cout << N - ans << endl;
     return 0;
 }

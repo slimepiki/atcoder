@@ -65,5 +65,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int a;
+    rep(i,N){
+        cin >> a;
+        if(a%2 == 0 &&a%3 != 0 && a%5 != 0){
+        cout << "DENIED" << endl;
+        return 0;
+        }
+    }
+    cout<< "APPROVED" << endl;
     return 0;
 }

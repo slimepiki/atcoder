@@ -65,5 +65,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    bool b[100]{};
+    rep(i,1,10)rep(j,1,10){
+        b[i*j] = true;
+    }
+     if(b[N])cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }

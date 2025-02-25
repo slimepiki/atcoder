@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,D;
+    cin >> N >> D;
+
+    int t[N],l[N];
+    rep(i,N)cin >> t[i] >> l[i];
+
+    int ans = 0;
+    rep(i,1,D+1){
+        ans = 0;
+        rep(j,N){
+            chmax(ans,t[j] * (l[j]+i));
+        }
+        cout << ans << endl;
+    }
+
     return 0;
 }

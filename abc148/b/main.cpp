@@ -65,5 +65,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    string s,t;
+    cin >> N >> s >> t;
+
+    rep(i,N)cout << s[i] << t[i];
+    cout << endl;
+
     return 0;
 }

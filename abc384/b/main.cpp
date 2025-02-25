@@ -82,6 +82,16 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+    
+    int N,R;
+    cin >> N >> R;
 
+    int d, a;
+    rep(i,N){
+        cin >> d >> a;
+        if(d==1 && R >= 1600 && R <= 2799)R+=a;
+        else if(d == 2 && R>=1200 && R<=2399)R+=a;
+    }
+    cout << R << endl;
     return 0;
 }

@@ -83,5 +83,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,T,P;
+    cin >> N >> T >> P;
+    int l[101]{};
+
+    int x;
+    rep(i,N){
+        cin >> x;
+        l[x]++;
+    }
+
+    rep(i,1,101){l[100-i] += l[101-i];}
+    int ct = 0;
+    rep(i,0,101){
+        if(l[100-i] >= P){
+            int ans = T- (100-i);
+            cout << max(0,ans) << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

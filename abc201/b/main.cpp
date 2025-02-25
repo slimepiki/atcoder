@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    string name[N];
+    ii p[N];
+    int x;
+
+    rep(i,N){
+        cin >> name[i] >> x;
+        p[i] = make_pair(x,i);
+    }
+
+    sort(p,p+N,[](ii x, ii y){
+        return x.first < y.first;
+    });
+    cout << name[p[N-2].second]<< endl;
     return 0;
 }

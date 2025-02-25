@@ -61,9 +61,28 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ii dir4[4] = {{1,0},{0,-1},{-1,0},{0,1}};
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    string t;
+    cin >> t;
+    int x = 0,y = 0;
+    int dir = 0;
+    rep(i,t.size()){
+        if(t[i] == 'S'){
+            x+=dir4[dir].first;
+            y+=dir4[dir].second;
+        }else{
+            dir++;
+            dir %=4;
+        }
+    }
+    printf("%d %d\n",x,y);
     return 0;
 }
