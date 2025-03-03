@@ -65,5 +65,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,Q;
+    string s;
+    cin >> N >> Q >> s;
+
+    int acc[N]{};
+
+    rep(i,1,s.size()){
+        if(s[i-1] == 'A' && s[i] == 'C'){
+            acc[i] = 1;
+        }
+    }
+
+    rep(i,1,N)acc[i] += acc[i-1];
+
+    int l,r;
+
+    rep(i,Q){
+        cin >> l >> r;
+        l--;r--;
+        cout << acc[r]-acc[l] << endl;
+    }
+
     return 0;
 }

@@ -48,6 +48,7 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
+#define TPNS 1000000007ll
 
 #define printa1d(a, W)                   \
     {                                    \
@@ -78,10 +79,117 @@ inline bool chmax(T& a, const T& b) {
     if (a < b) a = b;
     return compare;
 }
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const{
+        return x;
+    }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
+ll comb(ll n, ll k) {
+    ll ret = 1;
+    for (ll i = n; i >= 0; i-=1) {
+        if (i > (n-k) && i != 0) ret *= i;
+        if (i != n && k >= n - i) ret /= (n - i);
+    }
+    return ret;
+}
+
+ll calc12(ll x){
+    ll ret = 1;
+    for(ll i = 1;2*i <= x;i++){
+        ret+=comb(x-i,i);
+    }
+    return ret;
+}
 
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N,M;
+    cin >> N >> M;
+
+    
+    bool b[N+10]{};
+    int x;
+    rep(i,M){
+        cin >> x;
+        b[x] = true;
+    }
+    
+    mint dp[N+3]{};
+
+    dp[0] = 1;
+
+    rep(i,N)rep(s,1,3)if(!b[i+s])dp[i+s] += dp[i];
+    cout << dp[N] << endl;
+    // ll count = 0;
+    // bool bk = false;
+
+    // rep(i,N){
+    //     if(b[i]){
+    //         if(bk){
+    //             cout << 0 << endl;
+    //             return 0;
+    //         }
+    //         ans *= calc12(count);
+    //         bk = true;
+    //         count = -1;
+    //     }else{
+    //         count++;
+    //         bk = false;
+    //     }
+    // }
+    // ans *= calc12(count);
+    // cout << ans << endl;
+    // return 0;
     return 0;
 }

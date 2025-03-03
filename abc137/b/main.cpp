@@ -83,5 +83,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int K,X;
+    cin >> K >> X;
+
+    rep(i,1-K,K){
+        if(i != 1-K)cout << ' ';
+        cout << X+i;
+    }
+    cout << endl;
     return 0;
 }

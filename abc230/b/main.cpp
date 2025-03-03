@@ -83,25 +83,45 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    vector<int> v;
-    auto it = v.begin();
+    string s;
+    cin >> s;
 
-    rep(i,N){
-        if(it == v.end()){
-            v.push_back(1);
-            it = v.begin();
+    int o = 0, x = 0;
+    bool firsto = true;
+    if (s[0] == 'o') {
+        o = 1;
+        firsto = false;
+    } else
+        x = 1;
+    rep(i, 1, s.size()) {
+        if (s[i] == 'o') {
+            if (o >= 1) {
+                cout << "No" << endl;
+                return 0;
+            } else {
+                if (firsto) {
+                    o = 1;
+                    x = 0;
+                    firsto = false;
+                } else {
+                    if (x != 2) {
+                        cout << "No" << endl;
+                        return 0;
+                    } else {
+                        o = 1;
+                        x = 0;
+                    }
+                }
+            }
         }else{
-            debug((*it))
-            (*it)++;
-            it++;
+            o = 0;
+            x++;
+            if(x >= 3){
+                cout << "No" << endl;
+                return 0;
+            }
         }
     }
-
-    rep(i,v.size()){
-        cout << v[i] << endl;
-    }
-
+    cout << "Yes" << endl;
     return 0;
 }

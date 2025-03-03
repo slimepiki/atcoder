@@ -68,14 +68,39 @@ int main() {
     int N,M;
     cin >> N >>M;
 
-    bitset<10> b[M];
-    int k,s;
-    rep(i,N){
+    bitset<10> b[M]{};
+    rep(i,M)b[i].reset();
+    int p[M];
 
-        rep(j,M){
-            cin
+    int k,s;
+    rep(i,M){
+        cin >> k;
+        rep(j,k){
+            cin >> s;
+            s--;
+            b[i][s]=true;
         }
     }
 
+    rep(i,M)cin >> p[i];
+
+    int ans = 0;
+    bool all = true;
+
+    bitset<10> tmp;
+
+    rep(i,1<<N){
+        bitset<10> sw = i;
+        all = true;
+        rep(j,M){
+            tmp = sw&b[j];
+            if(tmp.count() % 2 != p[j]){
+                all = false;
+                break;
+            }
+        }
+        ans += all ? 1:0;
+    }
+    cout << ans << endl;
     return 0;
 }

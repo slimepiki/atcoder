@@ -86,6 +86,23 @@ int main() {
     int N;
     cin >> N;
     
+    ll ans = 0;
+    int b[N]{};
 
+    int a[N];
+    int w[N];
+    rep(i,N)cin >> a[i];
+    rep(i,N)cin >> w[i];
+
+    rep(i,N){
+        if(b[a[i]-1] < w[i]){
+            debug(a[i],w[i],b[a[i]-1]);
+            ans += b[a[i]-1];
+            b[a[i]-1] = w[i];
+        }else{
+            ans += w[i];
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

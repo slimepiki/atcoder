@@ -65,5 +65,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N,M;
+    cin >> N >> M;
+
+    bool b[N]{};
+    int w[N]{};
+
+    rep(i,N)w[i] = 1;
+    b[0] = true;
+
+    int x,y;
+    rep(i,M){
+        cin >> x >> y;
+        x--;y--;
+        b[y] |= b[x];
+        w[x]--;
+        w[y]++;
+        if(w[x]== 0)b[x] = false;
+    }
+
+    int ans = 0;
+    rep(i,N){ans += b[i] ? 1 : 0;}
+    cout << ans << endl;
     return 0;
 }
