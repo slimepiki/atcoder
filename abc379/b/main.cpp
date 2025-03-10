@@ -83,5 +83,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+    string s;
+    cin >> N >> K >> s;
+
+    int len = 0, ans = 0;
+    rep(i, s.size()) {
+        if (s[i] == 'O') {
+            len++;
+            if (len >= K) {
+                ans++;
+                len = 0;
+            }
+        } else {
+            len = 0;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

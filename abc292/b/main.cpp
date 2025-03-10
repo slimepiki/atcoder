@@ -83,5 +83,27 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, Q;
+    cin >> N >> Q;
+
+    int e, v;
+
+    int cd[N]{};
+
+    rep(i, Q) {
+        cin >> e >> v;
+        if (e == 1) {
+            cd[v - 1]++;
+        } else if (e == 2) {
+            cd[v - 1] += 2;
+        } else {
+            if (cd[v - 1] >= 2) {
+                cout << "Yes" << endl;
+            } else {
+                cout << "No" << endl;
+            }
+        }
+    }
+
     return 0;
 }

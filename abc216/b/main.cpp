@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    string s, t, fullname;
+    unordered_set<string> st;
+
+    rep(i, N) {
+        cin >> s >> t;
+        fullname = s + "_" + t;
+        if (st.count(fullname) != 0) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+        st.insert(fullname);
+    }
+    cout << "No" << endl;
     return 0;
 }

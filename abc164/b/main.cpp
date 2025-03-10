@@ -83,5 +83,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int A, B, C, D;
+    cin >> A >> B >> C >> D;
+
+    while (true) {
+        C -= B;
+        if (C <= 0) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+        A -= D;
+        if (A <= 0) {
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

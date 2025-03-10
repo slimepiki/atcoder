@@ -83,5 +83,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    string s;
+    cin >> N >> s;
+    int r = 0, b = 0;
+    rep(i, s.size()) {
+        if (s[i] == 'R')
+            r++;
+        else
+            b++;
+    }
+    if (r > b)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
     return 0;
 }

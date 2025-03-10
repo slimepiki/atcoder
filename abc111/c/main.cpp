@@ -83,5 +83,47 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int n;
+    cin >> n;
+
+    map<int, int> mp[2];
+    int x;
+    rep(i, n) {
+        cin >> x;
+        map<int, int>& m = (i % 2) ? mp[0] : mp[1];
+
+        if (m.count(x) != 0)
+            m[x]++;
+        else {
+            m[x] = 1;
+        }
+    }
+
+    vector<pair<int, int>> v[2];
+
+    rep(i, 2) {
+        for (auto it = mp[i].begin(); it != mp[i].end(); it++) {
+            v[i].push_back(make_pair(it->second, it->first));
+        }
+        sort(v[i].begin(), v[i].end(), greater<pair<int, int>>());
+    }
+
+    if (v[0][0].second != v[1][0].second) {
+        int ans = n - v[0][0].first - v[1][0].first;
+        cout << ans << endl;
+        return 0;
+    }
+
+    if (v[0].size() == 1 and v[1].size() == 1) {
+        int ans = n / 2;
+        cout << ans << endl;
+        return 0;
+    }
+
+    int ans = IINF;
+    if (2 <= v[0].size()) chmin(ans, n - v[0][1].first - v[1][0].first);
+    if (2 <= v[1].size()) chmin(ans, n - v[0][0].first - v[1][1].first);
+    cout << ans << endl;
+
     return 0;
 }

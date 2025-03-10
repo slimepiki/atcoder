@@ -83,5 +83,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M, K;
+    cin >> N >> M >> K;
+
+    rep(i, N + 1) rep(j, M + 1) {
+        if ((N * j + M * i - i * j * 2) == K) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }

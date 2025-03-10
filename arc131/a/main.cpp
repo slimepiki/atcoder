@@ -83,15 +83,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    string s, t;
-    cin >> s >> t;
+    ll A, B;
+    cin >> A >> B;
 
-    rep(i, s.size() - t.size() + 1) {
-        if (s.substr(i, t.size()) == t) {
-            cout << "Yes" << endl;
-            return 0;
-        }
-    }
-    cout << "No" << endl;
+    cout << B * 500000000 + A << endl;
+
     return 0;
 }

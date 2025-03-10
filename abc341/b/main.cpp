@@ -83,5 +83,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    ll a[N]{};
+    rep(i, N) cin >> a[i];
+
+    int s, t;
+    rep(i, N - 1) {
+        cin >> s >> t;
+        a[i + 1] += a[i] / s * t;
+    }
+    cout << a[N - 1] << endl;
     return 0;
 }

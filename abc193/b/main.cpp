@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, a, p, x;
+    cin >> N;
+    int ans = IINF;
+
+    rep(i, N) {
+        cin >> a >> p >> x;
+        if (a < x) {
+            chmin(ans, p);
+        }
+    }
+    if (ans == IINF) {
+        cout << -1 << endl;
+    } else {
+        cout << ans << endl;
+    }
     return 0;
 }
