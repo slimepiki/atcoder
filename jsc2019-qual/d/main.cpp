@@ -83,14 +83,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll a, b, x;
-
-    cin >> a >> b >> x;
-
-    int bd = 0;
-
-    if (a % x == 0) bd++;
-    cout << bd + b / x - a / x << endl;
-
     return 0;
 }

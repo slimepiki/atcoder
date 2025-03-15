@@ -79,18 +79,85 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const { return x; }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll a, b, x;
+    ll N, K;
+    cin >> N >> K;
 
-    cin >> a >> b >> x;
+    ll a[N];
 
-    int bd = 0;
+    rep(i, N) cin >> a[i];
+    mint it = 0, ext = 0;
+    rep(i, N) {
+        rep(j, i + 1, N) {
+            if (a[i] > a[j]) it += 1;
+        }
+    }
 
-    if (a % x == 0) bd++;
-    cout << bd + b / x - a / x << endl;
+    rep(i, N) {
+        rep(j, N) {
+            if (a[i] > a[j]) ext += 1;
+        }
+    }
+
+    it *= K;
+    ext *= (K * (K - 1)) / 2;
+
+    cout << (it + ext) % mod << endl;
 
     return 0;
 }

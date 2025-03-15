@@ -83,14 +83,38 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll a, b, x;
+    int H, W;
+    cin >> H >> W;
 
-    cin >> a >> b >> x;
+    char m[H][W];
 
-    int bd = 0;
+    rep(i, H) rep(j, W) cin >> m[i][j];
 
-    if (a % x == 0) bd++;
-    cout << bd + b / x - a / x << endl;
+    int mc[H][W]{};
+
+    rep(i, H) rep(j, W) mc[i][j] = 1000;
+    mc[0][0] = (m[0][0] == '.') ? 0 : 1;
+
+    rep(i, H + W) {
+        rep(i, H) rep(j, W) {
+            if (mc[i][j] != 1000) {
+                if (i < H - 1) {
+                    if (m[i + 1][j] == '#' && m[i][j] == '.')
+                        chmin(mc[i + 1][j], mc[i][j] + 1);
+                    else
+                        chmin(mc[i + 1][j], mc[i][j]);
+                }
+                if (j < W - 1) {
+                    if (m[i][j + 1] == '#' && m[i][j] == '.')
+                        chmin(mc[i][j + 1], mc[i][j] + 1);
+                    else
+                        chmin(mc[i][j + 1], mc[i][j]);
+                }
+            }
+        }
+    }
+
+    cout << mc[H - 1][W - 1] << endl;
 
     return 0;
 }

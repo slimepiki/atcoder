@@ -18,12 +18,13 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
 #define ii tuple<int, int>
@@ -46,7 +47,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,5 +66,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N, M;
+    cin >> N >> M;
+
+    multiset<ll> s;
+    ll a;
+    rep(i, N) {
+        cin >> a;
+        s.insert(a);
+    }
+    ll m;
+    rep(i, M) {
+        m = *(s.rbegin());
+        s.erase(s.find(m));
+        s.insert(m / 2);
+    }
+    ll ans = 0;
+
+    repit(it, s) { ans += *it; }
+    cout << ans << endl;
     return 0;
 }
