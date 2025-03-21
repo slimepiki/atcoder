@@ -83,23 +83,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll N, K;
-    cin >> N >> K;
+    int a[] = {2, 20, 19, 10, 17, 12, 9, 13, 14, 15,
+               4, 8,  3,  16, 11, 18, 7, 5,  1,  6};
+    rep(i, 20) cout << a[i] << endl;
 
-    ll a[N + 1];
-    rep(i, N) cin >> a[i + 1];
-    rep(i, N) a[i + 1] += a[i];
-
-    int l = 0, r = 1;
-    ll ans = 0;
-    while (r <= N) {
-        if (a[r] - a[l] < K) {
-            r++;
-        } else {
-            ans += N + 1 - r;
-            l++;
-        }
-    }
-    cout << ans << endl;
     return 0;
 }

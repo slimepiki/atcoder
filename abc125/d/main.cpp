@@ -83,5 +83,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int a[N];
+    int mn = 0;
+    rep(i, N) {
+        cin >> a[i];
+        if (a[i] < 0) mn++;
+    }
+
+    sort(a, a + N, [](int x, int y) { return abs(x) < abs(y); });
+
+    ll ans = 0;
+    rep(i, N) {
+        if (mn % 2 != 0 && i == 0)
+            ans -= abs(a[i]);
+        else
+            ans += abs(a[i]);
+    }
+    cout << ans << endl;
     return 0;
 }

@@ -79,9 +79,113 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+constexpr int mod = 998244353;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const { return x; }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
+// 階乗
+int factorial(int n) {
+    int ans = 1;
+    for (int i = 2; i <= n; i++) ans *= i;
+    return ans;
+}
+
+mint mfactorial(ll n) {
+    mint ans = 1;
+    for (ll i = 2; i <= n; i++) ans *= i;
+    return ans;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    map<int, int> m;
+
+    int a;
+    rep(i, N) {
+        cin >> a;
+        if (i == 0 && a != 0) {
+            cout << 0 << endl;
+            return 0;
+        }
+        if (m.count(a) == 0) {
+            m[a] = 1;
+        } else {
+            m[a]++;
+        }
+    }
+
+    if (m[0] != 1) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    mint ans = 1;
+    // ひとつ前のitのD_i
+    ll bef = -1;
+    // ひとつ前のitの頂点数
+    ll befc = 1;
+    repit(it, m) {
+        if (it->first != bef + 1) {
+            cout << 0 << endl;
+            return 0;
+        } else {
+            rep(i, it->second) { ans *= befc; }
+            bef = it->first;
+            befc = it->second;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }
