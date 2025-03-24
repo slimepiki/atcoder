@@ -18,7 +18,7 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -28,7 +28,7 @@ void debug_out(Head H, Tail... T) {
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();    \
+    x = t.first();     \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -46,7 +46,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -61,9 +61,45 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int ckab(string s) {
+    int ret = 0;
+    rep(i, s.size() - 1) {
+        if (s[i] == 'A' && s[i + 1] == 'B') ret++;
+    }
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+
+    cin >> N;
+    int b_BA_a[3]{};
+    int intab = 0;
+
+    string s;
+    rep(i, N) {
+        cin >> s;
+        intab += ckab(s);
+        if (s[0] == 'B' && s[s.size() - 1] == 'A')
+            b_BA_a[1]++;
+        else if (s[0] == 'B')
+            b_BA_a[0]++;
+        else if (s[s.size() - 1] == 'A')
+            b_BA_a[2]++;
+    }
+    debug(b_BA_a[0], b_BA_a[1], b_BA_a[2], intab);
+    if (b_BA_a[1]) {
+        intab += b_BA_a[1] - 1;
+        if (b_BA_a[0]) intab++;
+        if (b_BA_a[2]) intab++;
+
+        cout << intab + min(max(b_BA_a[0] - 1, 0), max(b_BA_a[2] - 1, 0))
+             << endl;
+
+    } else
+        cout << intab + min(b_BA_a[0], b_BA_a[2]) << endl;
     return 0;
 }

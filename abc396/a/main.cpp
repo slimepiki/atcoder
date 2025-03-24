@@ -23,12 +23,14 @@ void debug_out(Head H, Tail... T) {
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -47,6 +49,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -63,15 +82,25 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-    int N, X, Y;
-    cin >> N >> X >> Y;
-    X--;
-    Y--;
 
-    int ans[N]{};
-    rep(i, N) rep(j, i + 1, N) {
-        ans[min(j - i, abs(i - X) + 1 + abs(Y - j))]++;
+    int N;
+    int a, pa;
+    cin >> N >> pa;
+
+    int c = 1;
+    rep(i, N - 1) {
+        cin >> a;
+        if (a == pa) {
+            c++;
+            if (c >= 3) {
+                cout << "Yes" << endl;
+                return 0;
+            }
+        } else {
+            c = 1;
+        }
+        pa = a;
     }
-    rep(i, 1, N) cout << ans[i] << endl;
+    cout << "No" << endl;
     return 0;
 }
