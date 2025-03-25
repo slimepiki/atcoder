@@ -83,5 +83,36 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+
+    cin >> N >> K;
+
+    int a[N]{};
+    bool b[N]{};
+    rep(i, N) cin >> a[i];
+    int x;
+    rep(i, K) {
+        cin >> x;
+        b[x - 1] = true;
+    }
+
+    bool ans = false;
+    int max = 0;
+
+    rep(i, N) {
+        if (a[i] > max) {
+            ans = false;
+            max = a[i];
+        }
+        if (a[i] == max && b[i]) {
+            ans = true;
+        }
+    }
+
+    if (ans)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
+
     return 0;
 }

@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    while (true) {
+        int t = N / 100;
+        int m = (N / 10) % 10;
+        int b = N % 10;
+        if (t * m != b)
+            N++;
+        else {
+            cout << N << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }

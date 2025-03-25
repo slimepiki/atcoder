@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    int ans = 0;
+    for (int i = 1; i * 2 - 1 < s.size(); i++) {
+        for (int j = 0; i * 2 + j - 1 < s.size(); j++) {
+            if (s[j - 1] == 'A' && s[i + j - 1] == 'B' &&
+                s[i * 2 + j - 1] == 'C')
+                ans++;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

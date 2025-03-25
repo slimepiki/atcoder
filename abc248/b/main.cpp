@@ -83,5 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll A, B, K;
+    cin >> A >> B >> K;
+
+    int ans = 0;
+    while (A < B) {
+        A *= K;
+        ans++;
+    }
+    cout << ans << endl;
     return 0;
 }

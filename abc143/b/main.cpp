@@ -83,5 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    int d[N]{};
+    rep(i, N) cin >> d[i];
+
+    int sum = 0;
+    rep(i, N) rep(j, i + 1, N) { sum += d[i] * d[j]; }
+    cout << sum << endl;
     return 0;
 }

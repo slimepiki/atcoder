@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int Q;
+    cin >> Q;
+    int x, q;
+    vector<int> v;
+    rep(i, Q) {
+        cin >> q;
+        if (q == 1) {
+            cin >> x;
+            v.push_back(x);
+        } else {
+            cin >> x;
+            cout << v[v.size() - 1 - (x - 1)] << endl;
+        }
+    }
+
     return 0;
 }

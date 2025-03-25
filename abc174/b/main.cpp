@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N, D;
+    cin >> N >> D;
+
+    ll x, y;
+    ll ans = 0;
+    rep(i, N) {
+        cin >> x >> y;
+        if (x * x + y * y <= D * D) ans++;
+    }
+
+    cout << ans << endl;
     return 0;
 }

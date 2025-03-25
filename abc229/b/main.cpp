@@ -83,5 +83,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string a, b;
+    cin >> a >> b;
+    rep(i, min(a.size(), b.size())) {
+        //    debug(a[a.size() - 1 - i] - '0' + b[b.size() - 1 - i] - '0');
+        if (a[a.size() - 1 - i] + b[b.size() - 1 - i] - '0' - '0' >= 10) {
+            cout << "Hard" << endl;
+            return 0;
+        }
+    }
+    cout << "Easy" << endl;
     return 0;
 }

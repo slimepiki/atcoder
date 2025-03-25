@@ -83,5 +83,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int Q;
+    cin >> Q;
+
+    stack<int> st;
+
+    int q, x;
+
+    rep(i, 100) st.push(0);
+
+    rep(i, Q) {
+        cin >> q;
+        if (q == 1) {
+            cin >> x;
+            st.push(x);
+        } else {
+            cout << st.top() << endl;
+            st.pop();
+        }
+    }
+
     return 0;
 }

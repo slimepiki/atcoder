@@ -83,5 +83,30 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M;
+    cin >> N >> M;
+
+    unordered_map<int, int> m;
+    int x;
+
+    rep(i, N) {
+        cin >> x;
+        if (!m.count(x)) {
+            m[x] = 1;
+        } else {
+            m[x]++;
+        }
+    }
+
+    rep(i, M) {
+        cin >> x;
+        if (!m.count(x) || !m[x]) {
+            cout << "No" << endl;
+            return 0;
+        } else {
+            m[x]--;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

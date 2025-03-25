@@ -83,5 +83,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+    string s;
+    cin >> N >> s >> K;
+
+    rep(i, N) {
+        if (s[i] != s[K - 1])
+            cout << '*';
+        else
+            cout << s[i];
+    }
+    cout << endl;
     return 0;
 }

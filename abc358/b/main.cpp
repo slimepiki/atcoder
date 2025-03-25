@@ -83,5 +83,21 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, A;
+    cin >> N >> A;
+
+    int t, c = 0;
+
+    rep(i, N) {
+        cin >> t;
+        if (c <= t) {
+            cout << t + A << endl;
+            c = t + A;
+        } else {
+            cout << c + A << endl;
+            c += A;
+        }
+    }
+
     return 0;
 }
