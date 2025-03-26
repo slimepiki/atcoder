@@ -18,15 +18,16 @@ void debug_out(Head H, Tail... T) {
         debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
     x = get<0>(t);     \
     y = get<1>(t);
@@ -46,7 +47,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -61,9 +62,45 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+string makeNumStr(int x) {
+    string ret;
+    int cp = x;
+    if (x <= 0) return "YABAI";
+    while (x < 100000) {
+        x *= 10;
+        ret += '0';
+    }
+    return ret + to_string(cp);
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M;
+    cin >> N >> M;
+
+    vector<vector<ii>> vm(N, vector<ii>());
+    int y, p;
+    rep(i, M) {
+        cin >> p >> y;
+        debug(i, p, y);
+        vm[p - 1].push_back(make_pair(i, y));
+    }
+
+    rep(i, N) {
+        sort(vm[i].begin(), vm[i].end(),
+             [](ii x, ii y) { return x.second < y.second; });
+    }
+
+    string ban[M]{};
+    rep(i, N) {
+        rep(j, vm[i].size()) {
+            debug(i, j, vm[i][j].first, vm[i][j].second);
+            ban[vm[i][j].first] = makeNumStr(i + 1) + makeNumStr(j + 1);
+        }
+    }
+
+    rep(i, M) cout << ban[i] << endl;
     return 0;
 }
