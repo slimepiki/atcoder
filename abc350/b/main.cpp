@@ -83,5 +83,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, Q;
+    cin >> N >> Q;
+
+    bool t[N]{};
+    int x;
+    rep(i, Q) {
+        cin >> x;
+        t[x - 1] = !t[x - 1];
+    }
+
+    int ans = 0;
+    rep(i, N) {
+        if (!t[i]) ans++;
+    }
+    cout << ans << endl;
     return 0;
 }

@@ -83,5 +83,14 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int K, T;
+    cin >> K >> T;
+
+    int a[T];
+    rep(i, T) cin >> a[i];
+
+    sort(a, a + T, greater<int>());
+
+    cout << max(a[0] - 1 - (K - a[0]), 0) << endl;
     return 0;
 }

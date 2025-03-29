@@ -83,5 +83,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    char c[s.size()];
+    rep(i, s.size()) { c[i] = s[i]; }
+    sort(c, c + s.size());
+
+    rep(i, s.size()) { cout << c[i]; }
+    cout << endl;
     return 0;
 }

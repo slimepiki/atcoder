@@ -83,5 +83,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M;
+    cin >> N >> M;
+
+    vector<string> s(N, "");
+    rep(i, N) cin >> s[i];
+    bool b[N]{};
+
+    string t;
+    int ans = 0;
+    rep(i, M) {
+        t.clear();
+        cin >> t;
+        rep(j, N) {
+            if (s[j].substr(3, 3) == t && !b[j]) {
+                ans++;
+                b[j] = true;
+            }
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

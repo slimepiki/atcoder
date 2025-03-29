@@ -83,5 +83,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    int a[N][N]{};
+
+    rep(i, N) {
+        rep(j, i + 1) {
+            if (j == 0 || j == i)
+                a[i][j] = 1;
+            else
+                a[i][j] = a[i - 1][j - 1] + a[i - 1][j];
+            if (j != 0) cout << ' ';
+            cout << a[i][j];
+        }
+        cout << endl;
+    }
+
     return 0;
 }
