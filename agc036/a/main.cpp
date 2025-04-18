@@ -23,11 +23,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -45,7 +46,23 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
-#define TPNS 1000000007ll
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -60,32 +77,41 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+vector<pair<ll, ll> > prime_factorize(ll N) {
+    if (N < 0) {
+        cerr << "input is negative!" << endl;
+    }
+    vector<pair<ll, ll> > res;
+    for (ll a = 2; a * a <= N; ++a) {
+        if (N % a != 0) continue;
+        ll ex = 0;
+
+        while (N % a == 0) {
+            ++ex;
+            N /= a;
+        }
+        res.push_back({a, ex});
+    }
+    if (N != 1) res.push_back({N, 1});
+    return res;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    ll s;
+    cin >> s;
+    ll x, y;
+    if (s % 1000000000ll != 0) {
+        y = s / 1000000000ll + 1;
+        x = 1000000000ll - s % 1000000000ll;
+    } else {
+        y = s / 1000000000ll;
+        x = 0;
+    }
+    cout << 0 << ' ' << 0 << ' ' << 1000000000 << ' ';
+    cout << 1 << ' ' << x << ' ' << y << endl;
 
-    int x;
-    int A[N]{};
-    rep(i, N) {
-        cin >> x;
-        A[x]++;
-    }
-    ll ans = 1;
-    for (int i = (N % 2 == 0) ? 1 : 0; i < N; i += 2) {
-        if (i == 0) {
-            if (A[0] != 1) ans = 0;
-        } else {
-            if (A[i] != 2)
-                ans = 0;
-            else {
-                ans *= 2;
-                ans %= TPNS;
-            }
-        }
-    }
-    cout << ans << endl;
     return 0;
 }

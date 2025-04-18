@@ -83,5 +83,33 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    ll a[N];
+    rep(i, N) cin >> a[i];
+    sort(a, a + N);
+
+    ll ans = 0;
+    ll b[N]{};
+    b[0] = a[0];
+    rep(i, 1, N) b[i] += a[i] + b[i - 1];
+    ll m;
+    rep(i, N) {
+        m = b[N - 1 - i];
+        int j = N - 1 - i + 1;
+        while (m * 2 < a[N - 1]) {
+            if (m * 2 >= a[j]) {
+                m += a[j];
+                j++;
+            } else
+                break;
+        }
+        if (m * 2 >= a[N - 1]) {
+            ans++;
+        } else {
+            break;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

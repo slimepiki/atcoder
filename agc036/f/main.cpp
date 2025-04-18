@@ -12,8 +12,10 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                                                       \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+#define debug(...)                                                      \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
+         << "]:",                                                       \
+        debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -23,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -45,7 +48,23 @@ void debug_out(Head H, Tail... T) {
 #define vvvc vector<vvc>
 
 #define IINF 0x3f3f3f3f - 10
-#define TPNS 1000000007ll
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,28 +83,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-
-    int x;
-    int A[N]{};
-    rep(i, N) {
-        cin >> x;
-        A[x]++;
-    }
-    ll ans = 1;
-    for (int i = (N % 2 == 0) ? 1 : 0; i < N; i += 2) {
-        if (i == 0) {
-            if (A[0] != 1) ans = 0;
-        } else {
-            if (A[i] != 2)
-                ans = 0;
-            else {
-                ans *= 2;
-                ans %= TPNS;
-            }
-        }
-    }
-    cout << ans << endl;
     return 0;
 }
