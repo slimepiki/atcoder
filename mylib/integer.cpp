@@ -1,7 +1,10 @@
 using ll = long long;
 using namespace std;
 #include <bits/stdc++.h>
-#define repit(it, a) for(auto it = a.begin(); it != a.end();it++)
+
+#define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 template <typename T>
 inline bool chmax(T& a, const T& b) {
     bool compare = a < b;
@@ -9,24 +12,26 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-//#########################################################
+// #########################################################
 #define TPNS 1000000007ll
-bool IsPrime(int num){
-    if (num < 2) return false;
-    else if (num == 2) return true;
-    else if (num % 2 == 0) return false;
+bool IsPrime(int num) {
+    if (num < 2)
+        return false;
+    else if (num == 2)
+        return true;
+    else if (num % 2 == 0)
+        return false;
 
     double sqrtNum = sqrt(num);
-    for (int i = 3; i <= sqrtNum; i += 2){
-        if (num % i == 0)return false;    
+    for (int i = 3; i <= sqrtNum; i += 2) {
+        if (num % i == 0) return false;
     }
     return true;
 }
 
-
 // 素因数分解
 vector<pair<ll, ll> > prime_factorize(ll N) {
-    if(N < 0){
+    if (N < 0) {
         cerr << "input is negative!" << endl;
     }
     vector<pair<ll, ll> > res;
@@ -44,63 +49,58 @@ vector<pair<ll, ll> > prime_factorize(ll N) {
     return res;
 }
 
-
-ll powll(ll a, ll b){
+ll powll(ll a, ll b) {
     ll ret = 1;
-    for(int i = 0; i < b;i++)
-        ret *= a;
-    
+    for (int i = 0; i < b; i++) ret *= a;
 
     return ret;
 }
 
-//最大公約数
-ll gdc(ll a, ll b){
-    ll l = max(a,b);
-    ll s = min(a,b);
+// 最大公約数
+ll gdc(ll a, ll b) {
+    ll l = max(a, b);
+    ll s = min(a, b);
     ll temp;
-    while(l%s != 0){
+    while (l % s != 0) {
         temp = s;
-        s = l%s;
+        s = l % s;
         l = temp;
     }
     return s;
 }
 
-//最小公倍数
-ll llcm(ll a, ll b){
-    return max(a,b)*(min(a,b)/gdc(a,b));
-}
+// 最小公倍数
+ll llcm(ll a, ll b) { return max(a, b) * (min(a, b) / gdc(a, b)); }
 
 // 階乗
 ll factorial(ll n) {
     ll ans = 1;
-    if(n < 0){
-        cerr << "factorial error : n < 0" << endl; 
+    if (n < 0) {
+        cerr << "factorial error : n < 0" << endl;
         return -1;
     }
     for (ll i = 2; i <= n; i++) ans *= i;
     return ans;
 }
 
-ll perm(ll n, ll k){
+ll perm(ll n, ll k) {
     ll ans = 1;
-    if(n < k || k < 0){
-        cerr << "perm error : n = " << n << ", k = " << k  << endl; 
+    if (n < k || k < 0) {
+        cerr << "perm error : n = " << n << ", k = " << k << endl;
         return -1;
     }
-    if(k == 0)return 1;
-    for(ll i = 0; i < k;i++){
-        ans *= (n-i);
+    if (k == 0) return 1;
+    for (ll i = 0; i < k; i++) {
+        ans *= (n - i);
     }
     return ans;
 }
 
-//secure
+// secure
 ll comb(ll n, ll k) {
     ll ret = 1;
     for (ll i = n; i >= 0; i--) {
-        if (i > (n-k) && i != 0) ret *= i;
+        if (i > (n - k) && i != 0) ret *= i;
         if (i != n && k >= n - i) ret /= (n - i);
     }
     return ret;
@@ -144,9 +144,7 @@ class mint {
         if (t & 1) a *= *this;
         return a;
     }
-    constexpr operator ll() const{
-        return x;
-    }
+    constexpr operator ll() const { return x; }
 
     // for prime mod
     constexpr mint inv() const { return pow(mod - 2); }
@@ -161,25 +159,32 @@ ostream& operator<<(ostream& os, const mint& m) {
     return os;
 }
 
-//階乗
+// 階乗
 int factorial(int n) {
     int ans = 1;
     for (int i = 2; i <= n; i++) ans *= i;
     return ans;
 }
 
-//modつき階乗
+// modつき階乗
 mint mfactorial(ll n) {
     mint ans = 1;
     for (ll i = 2; i <= n; i++) ans *= i;
     return ans;
 }
 
+mint mcomv(int n, int x) {
+    // nCx
+    mint res = 1;
+    repi(i, 0, x) res *= n - i;
+    repi(i, 1, x + 1) res /= i;
+    return res;
+}
 
-//regacy
-// ll conb(ll n, ll k){
-//     if(k <= 0){
-//         cerr << "conv error : k = " << k << endl;
-//     }
-//     return perm(n,k)/ factorial(k);
-// }
+// regacy
+//  ll conb(ll n, ll k){
+//      if(k <= 0){
+//          cerr << "conv error : k = " << k << endl;
+//      }
+//      return perm(n,k)/ factorial(k);
+//  }

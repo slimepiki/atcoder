@@ -77,47 +77,78 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const { return x; }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    vector<vector<ii>> st = vector<vector<ii>>(N, vector<ii>(0));
-    int a, b;
-    rep(i, N) {
-        cin >> a;
-        st[i].resize(a);
-        rep(j, st[i].size()) {
-            cin >> a >> b;
-            st[i][j] = make_pair(a - 1, b);
-        }
-    }
+    string s;
+    cin >> s;
 
-    size_t ans = 0;
+    int sc = 0;
+    int ans = s.size();
 
-    bitset<16> bt;
-    bitset<16> ck;
-    bool isAnswer = true;
-    rep(k, 1 << N) {
-        bt = k;
-        ck = (1 << N) - 1;
-        isAnswer = true;
-        rep(i, N) {
-            rep(j, st[i].size()) {
-                if (bt[i] && (st[i][j].second != bt[st[i][j].first])) {
-                    isAnswer = false;
-                    break;
-                }
+    rep(i, s.size()) {
+        if (s[i] == 'S')
+            sc++;
+        else {
+            if (sc >= 1) {
+                sc--;
+                ans -= 2;
             }
-            if (!isAnswer) break;
         }
-        if (!isAnswer)
-            continue;
-        else
-            chmax(ans, bt.count());
     }
-
     cout << ans << endl;
     return 0;
 }
