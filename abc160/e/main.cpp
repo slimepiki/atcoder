@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -45,7 +43,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,5 +62,51 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int X, Y, A, B, C;
+    cin >> X >> Y >> A >> B >> C;
+    vector<ll> p, q, r;
+    int z;
+
+    rep(i, A) {
+        cin >> z;
+        p.push_back(z);
+    }
+
+    rep(i, B) {
+        cin >> z;
+        q.push_back(z);
+    }
+
+    rep(i, C) {
+        cin >> z;
+        r.push_back(z);
+    }
+
+    sort(p.begin(), p.end(), greater<ll>());
+    sort(q.begin(), q.end(), greater<ll>());
+    sort(r.begin(), r.end(), greater<ll>());
+
+    ll ans = 0;
+
+    rep(i, X) ans += p[i];
+    rep(i, Y) ans += q[i];
+
+    int lp = X - 1, lq = Y - 1;
+
+    rep(i, C) {
+        ll cp = (lp >= 0) ? p[lp] : 10000000000;
+        ll cq = (lq >= 0) ? q[lq] : 10000000000;
+        ll cr = r[i];
+        if (cr > cp || cr > cq) {
+            if (cp > cq) {
+                ans += cr - cq;
+                lq--;
+            } else {
+                ans += cr - cp;
+                lp--;
+            }
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

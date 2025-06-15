@@ -83,23 +83,66 @@ int main() {
 
     int N;
     cin >> N;
-    int a[N], b[N];
-    rep(i, N) cin >> a[i];
-    rep(i, N) cin >> b[i];
+    ll x;
+    ll a, pa;
+    pa = 0;
 
-    int sa;
-    ll ayo = 0, bnai = 0;
+    map<ll, ll> m;
+    m[0] = 1;
+
     rep(i, N) {
-        sa = b[i] - a[i];
-        if (sa > 0) {
-            ayo += sa / 2;
+        cin >> a;
+        a = a + pa;
+        if (m.count(a) == 0) {
+            m[a] = 1;
         } else {
-            bnai += -sa;
+            m[a]++;
         }
+        pa = a;
     }
-    if (bnai <= ayo)
-        cout << "Yes" << endl;
-    else
-        cout << "No" << endl;
+    ll s, ans = 0;
+
+    repit(it, m) {
+        s = it->second;
+        if (s <= 1) continue;
+        ans += (s * (s - 1)) / 2;
+    }
+
+    cout << ans << endl;
+    // map<ll, ll> mp[2];
+
+    // mp[0][0] = 1;
+
+    // int r, nr;
+    // ll f, s, x, ans = 0;
+
+    // ll n[2];
+
+    // rep(i, N) {
+    //     r = i % 2;
+    //     nr = (i + 1) % 2;
+    //     mp[nr].clear();
+
+    //     repit(it, mp[r]) {
+    //         f = it->first;
+    //         s = it->second;
+    //         n[0] = f + a[i];
+    //         n[1] = f - a[i];
+    //         rep(j, 2) {
+    //             x = n[j];
+    //             debug(i, j, f, s, x);
+    //             if (x == 0) {
+    //                 ans += s;
+    //             }
+    //             if (mp[nr].count(x) == 0) {
+    //                 mp[nr][x] = s;
+    //             } else {
+    //                 mp[nr][x] += s;
+    //             }
+    //         }
+    //     }
+    // }
+    // cout << ans << endl;
+
     return 0;
 }

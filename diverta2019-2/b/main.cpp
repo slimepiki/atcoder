@@ -12,10 +12,8 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -83,5 +81,40 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    vector<ii> v;
+    ll x, y;
+    map<ll, map<ll, int>> m;
+    rep(i, N) {
+        cin >> x >> y;
+        v.push_back({x, y});
+    }
+
+    rep(i, N) rep(j, i + 1, N) {
+        ll dx = v[i].first - v[j].first;
+        ll dy = v[i].second - v[j].second;
+        if (dx == 0 && dy < 0) {
+            dy = -dy;
+        } else if (dx < 0) {
+            dx = -dx;
+            dy = -dy;
+        }
+        if (m[dx][dy] == 0) {
+            m[dx][dy] = 1;
+        } else {
+            m[dx][dy]++;
+        }
+    }
+
+    int ans = 0;
+
+    for (auto it = m.begin(); it != m.end(); it++) {
+        for (auto it2 = it->second.begin(); it2 != it->second.end(); it2++) {
+            chmax(ans, it2->second);
+        }
+    }
+    cout << N - ans << endl;
     return 0;
 }

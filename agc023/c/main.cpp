@@ -12,8 +12,10 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                                                       \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+#define debug(...)                                                      \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
+         << "]:",                                                       \
+        debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -81,25 +83,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    int a[N], b[N];
-    rep(i, N) cin >> a[i];
-    rep(i, N) cin >> b[i];
-
-    int sa;
-    ll ayo = 0, bnai = 0;
-    rep(i, N) {
-        sa = b[i] - a[i];
-        if (sa > 0) {
-            ayo += sa / 2;
-        } else {
-            bnai += -sa;
-        }
-    }
-    if (bnai <= ayo)
-        cout << "Yes" << endl;
-    else
-        cout << "No" << endl;
     return 0;
 }
