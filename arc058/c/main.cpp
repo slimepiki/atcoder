@@ -81,67 +81,66 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int H, W;
-    cin >> H >> W;
+    set<int> s;
+    rep(i, 10) s.insert(i);
 
-    char mp[H][W];
-    int cw[H][W], ch[H][W];
+    int N, K, a;
+    cin >> N >> K;
+    rep(i, K) {
+        cin >> a;
+        s.erase(a);
+    }
+    vector<int> v;
+    repit(it, s) { v.push_back(*it); }
+    sort(v.begin(), v.end());
 
-    rep(i, H) {
-        int c = 0;
-        rep(j, W) {
-            cin >> mp[i][j];
-            if (mp[i][j] == '#') {
-                c = 0;
-            } else {
-                ++c;
+    int ans = 0, i = 1, temp = 1, dig = 1;
+    bool ck;
+
+    if (v.size() == 1) {
+        while (true) {
+            ans += dig * v[0];
+            if (ans >= N) {
+                cout << ans << endl;
+                return 0;
             }
-            cw[i][j] = c;
+            dig *= 10;
         }
     }
 
-    rep(i, H) {
-        int c = 0;
-        rep(j, W) {
-            if (mp[i][W - 1 - j] == '#') {
-                c = 0;
-            } else {
-                chmax(c, cw[i][W - 1 - j]);
+    while (true) {
+        ans = 0;
+        temp = i;
+        dig = 1;
+        ck = true;
+        while (temp) {
+            int num = temp % v.size();
+            ck &= num == (v.size() - 1);
+            ans += dig * v[num];
+            temp /= v.size();
+            dig *= 10;
+            if (temp == 0 && ck) {
+                if (ans >= N) {
+                    cout << ans << endl;
+                    return 0;
+                }
+                int digd = dig, ansd = 0;
+                while (digd) {
+                    ansd += digd * v[0];
+                    digd /= 10;
+                }
+                if (ansd >= N) {
+                    cout << ansd << endl;
+                    return 0;
+                }
             }
-            cw[i][W - 1 - j] = c;
         }
+        if (ans >= N) {
+            cout << ans << endl;
+            return 0;
+        }
+        i++;
     }
 
-    rep(i, W) {
-        int c = 0;
-        rep(j, H) {
-            if (mp[j][i] == '#') {
-                c = 0;
-            } else {
-                ++c;
-            }
-            ch[j][i] = c;
-        }
-    }
-
-    rep(i, W) {
-        int c = 0;
-        rep(j, H) {
-            if (mp[H - 1 - j][i] == '#') {
-                c = 0;
-            } else {
-                chmax(c, ch[H - 1 - j][i]);
-            }
-            ch[H - 1 - j][i] = c;
-        }
-    }
-    int ans = 0;
-    rep(i, H) rep(j, W) {
-        if (mp[i][j] != '#') {
-            chmax(ans, cw[i][j] + ch[i][j] - 1);
-        }
-    }
-
-    cout << ans << endl;
     return 0;
 }

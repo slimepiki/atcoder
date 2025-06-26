@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -28,7 +26,7 @@ void debug_out(Head H, Tail... T) {
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();    \
+    x = t.first();     \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -46,7 +44,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,5 +63,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    ll K;
+    cin >> s >> K;
+    int dec = 0;
+    bool lp = 0;
+    rep(i, s.size()) {
+        dec = 'z' - s[i] + 1;
+        if (s[i] != 'a' && K >= dec) {
+            K -= dec;
+            s[i] = 'a';
+        }
+        if (K == 0) break;
+    }
+
+    s[s.size() - 1] = 'a' + (s[s.size() - 1] - 'a' + K) % 26;
+
+    cout << s << endl;
     return 0;
 }

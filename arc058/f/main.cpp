@@ -12,8 +12,10 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                                                       \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+#define debug(...)                                                      \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
+         << "]:",                                                       \
+        debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -23,11 +25,12 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -46,6 +49,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -59,38 +79,9 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-ll incr(ll& a, ll& dig) {
-    ll cp = a;
-    dig = 1;
-    while (cp >= 10) {
-        cp /= 10;
-        dig *= 10;
-    }
-    a += dig;
-    return a;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll N;
-    cin >> N;
-
-    ll count[10][10]{};
-    int tp, bt, tmp;
-    rep(i, 1, N + 1) {
-        tmp = i;
-        bt = i % 10;
-        while (0 < tmp) {
-            tp = tmp % 10;
-            tmp /= 10;
-        }
-        count[tp][bt]++;
-    }
-
-    ll ans = 0;
-    rep(tp, 1, 10) rep(bt, 1, 10) ans += count[tp][bt] * count[bt][tp];
-    cout << ans << endl;
     return 0;
 }
