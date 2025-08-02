@@ -12,8 +12,10 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                                                       \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+#define debug(...)                                                      \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
+         << "]:",                                                       \
+        debug_out(__VA_ARGS__);                                         \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -81,59 +83,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll N;
-    cin >> N;
-    ll a[N], b[N], c[N];
-
-    rep(i, N) { cin >> a[i]; }
-    rep(i, N) { cin >> b[i]; }
-    rep(i, N) { cin >> c[i]; }
-
-    sort(a, a + N);
-    sort(b, b + N);
-    sort(c, c + N);
-
-    ll ans = 0;
-    rep(i, N) {
-        ll u = lower_bound(a, a + N, b[i]) - a;
-        ll l = N - (upper_bound(c, c + N, b[i]) - c);
-
-        ans += u * l;
-    }
-    cout << ans << endl;
-    // ll bsmc[N]{};
-    // ll ch = 0, ans = 0;
-    // rep(i, N) {
-    //     while (b[i] >= c[ch] && ch != N - 1) {
-    //         ch++;
-    //     }
-    //     bsmc[i] = N - ch;
-    // }
-
-    // ll renst = -1;
-    // rep(i, 1, N) {
-    //     if (bsmc[N - 1 - i] == bsmc[N - i]) {
-    //         if (renst == -1) renst = N - i;
-    //         if (renst == N - 1)
-    //             bsmc[N - 1 - i] += bsmc[N - i];
-    //         else
-    //             bsmc[N - 1 - i] += bsmc[renst + 1] * (renst + 2 + i - N);
-    //     } else {
-    //         bsmc[N - 1 - i] += bsmc[N - i];
-
-    //         renst = -1;
-    //     }
-    // }
-
-    // rep(i, N) { debug(i, bsmc[i]); }
-    // ch = 0;
-    // rep(i, N) {
-    //     while (a[i] >= b[ch] && ch != N - 1) {
-    //         ch++;
-    //     }
-    //     if (ch == N - 1 && a[i] >= b[ch]) break;
-    //     ans += bsmc[ch];
-    // }
-    // cout << ans << endl;
-    // return 0;
+    return 0;
 }

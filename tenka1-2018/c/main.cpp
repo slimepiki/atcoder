@@ -83,57 +83,48 @@ int main() {
 
     ll N;
     cin >> N;
-    ll a[N], b[N], c[N];
+    ll a[N];
 
-    rep(i, N) { cin >> a[i]; }
-    rep(i, N) { cin >> b[i]; }
-    rep(i, N) { cin >> c[i]; }
+    rep(i, N) {
+        cin >> a[N - 1];
+        a[i] = a[N - 1];
+    }
 
     sort(a, a + N);
-    sort(b, b + N);
-    sort(c, c + N);
 
-    ll ans = 0;
-    rep(i, N) {
-        ll u = lower_bound(a, a + N, b[i]) - a;
-        ll l = N - (upper_bound(c, c + N, b[i]) - c);
+    ll lv, rv;
+    lv = a[0];
+    rv = a[N - 1];
 
-        ans += u * l;
+    ll l = 1, r = N - 2;
+    ll diff, ans = rv - lv;
+    while (l <= r) {
+        diff = 0;
+        debug(lv, rv, a[l], a[r]);
+        chmax(diff, abs(lv - a[l]));
+        chmax(diff, abs(lv - a[r]));
+        chmax(diff, abs(rv - a[l]));
+        chmax(diff, abs(rv - a[r]));
+
+        if (diff == abs(lv - a[l])) {
+            lv = a[l];
+            debug(0, a[l]);
+            l++;
+        } else if (diff == abs(lv - a[r])) {
+            lv = a[r];
+            debug(0, a[r]);
+            r--;
+        } else if (diff == abs(rv - a[l])) {
+            rv = a[l];
+            debug(1, a[l]);
+            l++;
+        } else if (diff == abs(rv - a[r])) {
+            rv = a[r];
+            debug(1, a[r]);
+            r--;
+        }
+        ans += diff;
     }
     cout << ans << endl;
-    // ll bsmc[N]{};
-    // ll ch = 0, ans = 0;
-    // rep(i, N) {
-    //     while (b[i] >= c[ch] && ch != N - 1) {
-    //         ch++;
-    //     }
-    //     bsmc[i] = N - ch;
-    // }
-
-    // ll renst = -1;
-    // rep(i, 1, N) {
-    //     if (bsmc[N - 1 - i] == bsmc[N - i]) {
-    //         if (renst == -1) renst = N - i;
-    //         if (renst == N - 1)
-    //             bsmc[N - 1 - i] += bsmc[N - i];
-    //         else
-    //             bsmc[N - 1 - i] += bsmc[renst + 1] * (renst + 2 + i - N);
-    //     } else {
-    //         bsmc[N - 1 - i] += bsmc[N - i];
-
-    //         renst = -1;
-    //     }
-    // }
-
-    // rep(i, N) { debug(i, bsmc[i]); }
-    // ch = 0;
-    // rep(i, N) {
-    //     while (a[i] >= b[ch] && ch != N - 1) {
-    //         ch++;
-    //     }
-    //     if (ch == N - 1 && a[i] >= b[ch]) break;
-    //     ans += bsmc[ch];
-    // }
-    // cout << ans << endl;
-    // return 0;
+    return 0;
 }

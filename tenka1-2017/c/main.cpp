@@ -77,63 +77,45 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+vector<pair<ll, ll> > prime_factorize(ll N) {
+    if (N < 0) {
+        cerr << "input is negative!" << endl;
+    }
+    vector<pair<ll, ll> > res;
+    for (ll a = 2; a * a <= N; ++a) {
+        if (N % a != 0) continue;
+        ll ex = 0;
+
+        while (N % a == 0) {
+            ++ex;
+            N /= a;
+        }
+        res.push_back({a, ex});
+    }
+    if (N != 1) res.push_back({N, 1});
+    return res;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
     ll N;
     cin >> N;
-    ll a[N], b[N], c[N];
 
-    rep(i, N) { cin >> a[i]; }
-    rep(i, N) { cin >> b[i]; }
-    rep(i, N) { cin >> c[i]; }
+    auto fac = prime_factorize(N);
 
-    sort(a, a + N);
-    sort(b, b + N);
-    sort(c, c + N);
+    ll lg = fac[fac.size() - 1].first;
+    debug(lg);
 
-    ll ans = 0;
-    rep(i, N) {
-        ll u = lower_bound(a, a + N, b[i]) - a;
-        ll l = N - (upper_bound(c, c + N, b[i]) - c);
+    for (ll h = lg; h <= 3500; h += lg)
+        for (ll n = 2; n <= 3500; ++n)
+            for (ll w = 1; w <= 3500; ++w) {
+                if ((n * w + w * h + h * n) * N == 4 * h * n * w) {
+                    cout << h << " " << n << " " << w << endl;
+                    return 0;
+                }
+            }
 
-        ans += u * l;
-    }
-    cout << ans << endl;
-    // ll bsmc[N]{};
-    // ll ch = 0, ans = 0;
-    // rep(i, N) {
-    //     while (b[i] >= c[ch] && ch != N - 1) {
-    //         ch++;
-    //     }
-    //     bsmc[i] = N - ch;
-    // }
-
-    // ll renst = -1;
-    // rep(i, 1, N) {
-    //     if (bsmc[N - 1 - i] == bsmc[N - i]) {
-    //         if (renst == -1) renst = N - i;
-    //         if (renst == N - 1)
-    //             bsmc[N - 1 - i] += bsmc[N - i];
-    //         else
-    //             bsmc[N - 1 - i] += bsmc[renst + 1] * (renst + 2 + i - N);
-    //     } else {
-    //         bsmc[N - 1 - i] += bsmc[N - i];
-
-    //         renst = -1;
-    //     }
-    // }
-
-    // rep(i, N) { debug(i, bsmc[i]); }
-    // ch = 0;
-    // rep(i, N) {
-    //     while (a[i] >= b[ch] && ch != N - 1) {
-    //         ch++;
-    //     }
-    //     if (ch == N - 1 && a[i] >= b[ch]) break;
-    //     ans += bsmc[ch];
-    // }
-    // cout << ans << endl;
-    // return 0;
+    return 0;
 }

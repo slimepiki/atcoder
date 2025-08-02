@@ -12,10 +12,8 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -82,6 +80,30 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    cin >> N;
+    int a[N];
+
+    rep(i, N) {
+        cin >> a[i];
+        a[i] -= i + 1;
+    }
+
+    sort(a, a + N);
+
+    ll cent;
+
+    if (N % 2 == 0) {
+        cent = round((double)(a[N / 2 - 1] + a[N / 2]) / 2.0l);
+    } else {
+        cent = a[N / 2];
+    }
+
+    ll ans = 0;
+    rep(i, N) { ans += abs(a[i] - cent); }
+
+    cout << ans << endl;
 
     return 0;
 }

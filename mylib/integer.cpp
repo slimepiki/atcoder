@@ -29,7 +29,7 @@ bool IsPrime(int num) {
     return true;
 }
 
-// 素因数分解
+// 素因数分解 (p, p_count)
 vector<pair<ll, ll> > prime_factorize(ll N) {
     if (N < 0) {
         cerr << "input is negative!" << endl;
