@@ -12,10 +12,8 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
     cerr << "\033[m";
 #else
 #define debug(...)  //   :)
@@ -83,5 +81,30 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, max = 100010;
+    cin >> N;
+    int dp[max + 100]{};
+
+    rep(i, max + 100) dp[i] = max;
+    dp[0] = 0;
+
+    rep(i, 0, max) {
+        for (int j = 6; i + j < max + 100; j *= 6) {
+            chmin(dp[i + j], dp[i] + 1);
+        }
+        for (int j = 9; i + j < max + 100; j *= 9) {
+            chmin(dp[i + j], dp[i] + 1);
+        }
+    }
+
+    int minus = 0;
+    if (dp[N] == max) {
+        while (dp[N - minus] == max) {
+            minus++;
+        }
+        cout << dp[N - minus] + minus << endl;
+    } else {
+        cout << dp[N] << endl;
+    }
     return 0;
 }

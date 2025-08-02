@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
     cerr << "\033[m";
 #else
-#define debug(...) //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +44,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,6 +62,37 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, K;
+    string s;
+    cin >> N >> K >> s;
+
+    char curr = s[0];
+    int oppo = 0;
+    int defH = (s[0] == s[1] && s[0] == 'R') ? 1 : 0;
+
+    rep(i, 1, s.size()) {
+        if (s[i] == curr) {
+            if ((i != s.size() - 1) || (s[i] != 'L')) defH++;
+        } else {
+            oppo++;
+        }
+        curr = s[i];
+    }
+
+    debug(defH, oppo);
+
+    if (oppo <= 1) {
+        cout << N - 1 << endl;
+        return 0;
+    }
+
+    if (K * 2 >= oppo) {
+        cout << N - 1 << endl;
+        return 0;
+    }
+
+    cout << N - 1 - (oppo - K * 2) << endl;
 
     return 0;
 }
