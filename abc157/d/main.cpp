@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -45,6 +43,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -58,9 +58,78 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+class UnionFind {
+   public:
+    UnionFind() = default;
+    explicit UnionFind(size_t n) : m_parentsOrSize(n, -1) {}
+    int find(int i) {
+        if (m_parentsOrSize[i] < 0) {
+            return i;
+        }
+        return (m_parentsOrSize[i] = find(m_parentsOrSize[i]));
+    }
+
+    void merge(int a, int b) {
+        a = find(a);
+        b = find(b);
+
+        if (a != b) {
+            if (-m_parentsOrSize[a] < -m_parentsOrSize[b]) {
+                std::swap(a, b);
+            }
+
+            m_parentsOrSize[a] += m_parentsOrSize[b];
+            m_parentsOrSize[b] = a;
+        }
+    }
+
+    bool connected(int a, int b) { return (find(a) == find(b)); }
+
+    int size(int i) { return -m_parentsOrSize[find(i)]; }
+
+   private:
+    std::vector<int> m_parentsOrSize;
+};
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N, M, K;
+    cin >> N >> M >> K;
+
+    UnionFind uf(N);
+    vector<set<int>> fr(N), bl(N);
+
+    ll a, b;
+
+    rep(i, M) {
+        cin >> a >> b;
+        a--;
+        b--;
+        uf.merge(a, b);
+        fr[a].insert(b);
+        fr[b].insert(a);
+    }
+
+    rep(i, K) {
+        cin >> a >> b;
+        a--;
+        b--;
+        bl[a].insert(b);
+        bl[b].insert(a);
+    }
+
+    rep(i, N) {
+        if (i > 0) cout << " ";
+        ll ans = uf.size(i);
+        ans--;
+        ans -= fr[i].size();
+        repit(it, bl[i]) {
+            if (uf.find(i) == uf.find(*it)) --ans;
+        }
+        cout << ans;
+    }
+    cout << endl;
     return 0;
 }

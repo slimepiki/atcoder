@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +44,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,5 +63,55 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+    string s;
+    cin >> N >> K >> s;
+
+    int c = 1;
+    bool b = (s[0] == '1');
+
+    vector<pair<int, bool>> vec;
+
+    rep(i, s.size() - 1) {
+        if (b ^ (s[i + 1] == '1')) {
+            vec.push_back(make_pair(c, b));
+            c = 1;
+        } else {
+            c++;
+        }
+        b = (s[i + 1] == '1');
+    }
+
+    if (c != 0) vec.push_back(make_pair(c, b));
+
+    int ans = 0;
+
+    int temp = 0;
+    int r = 0, l = 0;
+    c = 0;
+
+    rep(i, vec.size()) debug(vec[i].second, vec[i].first);
+
+    while (r < vec.size()) {
+        int minus = 0;
+        if (!vec[r].second) {
+            if (c < K) {
+                c++;
+            } else {
+                while (vec[l].second) {
+                    minus -= vec[l].first;
+                    l++;
+                }
+                minus -= vec[l].first;
+                l++;
+            }
+        }
+        temp += vec[r].first;
+        temp += minus;
+        r++;
+        debug(c, temp);
+        chmax(ans, temp);
+    }
+    cout << ans << endl;
     return 0;
 }

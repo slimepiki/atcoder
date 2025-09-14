@@ -12,11 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-    #define debug(...)                                                                                       \
-        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
-        cerr << "\033[m";
+#define debug(...)                                                                                       \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+    cerr << "\033[m";
 #else
-    #define debug(...)  //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -58,7 +58,6 @@ void debug_out(Head H, Tail... T) {
 
 #define printa2d(a, H, W)                 \
     {rep(i, H){rep(j, W){cout << a[i][j]; \
-    if (j != W - 1) cout << ' ';          \
     }                                     \
     cout << endl;                         \
     }                                     \
@@ -81,31 +80,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    bool b;
+    int H, W, A, B;
+    cin >> H >> W >> A >> B;
 
-    bitset<10> bits[N];
-    int vals[N][11]{};
+    int m[H][W]{};
 
-    rep(i, N) {
-        rep(j, 10) {
-            cin >> b;
-            bits[i][j] = b;
-        }
+    rep(i, H) {
+        rep(j, W) { m[i][j] = ((j < A) ^ (i < B)) ? 0 : 1; }
     }
 
-    rep(i, N) {
-        rep(j, 11) { cin >> vals[i][j]; }
-    }
+    printa2d(m, H, W);
 
-    ll ans = -IINF;
-    rep(i, 1, 1 << 10) {
-        bitset<10> jo(i);
-        ll temp = 0;
-        rep(j, N) { temp += vals[j][(bits[j] & jo).count()]; }
-        chmax(ans, temp);
-    }
-    cout << ans << endl;
     return 0;
 }

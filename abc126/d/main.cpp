@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -28,7 +26,7 @@ void debug_out(Head H, Tail... T) {
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();    \
+    x = t.first();     \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -46,7 +44,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -64,6 +62,42 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    cin >> N;
+    vector<vector<pair<int, int>>> v(N, vector<pair<int, int>>());
+
+    int x, y, w;
+    rep(i, N - 1) {
+        cin >> x >> y >> w;
+        x--;
+        y--;
+        v[x].push_back(make_pair(y, w));
+        v[y].push_back(make_pair(x, w));
+    }
+
+    int val[N]{};
+    rep(i, N) val[i] = -1;
+
+    stack<int> st;
+
+    val[0] = 0;
+    st.push(0);
+
+    while (!st.empty()) {
+        x = st.top();
+        st.pop();
+        rep(i, v[x].size()) {
+            y = v[x][i].first;
+            w = v[x][i].second;
+            if (val[y] != -1) continue;
+            debug(x, y, w, w % 2, val[x]);
+            val[y] = ((w % 2) ^ val[x]);
+            st.push(y);
+        }
+    }
+
+    rep(i, N) cout << val[i] << endl;
 
     return 0;
 }
