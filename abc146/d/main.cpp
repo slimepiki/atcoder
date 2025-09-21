@@ -12,20 +12,18 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
     x = get<0>(t);     \
     y = get<1>(t);
@@ -45,6 +43,8 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -62,5 +62,45 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    vector<vector<ii>> e(N, vector<ii>());
+
+    int a, b;
+
+    rep(i, N - 1) {
+        cin >> a >> b;
+        a--;
+        b--;
+        e[a].push_back(make_pair(b, i));
+        e[b].push_back(make_pair(a, i));
+    }
+
+    int maxcol = 1;
+    int col[N - 1];
+    rep(i, N - 1) col[i] = -1;
+
+    stack<int> st;
+    st.push(0);
+
+    while (!st.empty()) {
+        a = st.top();
+        st.pop();
+        set<int> ucol;
+        int ncol = 1;
+        rep(i, e[a].size()) { ucol.insert(col[e[a][i].second]); }
+        rep(i, e[a].size()) {
+            if (col[e[a][i].second] == -1) {
+                while (ucol.count(ncol)) ncol++;
+                col[e[a][i].second] = ncol++;
+                chmax(maxcol, ncol - 1);
+                st.push(e[a][i].first);
+            }
+        }
+    }
+
+    cout << maxcol << endl;
+    rep(i, N - 1) cout << col[i] << endl;
     return 0;
 }
