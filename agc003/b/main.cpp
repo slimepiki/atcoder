@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -46,7 +44,9 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
+
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -65,5 +65,26 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N, a, pa = 0;
+    map<ll, ll> m;
+
+    cin >> N;
+
+    ll ans = 0;
+
+    rep(i, N) {
+        cin >> a;
+        if (pa > 0 && a > 0) {
+            ans += min(pa, a);
+            a -= min(pa, a);
+        }
+        if (a >= 2) {
+            ans += a / 2;
+            a %= 2;
+        }
+        pa = a;
+    }
+
+    cout << ans << endl;
     return 0;
 }

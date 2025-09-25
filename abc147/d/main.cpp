@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,76 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+constexpr int mod = 1000000007;
+class mint {
+   public:
+    long long x;
+    constexpr mint(long long x = 0) : x((x % mod + mod) % mod) {}
+    constexpr mint operator-() const { return mint(-x); }
+    constexpr mint& operator+=(const mint& a) {
+        if ((x += a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) {
+        if ((x += mod - a.x) >= mod) x -= mod;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    constexpr mint operator+(const mint& a) const {
+        mint res(*this);
+        return res += a;
+    }
+    constexpr mint operator-(const mint& a) const {
+        mint res(*this);
+        return res -= a;
+    }
+    constexpr mint operator*(const mint& a) const {
+        mint res(*this);
+        return res *= a;
+    }
+    constexpr mint pow(long long t) const {
+        if (!t) return 1;
+        mint a = pow(t >> 1);
+        a *= a;
+        if (t & 1) a *= *this;
+        return a;
+    }
+    constexpr operator ll() const { return x; }
+
+    // for prime mod
+    constexpr mint inv() const { return pow(mod - 2); }
+    constexpr mint& operator/=(const mint& a) { return (*this) *= a.inv(); }
+    constexpr mint operator/(const mint& a) const {
+        mint res(*this);
+        return res /= a;
+    }
+};
+ostream& operator<<(ostream& os, const mint& m) {
+    os << m.x;
+    return os;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    ll b[N];
+    ll a;
+    rep(i, N) { cin >> b[i]; }
+    mint ans = 0;
+    ll mask = 1;
+    rep(i, 60) {
+        ll one = 0;
+        rep(j, N) { one += (b[j] & mask) ? 1 : 0; }
+        ans += (mask % mod) * (one * (N - one) % mod);
+        mask <<= 1;
+    }
+    cout << ans << endl;
     return 0;
 }

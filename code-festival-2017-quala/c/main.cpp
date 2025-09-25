@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,57 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H, W;
+    cin >> H >> W;
+    char a;
+    int c[26]{};
+    rep(i, H * W) {
+        cin >> a;
+        c[a - 'a']++;
+    }
+
+    int o = 0, t = 0, f = 0;
+
+    if (H % 2 == 1) {
+        t += W / 2;
+    }
+
+    if (W % 2 == 1) {
+        t += H / 2;
+    }
+
+    if (H % 2 == 1 && W % 2 == 1) {
+        o = 1;
+    }
+
+    rep(i, 26) {
+        f += c[i] / 4;
+
+        if (c[i] % 4 == 1) {
+            o--;
+        } else if (c[i] % 4 == 2) {
+            t--;
+        } else if (c[i] % 4 == 3) {
+            t--;
+            o--;
+        }
+    }
+
+    if (o != 0) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    if (t == 0) {
+        cout << "Yes" << endl;
+        return 0;
+    }
+
+    if (t >= 0 && t % 2 == 0 && f * 2 >= t) {
+        cout << "Yes" << endl;
+        return 0;
+    }
+
+    cout << "No" << endl;
     return 0;
 }
