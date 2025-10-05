@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,45 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M;
+    cin >> N >> M;
+    int a[N], b[M];
+    rep(i, N) cin >> a[i];
+    rep(i, M) cin >> b[i];
+
+    int x = 0, y = 0;
+    bool first = true;
+
+    while (x < N && y < M) {
+        if (a[x] < b[y]) {
+            if (!first) cout << ' ';
+            cout << a[x];
+            x++;
+            first = false;
+        } else if (a[x] > b[y]) {
+            if (!first) cout << ' ';
+            cout << b[y];
+            y++;
+            first = false;
+        } else {
+            x++;
+            y++;
+        }
+    }
+    while (x < N) {
+        if (!first) cout << ' ';
+        cout << a[x];
+        first = false;
+        x++;
+    }
+
+    while (y < M) {
+        if (!first) cout << ' ';
+        cout << b[y];
+        first = false;
+        y++;
+    }
+
+    cout << endl;
     return 0;
 }

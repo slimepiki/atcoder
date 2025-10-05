@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -85,7 +83,15 @@ int main() {
     int N;
     cin >> N;
     int l[N];
-    rep(i,N)cin >> l[i];
+    rep(i, N) cin >> l[i];
+
+    sort(l, l + N);
+    int sum = 0;
+    rep(i, N - 1) sum += l[i];
+    if (l[N - 1] < sum)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }
