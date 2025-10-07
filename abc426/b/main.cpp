@@ -47,6 +47,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -64,19 +81,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    string s;
+    multiset<char> st;
+    cin >> s;
+    rep(i, s.size()) { st.insert(s[i]); }
 
-    set<int> st;
-    int a;
-    rep(i, N) {
-        cin >> a;
-        if (st.count(a)) {
-            cout << "NO" << endl;
+    rep(i, s.size()) {
+        if (st.count(s[i]) == 1) {
+            cout << s[i] << endl;
             return 0;
         }
-        st.insert(a);
     }
-    cout << "YES" << endl;
+
     return 0;
 }

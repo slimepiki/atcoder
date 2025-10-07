@@ -12,11 +12,13 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-    #define debug(...)                                                                                       \
-        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
-        cerr << "\033[m";
+#define debug(...)                                                      \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
+         << "]:",                                                       \
+        debug_out(__VA_ARGS__);                                         \
+    cerr << "\033[m";
 #else
-    #define debug(...)  //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -47,6 +49,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -64,19 +83,5 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-
-    set<int> st;
-    int a;
-    rep(i, N) {
-        cin >> a;
-        if (st.count(a)) {
-            cout << "NO" << endl;
-            return 0;
-        }
-        st.insert(a);
-    }
-    cout << "YES" << endl;
     return 0;
 }

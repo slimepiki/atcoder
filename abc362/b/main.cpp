@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,34 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int len2(int x, int y) { return x * x + y * y; }
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int x[3];
+    int y[3];
+
+    rep(i, 3) cin >> x[i] >> y[i];
+
+    int e0 = len2(x[0] - x[1], y[0] - y[1]);
+    int e1 = len2(x[0] - x[2], y[0] - y[2]);
+    int e2 = len2(x[2] - x[1], y[2] - y[1]);
+
+    if (e1 + e2 == e0) {
+        cout << "Yes" << endl;
+        return 0;
+    }
+    if (e0 + e2 == e1) {
+        cout << "Yes" << endl;
+        return 0;
+    }
+    if (e0 + e1 == e2) {
+        cout << "Yes" << endl;
+        return 0;
+    }
+
+    cout << "No" << endl;
     return 0;
 }

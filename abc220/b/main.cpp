@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,22 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int K;
+    string A, B;
+    cin >> K >> A >> B;
+
+    ll a = 0, b = 0;
+
+    int mul = 1;
+    rep(i, A.size()) {
+        a += mul * (A[A.size() - 1 - i] - '0');
+        mul *= K;
+    }
+    mul = 1;
+    rep(i, B.size()) {
+        b += mul * (B[B.size() - 1 - i] - '0');
+        mul *= K;
+    }
+    cout << a * b << endl;
     return 0;
 }
