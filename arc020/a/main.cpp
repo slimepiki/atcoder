@@ -81,28 +81,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, D;
-    cin >> N >> D;
+    int A, B;
+    cin >> A >> B;
 
-    bool d[D]{};
+    if (abs(A) > abs(B))
+        cout << "Bug" << endl;
+    else if (abs(A) < abs(B))
+        cout << "Ant" << endl;
+    else
+        cout << "Draw" << endl;
 
-    rep(i, D) d[i] = true;
-    string s;
-    rep(i, N) {
-        cin >> s;
-        rep(j, D) {
-            if (s[j] == 'x') d[j] = false;
-        }
-    }
-    ll ans = 0, temp = 0;
-    rep(i, D) {
-        if (d[i]) {
-            temp++;
-        } else {
-            chmax(ans, temp);
-            temp = 0;
-        }
-    }
-    cout << max(ans, temp) << endl;
     return 0;
 }

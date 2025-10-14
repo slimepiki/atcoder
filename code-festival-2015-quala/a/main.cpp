@@ -81,28 +81,9 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, D;
-    cin >> N >> D;
-
-    bool d[D]{};
-
-    rep(i, D) d[i] = true;
     string s;
-    rep(i, N) {
-        cin >> s;
-        rep(j, D) {
-            if (s[j] == 'x') d[j] = false;
-        }
-    }
-    ll ans = 0, temp = 0;
-    rep(i, D) {
-        if (d[i]) {
-            temp++;
-        } else {
-            chmax(ans, temp);
-            temp = 0;
-        }
-    }
-    cout << max(ans, temp) << endl;
+    cin >> s;
+    rep(i, s.size() - 1) cout << s[i];
+    cout << '5' << endl;
     return 0;
 }

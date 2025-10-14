@@ -81,28 +81,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, D;
-    cin >> N >> D;
+    string s, t;
 
-    bool d[D]{};
+    cin >> s;
 
-    rep(i, D) d[i] = true;
-    string s;
-    rep(i, N) {
-        cin >> s;
-        rep(j, D) {
-            if (s[j] == 'x') d[j] = false;
-        }
+    multiset<char> st;
+
+    rep(i, s.size()) { st.insert(s[i]); }
+
+    rep(i, s.size()) {
+        if (st.count(s[i])) t += s[i];
     }
-    ll ans = 0, temp = 0;
-    rep(i, D) {
-        if (d[i]) {
-            temp++;
-        } else {
-            chmax(ans, temp);
-            temp = 0;
-        }
-    }
-    cout << max(ans, temp) << endl;
+
+    cout << s + s << endl;
+
     return 0;
 }

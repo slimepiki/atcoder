@@ -81,28 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, D;
-    cin >> N >> D;
+    char c;
+    cin >> c;
 
-    bool d[D]{};
+    if (c == 'O' || c == 'P' || c == 'K' || c == 'L')
+        cout << "Right" << endl;
+    else
+        cout << "Left" << endl;
 
-    rep(i, D) d[i] = true;
-    string s;
-    rep(i, N) {
-        cin >> s;
-        rep(j, D) {
-            if (s[j] == 'x') d[j] = false;
-        }
-    }
-    ll ans = 0, temp = 0;
-    rep(i, D) {
-        if (d[i]) {
-            temp++;
-        } else {
-            chmax(ans, temp);
-            temp = 0;
-        }
-    }
-    cout << max(ans, temp) << endl;
     return 0;
 }

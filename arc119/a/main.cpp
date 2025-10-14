@@ -81,28 +81,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, D;
-    cin >> N >> D;
+    ll N, tb = 1, b = 0, a, c;
+    cin >> N;
 
-    bool d[D]{};
+    ll ans = N;
 
-    rep(i, D) d[i] = true;
-    string s;
-    rep(i, N) {
-        cin >> s;
-        rep(j, D) {
-            if (s[j] == 'x') d[j] = false;
+    while (true) {
+        a = N / tb;
+        c = N % tb;
+        chmin(ans, a + b + c);
+
+        debug(a, b, c, a + b + c);
+        tb *= 2;
+        b++;
+        if (a == 0) {
+            break;
         }
     }
-    ll ans = 0, temp = 0;
-    rep(i, D) {
-        if (d[i]) {
-            temp++;
-        } else {
-            chmax(ans, temp);
-            temp = 0;
-        }
-    }
-    cout << max(ans, temp) << endl;
+    cout << ans << endl;
+
     return 0;
 }

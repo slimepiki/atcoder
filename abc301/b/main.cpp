@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,36 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    cin >> N;
+    int a, pa;
+    cin >> pa;
+    rep(i, N) {
+        cin >> a;
+        if (abs(a - pa) <= 1) {
+            if (i) cout << " ";
+            cout << pa;
+        } else {
+            if (a > pa) {
+                for (int j = pa; j < a; j++) {
+                    if (i != 0 || j != pa) {
+                        cout << ' ';
+                    }
+                    cout << j;
+                }
+            } else {
+                for (int j = pa; j > a; j--) {
+                    if (i != 0 || j != 0) {
+                        cout << ' ';
+                    }
+                    cout << j;
+                }
+            }
+        }
+        pa = a;
+    }
+    cout << endl;
 
     return 0;
 }

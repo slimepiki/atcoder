@@ -77,32 +77,28 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int calcketa(int x) {
+    int ret = 0;
+    while (x > 0) {
+        ret += x % 10;
+        x /= 10;
+    }
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, D;
-    cin >> N >> D;
+    int N;
+    cin >> N;
+    int a[N + 1];
+    a[0] = 1;
 
-    bool d[D]{};
-
-    rep(i, D) d[i] = true;
-    string s;
     rep(i, N) {
-        cin >> s;
-        rep(j, D) {
-            if (s[j] == 'x') d[j] = false;
-        }
+        a[i + 1] = a[i] + calcketa(a[i]);
+        if (i == 0) a[i + 1]--;
     }
-    ll ans = 0, temp = 0;
-    rep(i, D) {
-        if (d[i]) {
-            temp++;
-        } else {
-            chmax(ans, temp);
-            temp = 0;
-        }
-    }
-    cout << max(ans, temp) << endl;
+    cout << a[N] << endl;
     return 0;
 }
