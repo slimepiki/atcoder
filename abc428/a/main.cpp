@@ -81,24 +81,19 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    rep(i, N + 1) {
-        int a = -1;
-        rep(j, 1, 10) {
-            if (!(N % j)) {
-                if (!(i % (N / j))) {
-                    a = j;
-                    break;
-                }
-            }
+    int s, a, b, x;
+    cin >> s >> a >> b >> x;
+    int ans = 0, t = 0;
+
+    while (t <= x) {
+        if (t + a > x) {
+            cout << ans + (x - t) * s << endl;
+            return 0;
         }
-        if (a == -1) {
-            cout << '-';
-        } else {
-            cout << a;
-        }
+        ans += s * a;
+        t += a;
+        t += b;
     }
-    cout << endl;
+    cout << ans << endl;
     return 0;
 }

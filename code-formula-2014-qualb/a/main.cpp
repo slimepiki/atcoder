@@ -81,24 +81,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    rep(i, N + 1) {
-        int a = -1;
-        rep(j, 1, 10) {
-            if (!(N % j)) {
-                if (!(i % (N / j))) {
-                    a = j;
-                    break;
-                }
-            }
-        }
-        if (a == -1) {
-            cout << '-';
-        } else {
-            cout << a;
-        }
-    }
-    cout << endl;
+    int A;
+    cin >> A;
+
+    cout << 7 - A << endl;
+
     return 0;
 }

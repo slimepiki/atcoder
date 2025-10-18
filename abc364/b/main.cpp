@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,34 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H, W;
+    int x, y;
+    cin >> H >> W >> x >> y;
+    x--;
+    y--;
+
+    char m[H][W];
+    rep(i, H) rep(j, W) cin >> m[i][j];
+    string s;
+    cin >> s;
+    int nx, ny;
+    rep(i, s.size()) {
+        nx = x;
+        ny = y;
+        if (s[i] == 'L')
+            ny--;
+        else if (s[i] == 'R')
+            ny++;
+        else if (s[i] == 'U')
+            nx--;
+        else
+            nx++;
+
+        if (nx < H && ny < W && nx >= 0 && ny >= 0 && m[nx][ny] != '#') {
+            x = nx;
+            y = ny;
+        }
+    }
+    cout << x + 1 << ' ' << y + 1 << endl;
     return 0;
 }

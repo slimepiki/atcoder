@@ -83,21 +83,19 @@ int main() {
 
     int N;
     cin >> N;
-    rep(i, N + 1) {
-        int a = -1;
-        rep(j, 1, 10) {
-            if (!(N % j)) {
-                if (!(i % (N / j))) {
-                    a = j;
-                    break;
-                }
-            }
-        }
-        if (a == -1) {
-            cout << '-';
-        } else {
-            cout << a;
-        }
+    int c = 0;
+
+    ll a = 100000 + N - 1;
+
+    string s = to_string(a);
+
+    rep(i, s.size()) {
+        if (i == 0 || i == 3) {
+            cout << s[i] << s[i];
+        } else if (i == s.size() - 1)
+            cout << s[i] << s[4];
+        else
+            cout << s[i];
     }
     cout << endl;
     return 0;
