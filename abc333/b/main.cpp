@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,35 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int ct(char c) {
+    if (c == 'A') return 0;
+    if (c == 'B') return 1;
+    if (c == 'C') return 2;
+    if (c == 'D') return 3;
+    if (c == 'E')
+        return 4;
+    else
+        return -1;
+}
+
+int lenP(int x, int y) { return min(abs(x - y), 5 - max(x, y) + min(x, y)); }
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    char s1, s2, t1, t2;
+    cin >> s1 >> s2 >> t1 >> t2;
+
+    int s1i = ct(s1);
+    int s2i = ct(s2);
+    int t1i = ct(t1);
+    int t2i = ct(t2);
+
+    if (lenP(s1i, s2i) == lenP(t1i, t2i))
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }

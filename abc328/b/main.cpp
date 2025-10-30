@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,40 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int getZoro(int x) {
+    int z = x % 10;
+    if (x <= 0) return -1;
+
+    while (x) {
+        if (x % 10 != z) {
+            return -1;
+        }
+        x /= 10;
+    }
+    return z;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+
+    cin >> N;
+
+    int d[N]{};
+
+    rep(i, N) cin >> d[i];
+
+    int ans = 0;
+
+    rep(i, 1, N + 1) {
+        rep(j, 1, d[i - 1] + 1) {
+            int z1 = getZoro(i), z2 = getZoro(j);
+            if (z1 > 0 && z2 > 0 && z1 == z2) ans++;
+        }
+    }
+
+    cout << ans << endl;
     return 0;
 }

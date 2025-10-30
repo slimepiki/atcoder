@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,41 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H, W, X, Y;
+    cin >> H >> W >> X >> Y;
+    X--;
+    Y--;
+    char m[H][W];
+    rep(i, H) rep(j, W) cin >> m[i][j];
+
+    int ans = 0;
+    for (int i = X; i >= 0; --i) {
+        if (m[i][Y] == '#') {
+            break;
+        }
+        ++ans;
+    }
+
+    for (int i = X + 1; i < H; ++i) {
+        if (m[i][Y] == '#') {
+            break;
+        }
+        ++ans;
+    }
+
+    for (int i = Y - 1; i >= 0; --i) {
+        if (m[X][i] == '#') {
+            break;
+        }
+        ++ans;
+    }
+
+    for (int i = Y + 1; i < W; ++i) {
+        if (m[X][i] == '#') {
+            break;
+        }
+        ++ans;
+    }
+    cout << ans << endl;
     return 0;
 }
