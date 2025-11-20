@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,34 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+
+    cin >> N;
+
+    map<int, int> m;
+    int a;
+    rep(i, N) {
+        cin >> a;
+        if (m.count(a)) {
+            ++m[a];
+        } else {
+            m[a] = 1;
+        }
+    }
+
+    vector<pair<int, int>> v;
+    repit(it, m) { v.push_back(make_pair(it->first, it->second)); }
+    rep(i, v.size() - 1) v[v.size() - 2 - i].second += v[v.size() - 1 - i].second;
+
+    int p = 0, ans = 0;
+    rep(i, N + 1) {
+        while (v[p].first < i && p < v.size()) {
+            p++;
+        }
+        if (p < v.size() && i <= v[p].second) {
+            ans = i;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

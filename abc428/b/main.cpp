@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,36 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+    string s;
+    cin >> N >> K >> s;
+
+    map<string, int> st;
+    rep(i, s.size() - K + 1) {
+        string t = s.substr(i, K);
+        if (!st.count(t))
+            st[t] = 1;
+        else
+            ++st[t];
+    }
+
+    int ans = 0;
+    vector<string> v;
+
+    repit(it, st) { chmax(ans, it->second); }
+
+    repit(it, st) {
+        if (it->second == ans) v.push_back(it->first);
+    }
+
+    sort(v.begin(), v.end());
+
+    cout << ans << endl;
+
+    rep(i, v.size()) {
+        if (i) cout << ' ';
+        cout << v[i];
+    }
+    cout << endl;
     return 0;
 }
