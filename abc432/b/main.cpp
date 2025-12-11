@@ -23,6 +23,7 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
@@ -46,6 +47,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -59,25 +77,34 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-bool cki7(int N, int dig) {
-    while (N > 0) {
-        if (N % dig == 7) {
-            return false;
-        }
-        N /= dig;
-    }
-    return true;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    int ans = 0;
-    rep(i, 1, N + 1) {
-        if (cki7(i, 10) && cki7(i, 8)) ans++;
+    string x;
+    cin >> x;
+
+    vector<int> v;
+    rep(i, x.size()) { v.push_back(x[i] - '0'); }
+
+    sort(v.begin(), v.end());
+
+    int fst = 0;
+
+    rep(i, v.size()) {
+        if (v[i] != 0) {
+            fst = v[i];
+            v.erase(v.begin() + i);
+            break;
+        }
+    }
+
+    int ans = fst * pow(10, x.size() - 1);
+
+    int mul = 1;
+    rep(i, v.size()) {
+        ans += mul * v[v.size() - 1 - i];
+        mul *= 10;
     }
     cout << ans << endl;
     return 0;

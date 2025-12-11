@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,41 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+    int c, a;
+
+    vector<ii> rt[37];
+
+    rep(i, N) {
+        cin >> c;
+        rep(j, c) {
+            cin >> a;
+            rt[a].push_back(make_pair(i + 1, c));
+        }
+    }
+    int X;
+    cin >> X;
+
+    sort(rt[X].begin(), rt[X].end(), [](ii x, ii y) {
+        if (x.second == y.second)
+            return x.first < y.first;
+        else
+            return x.second < y.second;
+    });
+
+    vector<int> ans;
+    rep(i, rt[X].size()) {
+        if (rt[X][0].second == rt[X][i].second)
+            ans.push_back(rt[X][i].first);
+        else
+            break;
+    }
+    cout << ans.size() << endl;
+    rep(i, ans.size()) {
+        if (i) cout << " ";
+        cout << ans[i];
+    }
+    cout << endl;
     return 0;
 }

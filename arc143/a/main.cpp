@@ -23,6 +23,7 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
@@ -46,6 +47,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -59,26 +77,23 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-bool cki7(int N, int dig) {
-    while (N > 0) {
-        if (N % dig == 7) {
-            return false;
-        }
-        N /= dig;
-    }
-    return true;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
-    int ans = 0;
-    rep(i, 1, N + 1) {
-        if (cki7(i, 10) && cki7(i, 8)) ans++;
-    }
-    cout << ans << endl;
+    ll a[3];
+    rep(i, 3) cin >> a[i];
+
+    sort(a, a + 3);
+
+    ll m = a[0];
+    ll am = a[2] - a[1];
+    ll tw = a[1] - a[0];
+
+    if (m >= am)
+        cout << am + m + tw << endl;
+    else
+        cout << -1 << endl;
+
     return 0;
 }
