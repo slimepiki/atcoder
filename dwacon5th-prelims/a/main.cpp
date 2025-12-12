@@ -81,33 +81,26 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
+    int N;
+    cin >> N;
 
-    bool ck[N][N]{};
-    int k;
-    rep(i, M) {
-        cin >> k;
-        int p[k]{};
-        rep(j, k) {
-            cin >> p[j];
-            --p[j];
-        }
-
-        rep(j, k) {
-            rep(l, j + 1, k) {
-                ck[p[l]][p[j]] = true;
-                ck[p[j]][p[l]] = true;
-            }
-        }
+    float a[N], sum = 0;
+    rep(i, N) {
+        cin >> a[i];
+        sum += a[i];
     }
 
-    rep(i, N) rep(j, N) {
-        if (i != j && !ck[i][j]) {
-            cout << "No" << endl;
-            return 0;
+    sum /= N;
+
+    int ans = 0;
+    float diff = 10000;
+
+    rep(i, N) {
+        if (diff > abs(a[i] - sum)) {
+            ans = i;
+            diff = abs(a[i] - sum);
         }
     }
-    cout << "Yes" << endl;
+    cout << ans << endl;
     return 0;
 }
