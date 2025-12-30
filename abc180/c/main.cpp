@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,63 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+vector<pair<ll, ll>> prime_factorize(ll N) {
+    if (N < 0) {
+        cerr << "input is negative!" << endl;
+    }
+    vector<pair<ll, ll>> res;
+    for (ll a = 2; a * a <= N; ++a) {
+        if (N % a != 0) continue;
+        ll ex = 0;
+
+        while (N % a == 0) {
+            ++ex;
+            N /= a;
+        }
+        res.push_back({a, ex});
+    }
+    if (N != 1) res.push_back({N, 1});
+    return res;
+}
+
+bool up(vector<ll>& c, vector<pair<ll, ll>>& r) {
+    c[0]++;
+    rep(i, r.size()) {
+        if (c[i] > r[i].second) {
+            c[i] = 0;
+            if (i != r.size() - 1) {
+                c[i + 1]++;
+            }
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
+
+ll get(vector<ll>& c, vector<pair<ll, ll>>& r) {
+    ll ret = 1;
+    rep(i, r.size()) { rep(j, c[i]) ret *= r[i].first; }
+
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    return 0;
+    ll N;
+    cin >> N;
+
+    vector<ll> ans;
+
+    for (ll i = 1; i * i <= N; ++i) {
+        if (!(N % i)) {
+            ans.push_back(i);
+            if (i * i != N) ans.push_back(N / i);
+        }
+    }
+    sort(ans.begin(), ans.end());
+
+    rep(i, ans.size()) { cout << ans[i] << endl; }
 }

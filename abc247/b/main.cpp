@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,33 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+
+    cin >> N;
+
+    string s[N], t[N];
+
+    multiset<string> st;
+
+    rep(i, N) {
+        cin >> s[i] >> t[i];
+        st.insert(s[i]);
+        st.insert(t[i]);
+    }
+
+    rep(i, N) {
+        if (s[i] == t[i]) {
+            if (st.count(s[i]) != 2) {
+                cout << "No" << endl;
+                return 0;
+            }
+        } else {
+            if (st.count(s[i]) != 1 && st.count(t[i]) != 1) {
+                cout << "No" << endl;
+                return 0;
+            }
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }
