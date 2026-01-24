@@ -12,6 +12,9 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+// 正制限mod
+inline int posmod(int num, int N) { return ((num % N) + N) % N; }
+
 // #########################################################
 #define TPNS 1000000007ll
 bool IsPrime(int num) {

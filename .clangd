@@ -1,0 +1,2 @@
+Diagnostics:
+	Suppress: [variable_object_no_init, ext_using_undefined_std]

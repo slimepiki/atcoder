@@ -12,23 +12,23 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
+#define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
-#define ii tuple<int, int>
+#define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = get<0>(t);     \
-    y = get<1>(t);
+    x = t.first();     \
+    y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
     x = get<0>(t);         \
@@ -44,6 +44,25 @@ void debug_out(Head H, Tail... T) {
 #define vc vector<char>
 #define vvc vector<vc>
 #define vvvc vector<vvc>
+
+#define IINF 0x3f3f3f3f - 10
+
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
 
 template <typename T>
 inline bool chmin(T& a, const T& b) {
@@ -62,9 +81,10 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-        int a[] = {1, 1, 1, 2, 1, 2, 1, 5, 2, 2, 1, 5, 1, 2, 1, 14, 1, 5, 1, 5, 2, 2, 1, 15, 2, 2, 5, 4, 1, 4, 1, 51};
-    int K;
-    cin >> K;
-    cout << a[K-1] << endl;
+    int N;
+    cin >> N;
+
+    cout << ((N + 1) * N) / 2 << endl;
+
     return 0;
 }
