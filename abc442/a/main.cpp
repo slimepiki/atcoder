@@ -81,22 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    string s;
+    cin >> s;
+    ll ans = 0;
 
-    vector<ii> v;
-    int a;
-    rep(i, N) {
-        cin >> a;
-        v.push_back(make_pair(i + 1, a));
+    rep(i, s.size()) {
+        if (s[i] == 'i' || s[i] == 'j') ++ans;
     }
-
-    sort(v.begin(), v.end(), [](ii x, ii y) { return x.second < y.second; });
-
-    rep(i, 3) {
-        if (i) cout << " ";
-        cout << v[i].first;
-    }
-    cout << endl;
+    cout << ans << endl;
     return 0;
 }

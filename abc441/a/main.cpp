@@ -81,22 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    int P, Q, X, Y;
+    cin >> P >> Q >> X >> Y;
 
-    vector<ii> v;
-    int a;
-    rep(i, N) {
-        cin >> a;
-        v.push_back(make_pair(i + 1, a));
+    if (P <= X && X < P + 100 && Q <= Y && Y < Q + 100) {
+        cout << "Yes" << endl;
+        return 0;
     }
-
-    sort(v.begin(), v.end(), [](ii x, ii y) { return x.second < y.second; });
-
-    rep(i, 3) {
-        if (i) cout << " ";
-        cout << v[i].first;
-    }
-    cout << endl;
+    cout << "No" << endl;
     return 0;
 }

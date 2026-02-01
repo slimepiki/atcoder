@@ -81,22 +81,15 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    ll N, K;
+    cin >> N >> K;
 
-    vector<ii> v;
-    int a;
-    rep(i, N) {
-        cin >> a;
-        v.push_back(make_pair(i + 1, a));
+    ll s = 0, i = -1;
+    while (s < K) {
+        s += N;
+        ++N;
+        ++i;
     }
-
-    sort(v.begin(), v.end(), [](ii x, ii y) { return x.second < y.second; });
-
-    rep(i, 3) {
-        if (i) cout << " ";
-        cout << v[i].first;
-    }
-    cout << endl;
+    cout << i << endl;
     return 0;
 }

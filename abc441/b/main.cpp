@@ -81,22 +81,37 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    int N, M, Q;
+    string S, T;
+    cin >> N >> M;
+    cin >> S >> T;
+    cin >> Q;
 
-    vector<ii> v;
-    int a;
-    rep(i, N) {
-        cin >> a;
-        v.push_back(make_pair(i + 1, a));
+    bool t[26]{}, a[26]{};
+
+    rep(i, S.size()) { t[S[i] - 'a'] = true; }
+    rep(i, T.size()) { a[T[i] - 'a'] = true; }
+    bool b = true;
+
+    rep(i, Q) {
+        string w;
+        b = true;
+        cin >> w;
+        rep(j, w.size()) {
+            if (t[w[j] - 'a'] && !a[w[j] - 'a']) {
+                cout << "Takahashi" << endl;
+                b = false;
+                break;
+            } else if (!t[w[j] - 'a'] && a[w[j] - 'a']) {
+                cout << "Aoki" << endl;
+                b = false;
+                break;
+            }
+        }
+        if (b) {
+            cout << "Unknown" << endl;
+        }
     }
 
-    sort(v.begin(), v.end(), [](ii x, ii y) { return x.second < y.second; });
-
-    rep(i, 3) {
-        if (i) cout << " ";
-        cout << v[i].first;
-    }
-    cout << endl;
     return 0;
 }
