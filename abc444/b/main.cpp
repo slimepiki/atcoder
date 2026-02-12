@@ -81,10 +81,16 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int a, b;
-    cin >> a >> b;
+    int N, K;
+    cin >> N >> K;
 
-    cout << min(abs(a - b), 10 - abs(a - b)) << endl;
-
+    int ans = 0;
+    rep(i, 1, N + 1) {
+        int sm = 0;
+        string s = to_string(i);
+        rep(j, s.size()) { sm += s[j] - '0'; }
+        if (sm == K) ++ans;
+    }
+    cout << ans << endl;
     return 0;
 }

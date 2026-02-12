@@ -81,10 +81,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int a, b;
-    cin >> a >> b;
-
-    cout << min(abs(a - b), 10 - abs(a - b)) << endl;
-
+    string s;
+    cin >> s;
+    rep(i, s.size() - 1) if (s[i] != s[i + 1]) {
+        cout << "No" << endl;
+        return 0;
+    }
+    cout << "Yes" << endl;
     return 0;
 }

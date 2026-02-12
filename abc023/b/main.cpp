@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,66 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    string s;
+    cin >> N >> s;
+
+    if (s.size() % 2 == 0) {
+        cout << -1 << endl;
+        return 0;
+    }
+
+    int c = 0;
+    if (s[0] == 'a')
+        c = 0;
+    else if (s[0] == 'b')
+        c = 1;
+    else
+        c = 2;
+
+    rep(i, 1, s.size() / 2) {
+        if (c == 0 && s[i] != 'b') {
+            cout << "-1" << endl;
+            return 0;
+        }
+
+        if (c == 1 && s[i] != 'c') {
+            cout << "-1" << endl;
+            return 0;
+        }
+
+        if (c == 2 && s[i] != 'a') {
+            cout << "-1" << endl;
+            return 0;
+        }
+
+        c = (c + 1) % 3;
+    }
+
+    if (s[s.size() / 2] != 'b') {
+        cout << "-1" << endl;
+        return 0;
+    }
+    c = 1;
+
+    rep(i, s.size() / 2 + 1, s.size()) {
+        if (c == 0 && s[i] != 'b') {
+            cout << "-1" << endl;
+            return 0;
+        }
+
+        if (c == 1 && s[i] != 'c') {
+            cout << "-1" << endl;
+            return 0;
+        }
+
+        if (c == 2 && s[i] != 'a') {
+            cout << "-1" << endl;
+            return 0;
+        }
+        c = (c + 1) % 3;
+    }
+
+    cout << s.size() / 2 << endl;
     return 0;
 }
