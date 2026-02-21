@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,48 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    string s;
+    int t;
+    cin >> s >> t;
+
+    pair<int, int> mx = make_pair(0, 0), mi = make_pair(0, 0);
+
+    int q = 0;
+
+    rep(i, s.size()) {
+        if (s[i] == 'L') {
+            ++mx.first;
+            ++mi.first;
+        } else if (s[i] == 'R') {
+            --mx.first;
+            --mi.first;
+        } else if (s[i] == 'U') {
+            ++mx.second;
+            ++mi.second;
+        } else if (s[i] == 'D') {
+            --mx.second;
+            --mi.second;
+        } else {
+            ++q;
+        }
+    }
+
+    rep(i, q) {
+        if (abs(mi.first) >= abs(mi.second)) {
+            mi.first += mi.first >= 0 ? -1 : 1;
+        } else {
+            mi.second += mi.second >= 0 ? -1 : 1;
+        }
+
+        if (abs(mx.first) >= abs(mx.second)) {
+            mx.first += mx.first >= 0 ? 1 : -1;
+        } else {
+            mx.second += mx.second >= 0 ? 1 : -1;
+        }
+    }
+
+    cout << (t == 1 ? abs(mx.first) + abs(mx.second) : abs(mi.first) + abs(mi.second)) << endl;
 
     return 0;
 }

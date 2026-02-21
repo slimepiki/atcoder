@@ -81,28 +81,23 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll N;
-    ll ans;
+    int N;
+    cin >> N;
 
-    cin >> N >> ans;
-    ll a;
-    rep(i, N - 1) {
-        cin >> a;
-        if (ans > (ll)1e18 / a) {
-            while (i < N - 1) {
-                cin >> a;
-                if (a == 0) {
-                    cout << 0 << endl;
-                    return 0;
-                }
-                i++;
-            }
+    string s[N];
 
-            cout << -1 << endl;
-            return 0;
-        }
-        ans *= a;
+    size_t mx = 0;
+    rep(i, N) {
+        cin >> s[i];
+        chmax(mx, s[i].size());
     }
-    cout << ans << endl;
+
+    rep(i, N) {
+        rep(j, (mx - s[i].size()) / 2) cout << '.';
+        cout << s[i];
+        rep(j, (mx - s[i].size()) / 2) cout << '.';
+        cout << endl;
+    }
+
     return 0;
 }
