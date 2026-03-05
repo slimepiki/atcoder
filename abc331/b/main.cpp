@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,30 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, S, M, L;
+    cin >> N >> S >> M >> L;
+
+    int i = 0, j = 0, k = 0;
+
+    int minrem = IINF;
+    while (i * 6 < N) {
+        while (j * 8 < N - i * 6) {
+            while (k * 12 < N - i * 6 - j * 8) {
+                ++k;
+            }
+            debug(i, j, k, i * S + j * M + k * L, minrem);
+            chmin(minrem, i * S + j * M + k * L);
+            k = 0;
+            ++j;
+        }
+        debug(i, j, k, i * S + j * M + k * L, minrem);
+        chmin(minrem, i * S + j * M + k * L);
+        j = 0;
+        k = 0;
+        ++i;
+    }
+    debug(i, j, k, i * S + j * M + k * L, minrem);
+    chmin(minrem, i * S + j * M + k * L);
+    cout << minrem << endl;
     return 0;
 }

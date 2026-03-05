@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,36 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int W, B;
+    string key = "wbwbwwbwbwbwwbwbwwbwbwbw";
+    cin >> W >> B;
+
+    while (W + B > 12) {
+        W -= 7;
+        B -= 5;
+    }
+
+    if (W < 0 || B < 0) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    rep(i, key.size() - (W + B) + 1) {
+        string sb = key.substr(i, W + B);
+        int w = 0;
+        int b = 0;
+        rep(j, W + B) {
+            if (sb[j] == 'w')
+                ++w;
+            else
+                ++b;
+        }
+        if (W == w && B == b) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+
+    cout << "No" << endl;
     return 0;
 }

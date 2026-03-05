@@ -81,42 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    string s;
-    cin >> s;
+    int N, M;
+    cin >> N >> M;
 
-    bool b[7]{};
-    if (s[6] == '0') b[0] = true;
-    if (s[3] == '0') b[1] = true;
-    if (s[7] == '0' && s[1] == '0') b[2] = true;
-    if (s[4] == '0' && s[0] == '0') b[3] = true;
-    if (s[8] == '0' && s[2] == '0') b[4] = true;
-    if (s[5] == '0') b[5] = true;
-    if (s[9] == '0') b[6] = true;
-
-    if (s[0] == '1') {
+    if (N + 1 >= M * 2)
+        cout << "Yes" << endl;
+    else
         cout << "No" << endl;
-        return 0;
-    }
 
-    int st = 0;
-
-    rep(i, 7) {
-        if (st == 0) {
-            if (!b[i]) {
-                st = 1;
-            }
-        } else if (st == 1) {
-            if (b[i]) {
-                st = 2;
-            }
-        } else if (st == 2) {
-            if (!b[i]) {
-                cout << "Yes" << endl;
-                return 0;
-            }
-        }
-    }
-
-    cout << "No" << endl;
     return 0;
 }
