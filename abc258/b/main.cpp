@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,41 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+constexpr int edir[8][2] = {{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    cin >> N;
+
+    char m[N][N];
+
+    ll ans = -1;
+
+    rep(i, N) rep(j, N) cin >> m[i][j];
+
+    rep(i, N) rep(j, N) {
+        rep(k, 8) {
+            string s;
+            ll temp;
+
+            rep(l, N) {
+                int xp = edir[k][0];
+                int yp = edir[k][1];
+                int x = (i + N + xp * l) % N;
+                int y = (j + N + yp * l) % N;
+
+                s += m[x][y];
+            }
+
+            temp = stol(s);
+            chmax(ans, temp);
+        }
+    }
+
+    cout << ans << endl;
 
     return 0;
 }

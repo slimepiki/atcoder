@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -78,10 +76,39 @@ inline bool chmax(T& a, const T& b) {
     if (a < b) a = b;
     return compare;
 }
+constexpr int edir[8][2] = {{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
 
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int H, W;
+    cin >> H >> W;
+
+    char m[H][W];
+
+    rep(i, H) rep(j, W) cin >> m[i][j];
+
+    rep(i, H) rep(j, W) {
+        rep(k, 8) {
+            int dx = edir[k][0];
+            int dy = edir[k][1];
+            string s;
+
+            rep(l, 5) {
+                if (i + dx * l < H && i + dx * l >= 0 && j + dy * l < W && j + dy * l >= 0) {
+                    s += m[i + dx * l][j + dy * l];
+                } else {
+                    break;
+                }
+            }
+
+            if (s == "snuke") {
+                rep(l, 5) cout << i + dx * l + 1 << ' ' << j + dy * l + 1 << endl;
+                return 0;
+            }
+        }
+    }
 
     return 0;
 }

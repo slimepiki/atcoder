@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,49 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, M;
+    cin >> N >> M;
+
+    int stronger[N]{};
+
+    rep(i, N) stronger[i] = -1;
+
+    int a, b;
+
+    rep(i, M) {
+        cin >> a >> b;
+        a--;
+        b--;
+        stronger[b] = a;
+    }
+
+    stack<int> st;
+    rep(i, N) {
+        int p = i;
+        while (stronger[p] != -1) {
+            st.push(p);
+            p = stronger[p];
+        }
+
+        while (!st.empty()) {
+            a = st.top();
+            st.pop();
+
+            stronger[a] = p;
+        }
+    }
+
+    set<int> ans;
+
+    rep(i, N) {
+        if (stronger[i] == -1) ans.insert(i);
+    }
+
+    if (ans.size() != 1)
+        cout << -1 << endl;
+    else
+        cout << *ans.begin() + 1 << endl;
 
     return 0;
 }

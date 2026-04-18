@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,79 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, X, Y, Z;
+    cin >> N >> X >> Y >> Z;
+
+    int m[N], e[N];
+
+    bool b[N]{};
+
+    rep(i, N) cin >> m[i];
+    rep(i, N) cin >> e[i];
+
+    vector<pair<int, ii>> p;
+
+    rep(i, N) { p.push_back(make_pair(i, make_pair(m[i], e[i]))); }
+
+    int x = 0, y = 0, z = 0;
+
+    vector<int> ans;
+
+    sort(p.begin(), p.end(), [](pair<int, ii> u, pair<int, ii> v) {
+        if (u.second.first == v.second.first)
+            return u.first < v.first;
+        else
+            return u.second.first > v.second.first;
+    });
+
+    rep(i, N) {
+        int dare = p[i].first;
+        if (x >= X) break;
+        if (!b[dare]) {
+            b[dare] = true;
+            ans.push_back(dare + 1);
+            ++x;
+        }
+    }
+
+    sort(p.begin(), p.end(), [](pair<int, ii> u, pair<int, ii> v) {
+        if (u.second.second == v.second.second)
+            return u.first < v.first;
+        else
+            return u.second.second > v.second.second;
+    });
+
+    rep(i, N) {
+        int dare = p[i].first;
+        if (y >= Y) break;
+        if (!b[dare]) {
+            b[dare] = true;
+            ans.push_back(dare + 1);
+            ++y;
+        }
+    }
+
+    sort(p.begin(), p.end(), [](pair<int, ii> u, pair<int, ii> v) {
+        if (u.second.first + u.second.second == v.second.first + v.second.second)
+            return u.first < v.first;
+        else
+            return u.second.first + u.second.second > v.second.first + v.second.second;
+    });
+
+    rep(i, N) {
+        int dare = p[i].first;
+        if (z >= Z) break;
+        if (!b[dare]) {
+            b[dare] = true;
+            ans.push_back(dare + 1);
+            ++z;
+        }
+    }
+
+    sort(ans.begin(), ans.end());
+
+    rep(i, ans.size()) { cout << ans[i] << endl; }
 
     return 0;
 }

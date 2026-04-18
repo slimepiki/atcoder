@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,30 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int H, W, D;
+    cin >> H >> W >> D;
+
+    char mp[H][W];
+
+    rep(i, H) rep(j, W) cin >> mp[i][j];
+
+    int ans = 0;
+
+    rep(i, H) rep(j, W) {
+        bool b1[H][W]{};
+        if (mp[i][j] == '#') continue;
+
+        rep(k, H) rep(l, W) if (abs(i - k) + abs(j - l) <= D && mp[k][l] == '.') b1[k][l] = true;
+
+        rep(k, H) rep(l, W) {
+            if (mp[k][l] == '#') continue;
+            int temp = 0;
+            bool b2[H][W]{};
+            rep(m, H) rep(n, W) if (abs(k - m) + abs(l - n) <= D && mp[m][n] == '.') b2[m][n] = true;
+            rep(m, H) rep(n, W) if (b1[m][n] || b2[m][n]) temp++;
+            chmax(ans, temp);
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

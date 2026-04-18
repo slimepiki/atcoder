@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,47 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M;
+    cin >> N >> M;
+
+    int p, c, f;
+
+    vector<pair<int, set<int>>> v;
+
+    rep(i, N) {
+        cin >> p >> c;
+        v.push_back(make_pair(p, set<int>()));
+
+        rep(j, c) {
+            cin >> f;
+            v[i].second.insert(f);
+        }
+    }
+
+    rep(i, N) rep(j, N) {
+        if (i == j) continue;
+        if (v[i].first < v[j].first) continue;
+
+        bool contain = true;
+        repit(it, v[i].second) {
+            if (v[j].second.count(*it) == 0) {
+                contain = false;
+                break;
+            }
+        }
+        if (!contain) continue;
+
+        if (v[i].first > v[j].first) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+
+        if (v[i].second.size() < v[j].second.size()) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+
+    cout << "No" << endl;
     return 0;
 }

@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -60,7 +58,6 @@ void debug_out(Head H, Tail... T) {
 
 #define printa2d(a, H, W)                 \
     {rep(i, H){rep(j, W){cout << a[i][j]; \
-    if (j != W - 1) cout << ' ';          \
     }                                     \
     cout << endl;                         \
     }                                     \
@@ -82,6 +79,32 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int H, W, N;
+    cin >> H >> W >> N;
+
+    char m[H][W];
+
+    ii dxdy[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+    rep(i, H) rep(j, W) m[i][j] = '.';
+
+    int dir = 0, cx = 0, cy = 0;
+
+    rep(i, N) {
+        if (m[cx][cy] == '.') {
+            m[cx][cy] = '#';
+            dir = (dir + 1) % 4;
+        } else {
+            m[cx][cy] = '.';
+            dir = (dir + 3) % 4;
+        }
+
+        cx = (cx + dxdy[dir].first + H) % H;
+        cy = (cy + dxdy[dir].second + W) % W;
+    }
+
+    printa2d(m, H, W);
 
     return 0;
 }

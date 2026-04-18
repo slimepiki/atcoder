@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,37 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N;
+    cin >> N;
+
+    char s[N][N], c[N][N];
+
+    rep(i, N) rep(j, N) cin >> s[i][j];
+    rep(i, N) rep(j, N) cin >> c[i][j];
+
+    int temp = 0, ans = 100000;
+    rep(k, 4) {
+        temp = k;
+        rep(i, N) rep(j, N) {
+            int x, y;
+            if (k == 0) {
+                x = i;
+                y = j;
+            } else if (k == 1) {
+                x = N - 1 - j;
+                y = i;
+            } else if (k == 2) {
+                x = N - 1 - i;
+                y = N - 1 - j;
+            } else {
+                x = j;
+                y = N - 1 - i;
+            }
+            if (s[x][y] != c[i][j]) temp++;
+        }
+        chmin(ans, temp);
+    }
+
+    cout << ans << endl;
     return 0;
 }

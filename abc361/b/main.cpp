@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,43 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+bool inside(tuple<int, int, int> a, tuple<int, int, int> mi, tuple<int, int, int> mx) {
+    int ax = get<0>(a);
+    int ay = get<1>(a);
+    int az = get<2>(a);
+
+    if (get<0>(mi) >= ax && ax >= get<0>(mx)) return false;
+    if (get<1>(mi) >= ay && ay >= get<1>(mx)) return false;
+    if (get<2>(mi) >= az && az >= get<2>(mx)) return false;
+    return true;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int a, b, c, d, e, f, g, h, i, j, k, l;
+
+    cin >> a >> b >> c >> d >> e >> f >> g >> h >> i >> j >> k >> l;
+
+    // [a, d], [b, e], [c, f]
+    // [g, j], [h, k], [i, l]
+
+    if (a >= j || d <= g) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    if (b >= k || e <= h) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    if (c >= l || f <= i) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    cout << "Yes" << endl;
     return 0;
 }

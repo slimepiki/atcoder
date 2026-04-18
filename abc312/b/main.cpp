@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,66 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, M;
+    cin >> N >> M;
+
+    char m[N][M];
+
+    vector<ii> ans;
+
+    rep(i, N) rep(j, M) cin >> m[i][j];
+
+    rep(i, N - 8) rep(j, M - 8) {
+        bool ok = true;
+
+        rep(k, 4) {
+            rep(l, 4) {
+                if ((k == 3 || l == 3)) {
+                    if ((m[i + k][j + l] != '.')) {
+                        ok = false;
+                        break;
+                    }
+                } else {
+                    if (m[i + k][j + l] != '#') {
+                        ok = false;
+                        break;
+                    }
+                }
+            }
+            if (!ok) break;
+        }
+
+        if (!ok) continue;
+
+        rep(k, 4) {
+            rep(l, 4) {
+                if ((k == 0 || l == 0)) {
+                    if ((m[i + k + 5][j + l + 5] != '.')) {
+                        ok = false;
+                        break;
+                    }
+                } else {
+                    if (m[i + k + 5][j + l + 5] != '#') {
+                        ok = false;
+                        break;
+                    }
+                }
+            }
+            if (!ok) break;
+        }
+
+        if (ok) ans.push_back(make_pair(i + 1, j + 1));
+    }
+
+    sort(ans.begin(), ans.end());
+
+    if (ans.size() == 0) {
+        cout << endl;
+        return 0;
+    }
+
+    repit(it, ans) { cout << it->first << ' ' << it->second << endl; }
 
     return 0;
 }

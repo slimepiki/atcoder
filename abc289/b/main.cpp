@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,47 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, M;
+    cin >> N >> M;
+
+    int re[N]{};
+
+    rep(i, N) re[i] = i;
+
+    int a;
+    rep(i, M) {
+        cin >> a;
+        a--;
+
+        re[a] = a + 1;
+    }
+    int p, t;
+    bool first = true;
+
+    rep(i, N) {
+        if (re[i] == -1) continue;
+        stack<int> st;
+        p = i;
+
+        while (p != re[p]) {
+            st.push(p + 1);
+            t = p;
+            p = re[p];
+            re[t] = -1;
+        }
+        st.push(p + 1);
+        re[p] = -1;
+
+        while (!st.empty()) {
+            if (!first)
+                cout << ' ';
+            else
+                first = false;
+
+            cout << st.top();
+            st.pop();
+        }
+    }
+    cout << endl;
     return 0;
 }
