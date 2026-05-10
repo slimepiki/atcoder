@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,46 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N, X;
+    cin >> N >> X;
+
+    ll a[N]{};
+
+    rep(i, N) cin >> a[i];
+
+    sort(a, a + N);
+
+    int i = 0, j = 1;
+
+    if (X == 0) {
+        cout << "Yes" << endl;
+        return 0;
+    }
+
+    if (X > 0) {
+        while (j < N) {
+            if (a[j] - a[i] == X) {
+                cout << "Yes" << endl;
+                return 0;
+            } else if (i == j - 1 || a[j] - a[i] < X) {
+                j++;
+            } else if (a[j] - a[i] > X) {
+                i++;
+            }
+        }
+    } else {
+        while (j < N) {
+            if (a[i] - a[j] == X) {
+                cout << "Yes" << endl;
+                return 0;
+            } else if (i == j - 1 || a[i] - a[j] > X) {
+                j++;
+            } else if (a[i] - a[j] < X) {
+                i++;
+            }
+        }
+    }
+
+    cout << "No" << endl;
     return 0;
 }

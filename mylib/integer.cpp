@@ -60,7 +60,7 @@ ll powll(ll a, ll b) {
 }
 
 // 最大公約数
-ll gdc(ll a, ll b) {
+ll gcd(ll a, ll b) {
     ll l = max(a, b);
     ll s = min(a, b);
     ll temp;
@@ -73,7 +73,7 @@ ll gdc(ll a, ll b) {
 }
 
 // 最小公倍数
-ll llcm(ll a, ll b) { return max(a, b) * (min(a, b) / gdc(a, b)); }
+ll llcm(ll a, ll b) { return max(a, b) * (min(a, b) / gcd(a, b)); }
 
 // 階乗
 ll factorial(ll n) {
