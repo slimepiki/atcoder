@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,46 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int a[9][9];
+
+    rep(i, 9) rep(j, 9) cin >> a[i][j];
+
+    rep(i, 9) {
+        bool b[9]{};
+        rep(j, 9) {
+            if (b[a[i][j] - 1]) {
+                cout << "No" << endl;
+                return 0;
+            }
+            b[a[i][j] - 1] = true;
+        }
+    }
+
+    rep(i, 9) {
+        bool b[9]{};
+        rep(j, 9) {
+            if (b[a[j][i] - 1]) {
+                cout << "No" << endl;
+                return 0;
+            }
+            b[a[j][i] - 1] = true;
+        }
+    }
+
+    rep(i, 3) rep(j, 3) {
+        bool b[9]{};
+
+        rep(k, -1, 2) rep(l, -1, 2) {
+            if (b[a[i * 3 + 1 + k][j * 3 + 1 + l] - 1]) {
+                cout << "No" << endl;
+                return 0;
+            }
+            b[a[i * 3 + 1 + k][j * 3 + 1 + l] - 1] = true;
+        }
+    }
+
+    cout << "Yes" << endl;
 
     return 0;
 }

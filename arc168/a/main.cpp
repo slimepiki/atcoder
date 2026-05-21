@@ -81,26 +81,24 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
+    ll N;
+    string s;
 
-    int a, b;
-    ll p[N]{};
+    cin >> N >> s;
 
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
+    ll ans = 0, c = 0;
 
-        p[a]++;
-        p[b]++;
+    rep(i, s.size()) {
+        if (s[i] == '<') {
+            ans += (c * (c + 1)) / 2;
+            c = 0;
+        } else {
+            c++;
+        }
     }
 
-    rep(i, N) {
-        if (i) cout << ' ';
-        cout << ((N - p[i] - 1) * (N - p[i] - 2) * (N - p[i] - 3)) / 6;
-    }
-    cout << endl;
+    ans += (c * (c + 1)) / 2;
 
+    cout << ans << endl;
     return 0;
 }

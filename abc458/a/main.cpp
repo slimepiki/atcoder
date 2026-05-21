@@ -81,26 +81,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
+    string s;
+    int N;
+    cin >> s >> N;
 
-    int a, b;
-    ll p[N]{};
-
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
-
-        p[a]++;
-        p[b]++;
-    }
-
-    rep(i, N) {
-        if (i) cout << ' ';
-        cout << ((N - p[i] - 1) * (N - p[i] - 2) * (N - p[i] - 3)) / 6;
-    }
+    rep(i, N, s.size() - N) cout << s[i];
     cout << endl;
-
     return 0;
 }

@@ -81,26 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
+    char C, c;
+    cin >> C >> c;
 
-    int a, b;
-    ll p[N]{};
-
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
-
-        p[a]++;
-        p[b]++;
-    }
-
-    rep(i, N) {
-        if (i) cout << ' ';
-        cout << ((N - p[i] - 1) * (N - p[i] - 2) * (N - p[i] - 3)) / 6;
-    }
-    cout << endl;
+    if (c - 32 == C)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }

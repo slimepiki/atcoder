@@ -77,30 +77,31 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+bool IsPrime(ll num) {
+    if (num < 2)
+        return false;
+    else if (num == 2)
+        return true;
+    else if (num % 2 == 0)
+        return false;
+
+    double sqrtNum = sqrt(num);
+    for (ll i = 3; i <= sqrtNum; i += 2) {
+        if (num % i == 0) return false;
+    }
+    return true;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
-
-    int a, b;
-    ll p[N]{};
-
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
-
-        p[a]++;
-        p[b]++;
-    }
-
-    rep(i, N) {
-        if (i) cout << ' ';
-        cout << ((N - p[i] - 1) * (N - p[i] - 2) * (N - p[i] - 3)) / 6;
-    }
-    cout << endl;
+    ll n;
+    cin >> n;
+    if (IsPrime((n * (n + 1)) / 2))
+        cout << "WANWAN" << endl;
+    else
+        cout << "BOWWOW" << endl;
 
     return 0;
 }
