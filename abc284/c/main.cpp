@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,61 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+class UnionFind {
+   public:
+    UnionFind() = default;
+    explicit UnionFind(size_t n) : m_parentsOrSize(n, -1) {}
+    int find(int i) {
+        if (m_parentsOrSize[i] < 0) {
+            return i;
+        }
+        return (m_parentsOrSize[i] = find(m_parentsOrSize[i]));
+    }
+
+    void merge(int a, int b) {
+        a = find(a);
+        b = find(b);
+
+        if (a != b) {
+            if (-m_parentsOrSize[a] < -m_parentsOrSize[b]) {
+                std::swap(a, b);
+            }
+
+            m_parentsOrSize[a] += m_parentsOrSize[b];
+            m_parentsOrSize[b] = a;
+        }
+    }
+
+    bool connected(int a, int b) { return (find(a) == find(b)); }
+
+    int size(int i) { return -m_parentsOrSize[find(i)]; }
+
+   private:
+    std::vector<int> m_parentsOrSize;
+};
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, M;
+    cin >> N >> M;
+
+    UnionFind uf(N);
+
+    int u, v;
+
+    rep(i, M) {
+        cin >> u >> v;
+
+        uf.merge(u - 1, v - 1);
+    }
+
+    set<int> st;
+
+    rep(i, N) { st.insert(uf.find(i)); }
+
+    cout << st.size() << endl;
 
     return 0;
 }

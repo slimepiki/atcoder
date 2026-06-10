@@ -102,6 +102,9 @@ ll perm(ll n, ll k) {
 // secure
 ll comb(ll n, ll k) {
     ll ret = 1;
+    if (n < k) {
+        return 0;
+    }
     for (ll i = n; i >= 0; i--) {
         if (i > (n - k) && i != 0) ret *= i;
         if (i != n && k >= n - i) ret /= (n - i);

@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,36 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    ii a, b;
+    int x, y;
+
+    cin >> x >> y;
+    a = {x, y};
+    cin >> x >> y;
+    b = {x, y};
+
+    set<ii> s;
+
+    ii d[4] = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+    rep(i, 4) {
+        s.insert({a.first + 1 * d[i].first, a.second + 2 * d[i].second});
+        s.insert({a.first + 2 * d[i].first, a.second + 1 * d[i].second});
+    }
+
+    rep(i, 4) {
+        if (s.count({b.first + 1 * d[i].first, b.second + 2 * d[i].second})) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+        if (s.count({b.first + 2 * d[i].first, b.second + 1 * d[i].second})) {
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+
+    cout << "No" << endl;
 
     return 0;
 }

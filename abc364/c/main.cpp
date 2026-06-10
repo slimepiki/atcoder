@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,52 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    ll N, X, Y;
+    cin >> N >> X >> Y;
+
+    vector<ll> vll1, vll2;
+    vector<pair<ll, ll>> v;
+
+    ll a, b;
+
+    rep(i, N) {
+        cin >> a;
+        vll1.push_back(a);
+    }
+
+    rep(i, N) {
+        cin >> a;
+        vll2.push_back(a);
+    }
+
+    rep(i, N) { v.push_back({vll1[i], vll2[i]}); }
+
+    sort(v.begin(), v.end(), [](pair<ll, ll> a, pair<ll, ll> b) { return a.first > b.first; });
+
+    int ans = 0;
+
+    ll x = 0;
+    rep(i, N) {
+        if (x > X) {
+            break;
+        }
+        x += v[i].first;
+        ans++;
+    }
+
+    int tp = 0;
+    ll y = 0;
+    sort(v.begin(), v.end(), [](pair<ll, ll> a, pair<ll, ll> b) { return a.second > b.second; });
+    rep(i, N) {
+        if (y > Y) {
+            break;
+        }
+        y += v[i].second;
+        tp++;
+    }
+
+    cout << min(ans, tp) << endl;
 
     return 0;
 }
