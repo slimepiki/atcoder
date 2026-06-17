@@ -23,6 +23,7 @@ void debug_out(Head H, Tail... T) {
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
@@ -46,6 +47,23 @@ void debug_out(Head H, Tail... T) {
 
 #define IINF 0x3f3f3f3f - 10
 
+#define printa1d(a, W)                   \
+    {                                    \
+        rep(i, W) {                      \
+            cout << a[i];                \
+            if (i != W - 1) cout << ' '; \
+        }                                \
+        cout << endl;                    \
+    }
+
+#define printa2d(a, H, W)                 \
+    {rep(i, H){rep(j, W){cout << a[i][j]; \
+    if (j != W - 1) cout << ' ';          \
+    }                                     \
+    cout << endl;                         \
+    }                                     \
+    }
+
 template <typename T>
 inline bool chmin(T& a, const T& b) {
     bool compare = a > b;
@@ -59,19 +77,6 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-// secure
-ll comb(ll n, ll k) {
-    ll ret = 1;
-    if (n < k) {
-        return 0;
-    }
-    for (ll i = n; i >= 0; i--) {
-        if (i > (n - k) && i != 0) ret *= i;
-        if (i != n && k >= n - i) ret /= (n - i);
-    }
-    return ret;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
@@ -79,21 +84,27 @@ int main() {
     int N;
     cin >> N;
 
-    ll a[200]{};
+    vector<int> a[N]{};
 
-    int x;
-
-    ll ans = 0;
-
+    ll x, k;
     rep(i, N) {
-        cin >> x;
-        x %= 200;
-        ++a[x];
+        cin >> k;
+        rep(j, k) {
+            cin >> x;
+            --x;
+            a[x].push_back(i + 1);
+        }
     }
 
-    rep(i, 200) { ans += comb(a[i], 2); }
+    rep(i, N) {
+        cout << a[i].size();
 
-    cout << ans << endl;
+        rep(j, a[i].size()) {
+            cout << ' ';
+            cout << a[i][j];
+        }
+        cout << endl;
+    }
 
     return 0;
 }
