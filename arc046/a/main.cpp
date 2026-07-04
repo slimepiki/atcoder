@@ -84,16 +84,17 @@ int main() {
     int N;
     cin >> N;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
-    rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
+    int keta = N / 9;
+
+    int mul = 1;
+
+    int ans = 0;
+    rep(i, ((N % 9) == 0) ? keta : keta + 1) {
+        ans += mul * (((N % 9) == 0) ? 9 : (N % 9));
+        mul *= 10;
     }
 
-    cout << fixed << setprecision(12) << k - x << endl;
+    cout << ans << endl;
 
     return 0;
 }

@@ -81,19 +81,12 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    string s;
+    vector<string> v;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
-    rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
-    }
+    sort(v.begin(), v.end());
 
-    cout << fixed << setprecision(12) << k - x << endl;
+    cout << "EDGADBGGDDFEEGGFDGCAFBFGFAAD" << endl;
 
     return 0;
 }

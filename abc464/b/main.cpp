@@ -81,19 +81,30 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    int H, W;
+    cin >> H >> W;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
-    rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
+    char m[H][W];
+
+    rep(i, H) rep(j, W) cin >> m[i][j];
+
+    int x1 = H - 1, x2 = 0, y1 = W - 1, y2 = 0;
+
+    rep(i, H) rep(j, W) {
+        if (m[i][j] == '#') {
+            chmin(x1, i);
+            chmin(y1, j);
+            chmax(x2, i);
+            chmax(y2, j);
+        }
     }
 
-    cout << fixed << setprecision(12) << k - x << endl;
+    debug(x1, x2, y1, y2);
+
+    rep(i, x1, x2 + 1) {
+        rep(j, y1, y2 + 1) { cout << m[i][j]; }
+        cout << endl;
+    }
 
     return 0;
 }

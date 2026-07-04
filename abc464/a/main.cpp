@@ -81,19 +81,20 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    string s;
+    cin >> s;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
-    rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
+    int c = 0;
+
+    rep(i, s.size()) {
+        if (s[i] == 'W') ++c;
     }
 
-    cout << fixed << setprecision(12) << k - x << endl;
+    if (c * 2 > s.size()) {
+        cout << "West" << endl;
+    } else {
+        cout << "East" << endl;
+    }
 
     return 0;
 }

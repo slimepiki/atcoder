@@ -84,16 +84,20 @@ int main() {
     int N;
     cin >> N;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
-    rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
+    if (N == 1) {
+        cout << 1 << endl;
+        cout << 1 << endl;
+        return 0;
     }
 
-    cout << fixed << setprecision(12) << k - x << endl;
+    cout << N / 2 << endl;
+
+    for (int i = 1; i * 2 <= N; ++i) {
+        if (i != 1) cout << ' ';
+        cout << i * 2;
+    }
+
+    cout << endl;
 
     return 0;
 }

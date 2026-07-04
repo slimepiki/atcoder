@@ -84,16 +84,19 @@ int main() {
     int N;
     cin >> N;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
+    char X;
+    cin >> X;
+
+    string s;
+
     rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
+        cin >> s;
+        if (s[X - 'A'] == 'o') {
+            cout << "Yes" << endl;
+            return 0;
+        }
     }
 
-    cout << fixed << setprecision(12) << k - x << endl;
-
+    cout << "No" << endl;
     return 0;
 }

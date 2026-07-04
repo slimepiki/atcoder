@@ -81,19 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N;
-    cin >> N;
+    ll X, Y;
+    cin >> X >> Y;
 
-    double L, va, vb;
-    cin >> va >> vb >> L;
-    double x = 0, k = L;
-    rep(i, N) {
-        double t = (k - x) / va;
-        x = k;
-        k = k + t * vb;
-    }
-
-    cout << fixed << setprecision(12) << k - x << endl;
+    if (X * 9 == Y * 16)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }
