@@ -81,47 +81,11 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
+    int X, Y, L, R, A, B;
+    cin >> X >> Y >> L >> R >> A >> B;
 
-    int a[M];
-
-    rep(i, M) cin >> a[i];
-
-    vector<int> r[N];
-
-    string s;
-    int first = 0;
-    int sc[N]{};
-
-    rep(i, N) {
-        cin >> s;
-        rep(j, s.size()) {
-            if (s[j] == 'o') {
-                sc[i] += a[j];
-            } else {
-                r[i].push_back(a[j]);
-            }
-        }
-        sc[i] += i + 1;
-
-        chmax(first, sc[i]);
-    }
-
-    rep(i, N) sort(r[i].begin(), r[i].end(), greater<int>());
-
-    rep(i, N) {
-        if (sc[i] == first) {
-            cout << 0 << endl;
-        } else {
-            int x = 0;
-            while (sc[i] < first) {
-                sc[i] += r[i][x];
-                x++;
-            }
-            cout << x << endl;
-        }
-    }
-
+    int ans = 0;
+    rep(i, A, B) { ans += (L <= i && i + 1 <= R) ? X : Y; }
+    cout << ans << endl;
     return 0;
 }

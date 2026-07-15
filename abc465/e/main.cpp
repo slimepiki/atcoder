@@ -12,11 +12,13 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-    #define debug(...)                                                                                       \
-        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
-        cerr << "\033[m";
+#define debug(...)                                                      \
+    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
+         << "]:",                                                       \
+        debug_out(__VA_ARGS__);                                         \
+    cerr << "\033[m";
 #else
-    #define debug(...)  //   :)
+#define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -80,48 +82,6 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
-
-    int N, M;
-    cin >> N >> M;
-
-    int a[M];
-
-    rep(i, M) cin >> a[i];
-
-    vector<int> r[N];
-
-    string s;
-    int first = 0;
-    int sc[N]{};
-
-    rep(i, N) {
-        cin >> s;
-        rep(j, s.size()) {
-            if (s[j] == 'o') {
-                sc[i] += a[j];
-            } else {
-                r[i].push_back(a[j]);
-            }
-        }
-        sc[i] += i + 1;
-
-        chmax(first, sc[i]);
-    }
-
-    rep(i, N) sort(r[i].begin(), r[i].end(), greater<int>());
-
-    rep(i, N) {
-        if (sc[i] == first) {
-            cout << 0 << endl;
-        } else {
-            int x = 0;
-            while (sc[i] < first) {
-                sc[i] += r[i][x];
-                x++;
-            }
-            cout << x << endl;
-        }
-    }
 
     return 0;
 }

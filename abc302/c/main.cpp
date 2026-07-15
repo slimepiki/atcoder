@@ -90,16 +90,25 @@ int main() {
 
     bool b[N][N]{};
 
-    rep(i, N) {
-        rep(j, N) {
+    vector<int> v;
+
+    rep(i, N) v.push_back(i);
+
+    while (next_permutation(v.begin(), v.end())) {
+        bool ok = true;
+        rep(i, N - 1) {
             int c = 0;
-            rep(k, M) {
-                if (s[i][k] != s[j][k]) ++c;
+            rep(j, M) {
+                if (s[v[i]][j] != s[v[i + 1]][j]) ++c;
             }
-            if (c == 1) {
-                b[i][j] = true;
-                b[j][i] = true;
+            if (c != 1) {
+                ok = false;
+                break;
             }
+        }
+        if (ok) {
+            cout << "Yes" << endl;
+            return 0;
         }
     }
 

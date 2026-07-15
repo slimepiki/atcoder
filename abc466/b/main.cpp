@@ -86,42 +86,19 @@ int main() {
 
     int a[M];
 
-    rep(i, M) cin >> a[i];
+    rep(i, M) a[i] = -1;
 
-    vector<int> r[N];
-
-    string s;
-    int first = 0;
-    int sc[N]{};
-
+    int c, s;
     rep(i, N) {
-        cin >> s;
-        rep(j, s.size()) {
-            if (s[j] == 'o') {
-                sc[i] += a[j];
-            } else {
-                r[i].push_back(a[j]);
-            }
-        }
-        sc[i] += i + 1;
-
-        chmax(first, sc[i]);
+        cin >> c >> s;
+        c--;
+        chmax(a[c], s);
     }
 
-    rep(i, N) sort(r[i].begin(), r[i].end(), greater<int>());
-
-    rep(i, N) {
-        if (sc[i] == first) {
-            cout << 0 << endl;
-        } else {
-            int x = 0;
-            while (sc[i] < first) {
-                sc[i] += r[i][x];
-                x++;
-            }
-            cout << x << endl;
-        }
+    rep(i, M) {
+        if (i) cout << ' ';
+        cout << a[i];
     }
-
+    cout << endl;
     return 0;
 }

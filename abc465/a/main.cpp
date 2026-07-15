@@ -81,47 +81,13 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
+    double A, B;
+    cin >> A >> B;
 
-    int a[M];
-
-    rep(i, M) cin >> a[i];
-
-    vector<int> r[N];
-
-    string s;
-    int first = 0;
-    int sc[N]{};
-
-    rep(i, N) {
-        cin >> s;
-        rep(j, s.size()) {
-            if (s[j] == 'o') {
-                sc[i] += a[j];
-            } else {
-                r[i].push_back(a[j]);
-            }
-        }
-        sc[i] += i + 1;
-
-        chmax(first, sc[i]);
-    }
-
-    rep(i, N) sort(r[i].begin(), r[i].end(), greater<int>());
-
-    rep(i, N) {
-        if (sc[i] == first) {
-            cout << 0 << endl;
-        } else {
-            int x = 0;
-            while (sc[i] < first) {
-                sc[i] += r[i][x];
-                x++;
-            }
-            cout << x << endl;
-        }
-    }
+    if (A > B * 2 / 3.0)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }
