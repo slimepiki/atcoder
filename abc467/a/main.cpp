@@ -77,54 +77,20 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-const ll wari = 998244353;
-
-ll factorial(ll n) {
-    ll ans = 1;
-    if (n < 0) {
-        cerr << "factorial error : n < 0" << endl;
-        return -1;
-    }
-    for (ll i = 2; i <= n; i++) ans *= i;
-    return ans;
-}
-
-ll comb(ll n, ll k) {
-    ll ret = 1;
-    if (n < k) {
-        return 0;
-    }
-    for (ll i = n; i >= 0; i--) {
-        if (i > (n - k) && i != 0) ret *= i;
-        if (i != n && k >= n - i) ret /= (n - i);
-    }
-    return ret;
-}
-
-ll sum(ll n) { return ((n + 1) * n) / 2; }
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    string s;
-    cin >> s;
+    double H, W;
 
-    ll ans = 0;
-    ll c = 1;
-    rep(i, s.size() - 1) {
-        if (s[i] == s[i + 1]) {
-            ans += sum(c);
-            c = 1;
-        } else {
-            ++c;
-        }
-    }
+    cin >> H >> W;
+    H /= 100;
+    H = 1 / H;
 
-    ans += sum(c);
-    ans %= wari;
-
-    cout << ans << endl;
+    if (25.0 <= (W * H * H))
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }

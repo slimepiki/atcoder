@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,61 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N, Q;
+    cin >> N >> Q;
+
+    bool b[N]{};
+
+    int x;
+    int ans = 0;
+
+    if (N == 1) {
+        rep(i, Q) { cout << (i + 1) % 2 << endl; }
+
+        return 0;
+    }
+
+    rep(i, Q) {
+        cin >> x;
+        x--;
+
+        if (b[x]) {  // 黒
+            if (x == 0) {
+                if (!b[x + 1]) --ans;
+                debug(0);
+            } else if (x == N - 1) {
+                if (!b[x - 1]) --ans;
+                debug(1);
+
+            } else {
+                if (b[x - 1] && b[x + 1])
+                    ++ans;
+                else if (!b[x - 1] && !b[x + 1])
+                    --ans;
+                debug(2);
+            }
+        } else {  // 白
+            if (x == 0) {
+                if (!b[x + 1]) ++ans;
+                debug(3);
+            } else if (x == N - 1) {
+                if (!b[x - 1]) ++ans;
+                debug(4);
+            } else {
+                if (b[x - 1] && b[x + 1])
+                    --ans;
+                else if (!b[x - 1] && !b[x + 1])
+                    ++ans;
+                debug(5);
+            }
+        }
+
+        b[x] = !b[x];
+
+        debug(x, ans);
+        cout << ans << endl;
+    }
 
     return 0;
 }

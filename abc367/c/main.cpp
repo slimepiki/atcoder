@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,48 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int N, K;
+    cin >> N >> K;
+
+    int r[N];
+    rep(i, N) cin >> r[i];
+
+    int v[N];
+    rep(i, N) v[i] = 1;
+
+    auto ckmax = [&]() -> bool {
+        rep(i, N) {
+            if (v[i] != r[i]) return false;
+        }
+        return true;
+    };
+
+    auto sum = [](int* v, int N) -> int {
+        int ret = 0;
+        rep(i, N) ret += v[i];
+        return ret;
+    };
+
+    bool pri = false;
+
+    if (sum(v, N) % K == 0) printa1d(v, N);
+    while (!ckmax()) {
+        int md = 0;
+
+        rep(i, N) {
+            int p = N - 1 - i;
+            if (v[p] < r[p]) {
+                v[p]++;
+                md = p;
+                break;
+            }
+        }
+        rep(i, md + 1, N) { v[i] = 1; }
+        if (sum(v, N) % K == 0) {
+            printa1d(v, N);
+            pri = true;
+        }
+    }
+    if (!pri) cout << endl;
     return 0;
 }

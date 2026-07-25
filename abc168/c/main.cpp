@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,24 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+inline double d2r(double x) { return x * M_PI / 180.0; }
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int A, B, H, M;
+    cin >> A >> B >> H >> M;
+
+    double sdeg = 30 * H + (30.0 / 60.0) * M;
+    double ldeg = 6 * M;
+
+    double sx = A * cos(d2r(sdeg)), sy = -A * sin(d2r(sdeg));
+    double lx = B * cos(d2r(ldeg)), ly = -B * sin(d2r(ldeg));
+
+    debug(sx, sy, lx, ly);
+
+    cout << fixed << setprecision(20) << sqrt((sx - lx) * (sx - lx) + (sy - ly) * (sy - ly)) << endl;
 
     return 0;
 }
