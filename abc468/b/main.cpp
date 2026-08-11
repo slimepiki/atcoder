@@ -81,46 +81,23 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
-    if (N != M) {
-        cout << "No" << endl;
-        return 0;
-    }
+    int M, D;
+    string s;
+    cin >> M >> D >> s;
 
-    vector<int> e[N];
+    bool b[M]{};
 
-    int a, b;
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
-        e[a].push_back(b);
-        e[b].push_back(a);
-    }
-
-    bool c[N]{};
-
-    int p = 0;
-    rep(i, N - 1) {
-        c[p] = true;
-        if (e[p].size() != 2) {
-            cout << "No" << endl;
-            return 0;
+    rep(i, s.size()) {
+        if (s[i] == 'G') {
+            for (int j = max(0, i - D); j <= min(M - 1, i + D); ++j) {
+                b[j] = true;
+            }
         }
-
-        if (!c[e[p][0]]) {
-            p = e[p][0];
-            continue;
-        }
-
-        if (!c[e[p][1]]) {
-            p = e[p][1];
-            continue;
-        }
-        cout << "No" << endl;
-        return 0;
     }
-    cout << "Yes" << endl;
+    int ans = 0;
+    rep(i, M) ans += !b[i];
+
+    cout << ans << endl;
+
     return 0;
 }

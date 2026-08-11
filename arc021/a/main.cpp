@@ -81,46 +81,25 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
-    if (N != M) {
-        cout << "No" << endl;
-        return 0;
-    }
+    int a[4][4];
 
-    vector<int> e[N];
+    rep(i, 4) rep(j, 4) cin >> a[i][j];
 
-    int a, b;
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
-        e[a].push_back(b);
-        e[b].push_back(a);
-    }
-
-    bool c[N]{};
-
-    int p = 0;
-    rep(i, N - 1) {
-        c[p] = true;
-        if (e[p].size() != 2) {
-            cout << "No" << endl;
-            return 0;
+    // 十字探索の方向
+    constexpr int fdir[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    rep(i, 4) {
+        rep(j, 4) {
+            rep(k, 4) {
+                int x = i + fdir[k][0], y = j + fdir[k][1];
+                if (x >= 0 && x < 4 && y >= 0 && y < 4) {
+                    if (a[i][j] == a[x][y]) {
+                        cout << "CONTINUE" << endl;
+                        return 0;
+                    }
+                }
+            }
         }
-
-        if (!c[e[p][0]]) {
-            p = e[p][0];
-            continue;
-        }
-
-        if (!c[e[p][1]]) {
-            p = e[p][1];
-            continue;
-        }
-        cout << "No" << endl;
-        return 0;
     }
-    cout << "Yes" << endl;
+    cout << "GAMEOVER" << endl;
     return 0;
 }

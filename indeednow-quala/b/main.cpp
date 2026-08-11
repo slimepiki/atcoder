@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -82,6 +80,51 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int N;
+    cin >> N;
+    rep(i, N) {
+        int c[6];
+        c[0] = 1;  // i
+        c[1] = 2;  // n
+        c[2] = 2;  // d
+        c[3] = 2;  // e
+        c[4] = 1;  // o
+        c[5] = 1;  // w
+
+        string s;
+        cin >> s;
+        rep(i, s.size()) {
+            switch (s[i]) {
+                case 'i':
+                    --c[0];
+                    break;
+                case 'n':
+                    --c[1];
+                    break;
+                case 'd':
+                    --c[2];
+                    break;
+                case 'e':
+                    --c[3];
+                    break;
+                case 'o':
+                    --c[4];
+                    break;
+                case 'w':
+                    --c[5];
+                    break;
+            }
+        }
+
+        bool ok = true;
+        rep(i, 6) ok &= (c[i] == 0);
+        if (ok) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
 
     return 0;
 }

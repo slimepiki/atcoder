@@ -81,46 +81,17 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    int N, M;
-    cin >> N >> M;
-    if (N != M) {
-        cout << "No" << endl;
-        return 0;
+    int W;
+    cin >> W;
+    string s = "DiscoPresentsDiscoveryChannelProgrammingContest2016";
+    int i = 0;
+    while (i < s.size()) {
+        if (i + W >= s.size())
+            cout << s.substr(i) << endl;
+        else
+            cout << s.substr(i, W) << endl;
+        i += W;
     }
 
-    vector<int> e[N];
-
-    int a, b;
-    rep(i, M) {
-        cin >> a >> b;
-        --a;
-        --b;
-        e[a].push_back(b);
-        e[b].push_back(a);
-    }
-
-    bool c[N]{};
-
-    int p = 0;
-    rep(i, N - 1) {
-        c[p] = true;
-        if (e[p].size() != 2) {
-            cout << "No" << endl;
-            return 0;
-        }
-
-        if (!c[e[p][0]]) {
-            p = e[p][0];
-            continue;
-        }
-
-        if (!c[e[p][1]]) {
-            p = e[p][1];
-            continue;
-        }
-        cout << "No" << endl;
-        return 0;
-    }
-    cout << "Yes" << endl;
     return 0;
 }

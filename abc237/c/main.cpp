@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,34 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    string s;
+    cin >> s;
+    int tail = 0;
+    rep(i, s.size()) {
+        if (s[s.size() - 1 - i] != 'a') {
+            tail = s.size() - 1 - i;
+            break;
+        }
+    }
+    int head = 0;
+    rep(i, s.size()) {
+        if (s[i] != 'a') {
+            head = i;
+            break;
+        }
+    }
+
+    if (head > s.size() - 1 - tail) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    rep(i, tail - head) {
+        if (s[i + head] != s[tail - i]) {
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

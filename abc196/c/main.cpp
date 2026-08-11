@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,42 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+ll getketa(ll N) {
+    ll ret = 0;
+    while (N > 0) {
+        ++ret;
+        N /= 10;
+    }
+    return ret;
+}
+
+ll calc10pow(ll N) {
+    ll ret = 1;
+    --N;
+
+    rep(i, N) { ret *= 10; }
+    return ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    ll N;
+    cin >> N;
+    ll ans = 0;
+
+    for (int i = 2; i < getketa(N); i += 2) {
+        ans += calc10pow(i / 2 + 1) - calc10pow(i / 2);
+    }
+
+    if (getketa(N) % 2 == 0) {
+        ll sb = N / calc10pow(getketa(N) / 2 + 1);
+        ans += sb - calc10pow(getketa(N) / 2);
+
+        if (sb * (calc10pow(getketa(N) / 2 + 1) + 1) <= N) ans++;
+    }
+
+    cout << ans << endl;
     return 0;
 }
