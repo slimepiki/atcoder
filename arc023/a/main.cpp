@@ -77,28 +77,29 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
-ll llceil(ll num, ll den) {
-    if (num % den == 0) return num / den;
-    return num / den + 1;
-}
-
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    ll N, L, W;
-    cin >> N >> L >> W;
-    ll a;
-    ll rend = 0, ans = 0;
-    rep(i, N) {
-        cin >> a;
-        if (rend < a) {
-            ll mai = ans += llceil(a - rend, W);
-        }
-        rend = a + W;
+    double y, m, d;
+    cin >> y >> m >> d;
+    if (m == 1) {
+        m = 13;
+        --y;
     }
-    if (rend < L) ans += llceil(L - rend, W);
+    if (m == 2) {
+        m = 14;
+        --y;
+    }
 
-    cout << ans << endl;
+    int st = static_cast<int>(365 * y + floor(y / 4.0) - floor(y / 100.0) + floor(y / 400.0) + floor(306 * (m + 1) / 10.0) + d - 429);
+    y = 2014;
+    m = 5;
+    d = 17;
+
+    int en = static_cast<int>(365 * y + floor(y / 4.0) - floor(y / 100.0) + floor(y / 400.0) + floor(306 * (m + 1) / 10.0) + d - 429);
+
+    cout << en - st << endl;
+
     return 0;
 }
