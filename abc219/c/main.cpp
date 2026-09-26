@@ -12,24 +12,22 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...) //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for (int i = int(a); i < int(b); ++i)
 #define rrep(i, a, b) for (int i = int(a); i >= int(b); --i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
-#define repit(it, a) for(auto it = a.begin(); it != a.end();it++)
+#define repit(it, a) for (auto it = a.begin(); it != a.end(); it++)
 
 #define ii pair<int, int>
 #define iiget(t, x, y) \
-    x = t.first();    \
+    x = t.first();     \
     y = t.second();
 #define iii tuple<int, int, int>
 #define iiiget(t, x, y, z) \
@@ -47,7 +45,7 @@ void debug_out(Head H, Tail... T) {
 #define vvc vector<vc>
 #define vvvc vector<vvc>
 
-#define IINF 0x3f3f3f3f-10
+#define IINF 0x3f3f3f3f - 10
 
 #define printa1d(a, W)                   \
     {                                    \
@@ -81,6 +79,34 @@ inline bool chmax(T& a, const T& b) {
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    string s;
+    cin >> s;
+    int N;
+    cin >> N;
+
+    vector<string> v;
+    int o[26];
+
+    rep(i, 26) { o[s[i] - 'a'] = i; }
+
+    string t;
+    rep(i, N) {
+        cin >> t;
+        v.push_back(t);
+    }
+
+    sort(v.begin(), v.end(), [&](string& s, string& t) {
+        rep(i, min(s.size(), t.size())) {
+            if (s[i] != t[i]) {
+                return o[s[i] - 'a'] < o[t[i] - 'a'];
+            }
+        }
+
+        return s.size() < t.size();
+    });
+
+    rep(i, N) { cout << v[i] << endl; }
 
     return 0;
 }

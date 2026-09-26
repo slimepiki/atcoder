@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -83,5 +81,29 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
+    int Q;
+    cin >> Q;
+
+    int x, y = 0, p = 0;
+    ll sum = 0, rem = 0;
+    vector<pair<ll, ll>> v;
+    bool disp = false;
+    rep(i, Q) {
+        cin >> x;
+        if (x == 1) {
+            cin >> y;
+            v.push_back(make_pair(sum, y));
+            sum += y;
+
+        } else if (x == 2) {
+            rem += v[p].second;
+            p++;
+        } else {
+            cin >> y;
+            cout << v[y - 1 + p].first - rem << endl;
+            disp = true;
+        }
+    }
+    if (!disp) cout << endl;
     return 0;
 }

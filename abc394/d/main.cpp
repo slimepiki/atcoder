@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,52 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+int codin(char c) {
+    if (c == '(')
+        return 1;
+    else if (c == '[')
+        return 2;
+    else if (c == '<')
+        return 3;
+    else if (c == ')')
+        return -1;
+    else if (c == ']')
+        return -2;
+    else if (c == '>')
+        return -3;
+    return 0;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    string s;
+    cin >> s;
+
+    if (s.size() % 2 != 0) {
+        cout << "No" << endl;
+        return 0;
+    }
+
+    stack<int> st;
+
+    rep(i, s.size()) {
+        int coded = codin(s[i]);
+        if (!st.empty()) {
+            if (coded < 0 && st.top() == -1 * coded) {
+                st.pop();
+                continue;
+            }
+        }
+
+        st.push(coded);
+    }
+
+    if (st.empty())
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 
     return 0;
 }

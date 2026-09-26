@@ -12,13 +12,11 @@ void debug_out(Head H, Tail... T) {
 }
 
 #ifdef __LOCAL
-#define debug(...)                                                      \
-    cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ \
-         << "]:",                                                       \
-        debug_out(__VA_ARGS__);                                         \
-    cerr << "\033[m";
+    #define debug(...)                                                                                       \
+        cerr << "\033[33m(line:" << __LINE__ << ") " << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__); \
+        cerr << "\033[m";
 #else
-#define debug(...)  //   :)
+    #define debug(...)  //   :)
 #endif
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -79,9 +77,51 @@ inline bool chmax(T& a, const T& b) {
     return compare;
 }
 
+bool IsPrime(int num) {
+    if (num < 2)
+        return false;
+    else if (num == 2)
+        return true;
+    else if (num % 2 == 0)
+        return false;
+
+    double sqrtNum = sqrt(num);
+    for (int i = 3; i <= sqrtNum; i += 2) {
+        if (num % i == 0) return false;
+    }
+    return true;
+}
+
 int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
+
+    int A, B, C, D;
+    cin >> A >> B >> C >> D;
+
+    bool tk = false;
+
+    rep(i, A, B + 1) {
+        bool ok = true;
+
+        rep(j, C, D + 1) {
+            if (IsPrime(i + j)) {
+                ok = false;
+                break;
+            }
+        }
+
+        if (ok) {
+            debug(i);
+            tk = true;
+            break;
+        }
+    }
+
+    if (tk)
+        cout << "Takahashi" << endl;
+    else
+        cout << "Aoki" << endl;
 
     return 0;
 }
